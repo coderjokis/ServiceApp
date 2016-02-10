@@ -11,7 +11,7 @@ namespace ServiceApplication
 {
 
 
-    public partial class Inventory
+    public partial class Admin
     {
     }
 }
