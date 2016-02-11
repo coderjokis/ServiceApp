@@ -13,5 +13,27 @@ namespace ServiceApplication
         {
 
         }
+
+        protected void btnAddEQ_Click(object sender, EventArgs e)
+        {
+            pnlEquip.Visible = true;
+            txtEquipID.Text = "New";
+        }
+
+        protected void btnEditEQ_Click(object sender, EventArgs e)
+        {
+            pnlEquip.Visible = true;
+            
+        }
+
+        protected void btnSaveEQ_Click(object sender, EventArgs e)
+        {
+            pnlEquip.Visible = false;
+        }
+
+        protected void btnCancelEQ_Click(object sender, EventArgs e)
+        {
+            pnlEquip.Visible = false;
+        }
     }
 }
