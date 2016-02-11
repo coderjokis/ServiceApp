@@ -14,14 +14,6 @@ namespace ServiceApplication.Models
         public  string InstallDate { get; set; }
         public string AuthorizingParty { get; set; }
         public Equipment(){}
-        public Equipment(int equipmentID, string equipmentName, string description, string location, string installDate, string authorizingParty)
-        {
-            this.EquipmentID = equipmentID;
-            this.EquipmentName = equipmentName;
-            this.Description = description;
-            this.Location = location;
-            this.InstallDate = installDate;
-            this.AuthorizingParty = authorizingParty;      
-        }
+      
     }
 }

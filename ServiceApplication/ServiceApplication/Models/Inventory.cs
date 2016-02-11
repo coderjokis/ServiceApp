@@ -8,7 +8,6 @@ namespace ServiceApplication.Models
     public class Inventory
     {
         public int InventoryID { get; set; }
-        public Item Item { get; set; }
         public List<Item> InventoryItem { get; set; }
     }
 }
