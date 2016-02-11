@@ -18,6 +18,7 @@ namespace ServiceApplication
         {
             pnlEquip.Visible = true;
             txtEquipID.Text = "New";
+            pnlAddLocation.Visible = false;
         }
 
         protected void btnEditEQ_Click(object sender, EventArgs e)
@@ -46,6 +47,24 @@ namespace ServiceApplication
             txtEquipDescription.Text = "";
             txtLocation.Text = "";
             txtValue.Text = "";
+        }
+
+        protected void btnAddLocation_Click(object sender, EventArgs e)
+        {
+            pnlAddLocation.Visible = true;
+            pnlEquip.Visible = false;
+        }
+
+        protected void btnSaveLocation_Click(object sender, EventArgs e)
+        {
+            pnlAddLocation.Visible = false;
+            txtNewLocation.Text = "";
+        }
+
+        protected void btnCancelLoc_Click(object sender, EventArgs e)
+        {
+            pnlAddLocation.Visible = false;
+            txtNewLocation.Text = "";
         }
     }
 }

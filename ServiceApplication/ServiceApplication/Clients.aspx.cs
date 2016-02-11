@@ -23,6 +23,7 @@ namespace ServiceApplication
         protected void btnEditClient_Click(object sender, EventArgs e)
         {
             pnlClient.Visible = true;
+            pnlContacts.Visible = false;
         }
 
         protected void btnSaveClient_Click(object sender, EventArgs e)
@@ -43,6 +44,22 @@ namespace ServiceApplication
             txtClientName.Text = "";
             txtAddress.Text = "";
             txtPhone.Text = "";
+        }
+
+        protected void btnSaveContact_Click(object sender, EventArgs e)
+        {
+            pnlContacts.Visible = false;
+        }
+
+        protected void btnCncelContact_Click(object sender, EventArgs e)
+        {
+            pnlContacts.Visible = false;
+        }
+
+        protected void btnAddContact_Click(object sender, EventArgs e)
+        {
+            pnlContacts.Visible = true;
+            pnlClient.Visible = false;
         }
     }
 }

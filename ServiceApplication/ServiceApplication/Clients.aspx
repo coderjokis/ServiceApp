@@ -5,6 +5,7 @@
         <asp:GridView ID="gvClients" runat="server"></asp:GridView>
         <asp:Button ID="btnAddClient" Text="Add Client" runat="server" OnClick="btnAddClient_Click" />
         <asp:Button ID="btnEditClient" Text="Edit Client" runat="server"  OnClick="btnEditClient_Click"/>
+        <asp:Button ID="btnAddContact" Text="Add New Contact" runat="server" OnClick="btnAddContact_Click" />
 
         <asp:Panel ID="pnlClient" runat="server" Visible="false">
             ClientID:<asp:TextBox ID="txtClientID" runat="server" ReadOnly="true" />
@@ -15,6 +16,16 @@
 
             <asp:Button ID="btnSaveClient" Text="Save Client" runat="server" OnClick="btnSaveClient_Click" />
             <asp:Button ID="btnCancelClient" Text="Cancel" runat="server" OnClick="btnCancelClient_Click" />
+        </asp:Panel>
+
+        <asp:Panel ID="pnlContacts" runat="server" Visible="false">
+            Client:<asp:DropDownList ID="ddlClients" runat="server">
+                <asp:ListItem Text="text1" />
+                <asp:ListItem Text="text2" />
+            </asp:DropDownList>
+            Contacts:<asp:TextBox ID="txtAddContacts" runat="server" />
+            <asp:Button ID="btnSaveContact" Text="Save Contact" runat="server" OnClick="btnSaveContact_Click" />
+            <asp:Button ID="btnCncelContact" Text="Cancel" runat="server" OnClick="btnCncelContact_Click" />
         </asp:Panel>
 
     </div>
