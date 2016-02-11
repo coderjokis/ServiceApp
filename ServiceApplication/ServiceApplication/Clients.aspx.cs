@@ -13,5 +13,26 @@ namespace ServiceApplication
         {
 
         }
+
+        protected void btnAddClient_Click(object sender, EventArgs e)
+        {
+            pnlClient.Visible = true;
+            txtClientID.Text = "New";
+        }
+
+        protected void btnEditClient_Click(object sender, EventArgs e)
+        {
+            pnlClient.Visible = true;
+        }
+
+        protected void btnSaveClient_Click(object sender, EventArgs e)
+        {
+            pnlClient.Visible = false;
+        }
+
+        protected void btnCancelClient_Click(object sender, EventArgs e)
+        {
+            pnlClient.Visible = false;
+        }
     }
 }
