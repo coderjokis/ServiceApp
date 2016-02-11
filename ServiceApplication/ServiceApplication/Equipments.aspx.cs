@@ -29,11 +29,23 @@ namespace ServiceApplication
         protected void btnSaveEQ_Click(object sender, EventArgs e)
         {
             pnlEquip.Visible = false;
+            ClearFields();
         }
+
+        
 
         protected void btnCancelEQ_Click(object sender, EventArgs e)
         {
             pnlEquip.Visible = false;
+            ClearFields();
+        }
+        private void ClearFields()
+        {
+            txtEquipID.Text = "";
+            txtEquipNameType.Text = "";
+            txtEquipDescription.Text = "";
+            txtLocation.Text = "";
+            txtValue.Text = "";
         }
     }
 }

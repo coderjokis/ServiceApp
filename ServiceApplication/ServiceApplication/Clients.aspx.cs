@@ -28,11 +28,21 @@ namespace ServiceApplication
         protected void btnSaveClient_Click(object sender, EventArgs e)
         {
             pnlClient.Visible = false;
+            ClearFields();
         }
 
         protected void btnCancelClient_Click(object sender, EventArgs e)
         {
             pnlClient.Visible = false;
+            ClearFields();
+        }
+
+        private void ClearFields()
+        {
+            txtClientID.Text = "";
+            txtClientName.Text = "";
+            txtAddress.Text = "";
+            txtPhone.Text = "";
         }
     }
 }
