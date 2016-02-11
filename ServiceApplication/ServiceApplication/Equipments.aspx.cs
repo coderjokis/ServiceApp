@@ -24,7 +24,7 @@ namespace ServiceApplication
         protected void btnEditEQ_Click(object sender, EventArgs e)
         {
             pnlEquip.Visible = true;
-            
+            pnlAddLocation.Visible = false;
         }
 
         protected void btnSaveEQ_Click(object sender, EventArgs e)

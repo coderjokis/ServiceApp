@@ -36,3 +36,13 @@ input[type="select"] {
         padding: 0;
     }
 }
+/* local styling*/
+.pushContent{
+    margin-top:70px;
+}
+.marginBot{
+    margin-bottom:10px;
+}
+.paddingBot{
+    padding-bottom:10px;
+}
