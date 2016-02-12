@@ -13,15 +13,6 @@ namespace ServiceApplication {
     public partial class Clients {
         
         /// <summary>
-        /// gvClients control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvClients;
-        
-        /// <summary>
         /// btnAddClient control.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddContact;
+        
+        /// <summary>
+        /// gvClients control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvClients;
         
         /// <summary>
         /// pnlClient control.

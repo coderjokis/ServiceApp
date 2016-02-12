@@ -17,18 +17,16 @@ go
 create table tbItem(
 ItemID int identity(1,1) primary key,
 ItemType varchar(max),
-Description varchar(max),
 FarFoxValue int,
 ClientValue int,
-CurrentLocation varchar(max)
+LocationID int foreign key references tbLocation(LocationID)
+--CurrentLocation varchar(max)--should references LocationID
 )
 go
 
 create table tbEquipment(
 EquipmentID int identity(1,1) primary key, --will reference by item table
-EquipmentName varchar(max),
 Description varchar(max),
-Location varchar(max),
 InstallDate varchar(max),
 ClientID int foreign key references tbClients(ClientID),
 ItemID int foreign key references tbItem(ItemID)
@@ -57,13 +55,37 @@ ContactName varchar(max),
 ClientID int foreign key references tbClients(ClientID)
 )
 
---New Table for location
---new table for contacts
---new item table
-
 select * from tbClients
 select * from tbItem
 select * from tbEquipment
 select * from tbInventory
 select * from tbLocation
 select * from tbContacts
+
+----############PROCS############----
+
+----Generic Join, this will provide references for a proper selection.
+select ClientName, ItemType, Description, InstallDate, FarFoxValue, ClientValue, LocationName ,PhoneNumber , Address, ContactName
+		from tbEquipment e
+			join tbItem i on i.ItemID=e.ItemID
+			join tbInventory s on s.ItemID=i.ItemID
+			join tbLocation l on s.LocationID=l.LocationID
+			join tbClients c on e.ClientID=c.ClientID
+			join tbContacts a on a.ContactID=c.ClientID
+
+go
+
+--------Proc for the Tracking Page-------
+create procedure spLoadAllInfo
+as begin
+	select ClientName, ItemType, Description, InstallDate, FarFoxValue, ClientValue, LocationName ,PhoneNumber , Address, ContactName
+		from tbEquipment e
+			join tbItem i on i.ItemID=e.ItemID
+			join tbInventory s on s.ItemID=i.ItemID
+			join tbLocation l on s.LocationID=l.LocationID
+			join tbClients c on e.ClientID=c.ClientID
+			join tbContacts a on a.ContactID=c.ClientID
+end
+go
+
+exec spLoadAllInfo
