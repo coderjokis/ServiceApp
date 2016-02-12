@@ -22,7 +22,7 @@ namespace ServiceApplication
 
         private void LoadDropDownClient()
         {
-            ddlClients.DataSource = myDal.ExecuteProcedure("spAddClient");
+            ddlClients.DataSource = myDal.ExecuteProcedure("spLoadDDLClient");
             ddlClients.DataValueField = "ClientID";
             ddlClients.DataTextField = "ClientName";
             ddlClients.DataBind(); 
@@ -35,13 +35,13 @@ namespace ServiceApplication
             txtAddContacts.Text = Contacts.Text;
             txtPhone.Text = txtPhone.Text;
             txtAddress.Text = txtAddress.Text;
-            gvClients.DataSource = myDal.ExecuteProcedure("spGetClients");
+            gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
             gvClients.DataBind();
         }
 
         private void LoadClients()
         {
-            gvClients.DataSource = myDal.ExecuteProcedure("spGetClients");
+            gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
             gvClients.DataBind();
         }
 
@@ -53,12 +53,6 @@ namespace ServiceApplication
             Contacts.Text = "";
             txtPhone.Text = "";
             txtAddress.Text = "";
-        }
-
-        protected void btnEditClient_Click(object sender, EventArgs e)
-        {
-            pnlClient.Visible = true;
-            pnlContacts.Visible = false;
         }
 
         protected void btnSaveClient_Click(object sender, EventArgs e)
@@ -77,6 +71,8 @@ namespace ServiceApplication
             {
                 sProc = "spEditClient";
                 myDal.AddParam("ClientID", txtClientID.Text);
+                pnlClient.Visible = true;
+                pnlContacts.Visible = false;
             }
             myDal.ExecuteProcedure(sProc);
             pnlClient.Visible = false;

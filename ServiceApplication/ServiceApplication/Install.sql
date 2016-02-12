@@ -89,3 +89,22 @@ end
 go
 
 exec spLoadAllInfo
+go
+-- loading info into ddl in client page
+create procedure spLoadDDLClient
+as begin
+	select ClientID, ClientName from tbClients
+end
+go
+
+-----Loading GV with Complete client Info---
+
+create procedure spGetAllClientsInfo
+as begin
+	select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
+		from tbClients c 
+			join tbContacts a on a.ContactID=c.ClientID
+end
+go
+
+exec  spGetAllClientsInfo

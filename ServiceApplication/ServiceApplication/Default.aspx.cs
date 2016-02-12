@@ -21,7 +21,7 @@ namespace ServiceApplication
 
         private void LoadAllInfo()
         {
-            DAL myDal = new DAL(); //awaiting for andrew to push connection code.
+            DAL myDal = new DAL(); 
             gvShowAll.DataSource = myDal.ExecuteProcedure("spLoadAllInfo");
             gvShowAll.DataBind();
         }

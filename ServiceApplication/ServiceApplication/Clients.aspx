@@ -6,7 +6,7 @@
             <div class="panel panel-info">
                 <div class="panel-body">
                     <asp:Button ID="btnAddClient" Text="Add Client" runat="server" OnClick="btnAddClient_Click" CssClass="btn btn-primary marginBot" />
-                    <asp:Button ID="btnEditClient" Text="Edit Client" runat="server" OnClick="btnEditClient_Click" CssClass="btn btn-primary marginBot" />
+<%--                    <asp:Button ID="btnEditClient" Text="Edit Client" runat="server" OnClick="btnEditClient_Click" CssClass="btn btn-primary marginBot" />--%>
                     <asp:Button ID="btnAddContact" Text="Add New Contact" runat="server" OnClick="btnAddContact_Click" CssClass="btn btn-primary marginBot" />
                 </div>
             </div>
@@ -19,7 +19,16 @@
                 <div class="panel-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <asp:GridView ID="gvClients" runat="server"></asp:GridView>
+                            <asp:GridView ID="gvClients" DataKeyNames="ClientID" AutoGenerateColumns="false" runat="server" OnRowCommand="gvClients_RowCommand">
+                                <Columns>
+                                    <asp:ButtonField ButtonType="Button" CommandName="Edit" Text="Edit" />
+                                    <asp:BoundField DataField="ClientID" HeaderText="Client ID" />
+                                    <asp:BoundField DataField="ClientName" HeaderText="Client Name" />
+                                    <asp:BoundField DataField="Contacts" HeaderText="Contacts" />
+                                    <asp:BoundField DataField="PhoneNumber" HeaderText="Phone" />
+                                    <asp:BoundField DataField="Address" HeaderText="Address" />
+                                </Columns>
+                            </asp:GridView>
                         </div>
                     </div>
                     <div class="panel panel-default">
@@ -27,21 +36,8 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="well col-lg-6 col-md-6">
-        <asp:GridView ID="gvClients" DataKeyNames="ClientID" AutoGenerateColumns="false" runat="server" OnRowCommand="gvClients_RowCommand">
-            <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Edit" Text="Edit" />
-                <asp:BoundField DataField="ClientID" HeaderText="Client ID" />
-                <asp:BoundField DataField="ClientName" HeaderText="Client Name" />
-                <asp:BoundField DataField="Contacts" HeaderText="Contacts" />
-                <asp:BoundField DataField="PhoneNumber" HeaderText="Phone" />
-                <asp:BoundField DataField="Address" HeaderText="Address" />
-            </Columns>
-        </asp:GridView>
-        <asp:Button ID="btnAddClient" Text="Add Client" runat="server" OnClick="btnAddClient_Click" />
-        <asp:Button ID="btnEditClient" Text="Edit Client" runat="server"  OnClick="btnEditClient_Click"/>
-        <asp:Button ID="btnAddContact" Text="Add New Contact" runat="server" OnClick="btnAddContact_Click" />
 
-        <asp:Panel ID="pnlClient" runat="server" Visible="false">
+                                        <asp:Panel ID="pnlClient" runat="server" Visible="false">
                                             <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">ClientID:</span>
                                                 <asp:TextBox ID="txtClientID" runat="server" ReadOnly="true" CssClass="form-control" />
@@ -65,26 +61,24 @@
 
                                             <asp:Button ID="btnSaveClient" Text="Save Client" runat="server" OnClick="btnSaveClient_Click" class="btn btn-success" />
                                             <asp:Button ID="btnCancelClient" Text="Cancel" runat="server" OnClick="btnCancelClient_Click" class="btn btn-warning" />
-        </asp:Panel>
+                                        </asp:Panel>
                                     </div>
                                     <div class="well col-lg-6 col-md-6">
-        <asp:Panel ID="pnlContacts" runat="server" Visible="false">
-                                        <div class="input-group paddingBot">
-                                            <span class="input-group-addon width117">Client:</span>
-                                            <asp:DropDownList ID="ddlClients" runat="server" CssClass="form-control">
-                <asp:ListItem Text="text1" />
-                <asp:ListItem Text="text2" />
-            </asp:DropDownList>
-                                        </div>
+                                        <asp:Panel ID="pnlContacts" runat="server" Visible="false">
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">Client:</span>
+                                                <asp:DropDownList ID="ddlClients" runat="server" CssClass="form-control">
+                                                </asp:DropDownList>
+                                            </div>
 
-                                        <div class="input-group paddingBot">
-                                            <span class="input-group-addon width117">Contacts:</span>
-                                            <asp:TextBox ID="txtAddContacts" runat="server" CssClass="form-control" />
-                                        </div>
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">Contacts:</span>
+                                                <asp:TextBox ID="txtAddContacts" runat="server" CssClass="form-control" />
+                                            </div>
 
-                                        <asp:Button ID="btnSaveContact" Text="Save Contact" runat="server" OnClick="btnSaveContact_Click" class="btn btn-success"/>
-                                        <asp:Button ID="btnCncelContact" Text="Cancel" runat="server" OnClick="btnCncelContact_Click" class="btn btn-warning"/>
-        </asp:Panel>
+                                            <asp:Button ID="btnSaveContact" Text="Save Contact" runat="server" OnClick="btnSaveContact_Click" class="btn btn-success" />
+                                            <asp:Button ID="btnCncelContact" Text="Cancel" runat="server" OnClick="btnCncelContact_Click" class="btn btn-warning" />
+                                        </asp:Panel>
                                     </div>
                                 </div>
                             </div>
