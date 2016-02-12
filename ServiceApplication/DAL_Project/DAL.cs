@@ -39,9 +39,9 @@ namespace DAL_Project
         /// DAL d = new DAL("Data Source=localhost;Initial Catalog=dbSchool;Integrated Security=SSPI");
         /// </summary>
         /// <param name="connString">A string parameter to indicate the database to connect to.</param>
-        public DAL(string connString)
+        public DAL()
         {
-            ConnString = connString;
+            ConnString = "Data Source=ALAN\\SQLEXPRESS;Initial Catalog=ServiceDatabase;User ID=intern;Password=intern";
             _parameters = new List<SqlParameter>(); // initialize our list of parameters to 0
         }
 

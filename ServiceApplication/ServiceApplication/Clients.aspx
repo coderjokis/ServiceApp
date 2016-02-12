@@ -2,7 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
-        <asp:GridView ID="gvClients" runat="server"></asp:GridView>
+        <asp:GridView ID="gvClients" DataKeyNames="ClientID" AutoGenerateColumns="false" runat="server" OnRowCommand="gvClients_RowCommand">
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Edit" Text="Edit" />
+                <asp:BoundField DataField="ClientID" HeaderText="Client ID" />
+                <asp:BoundField DataField="ClientName" HeaderText="Client Name" />
+                <asp:BoundField DataField="Contacts" HeaderText="Contacts" />
+                <asp:BoundField DataField="PhoneNumber" HeaderText="Phone" />
+                <asp:BoundField DataField="Address" HeaderText="Address" />
+            </Columns>
+        </asp:GridView>
         <asp:Button ID="btnAddClient" Text="Add Client" runat="server" OnClick="btnAddClient_Click" />
         <asp:Button ID="btnEditClient" Text="Edit Client" runat="server"  OnClick="btnEditClient_Click"/>
         <asp:Button ID="btnAddContact" Text="Add New Contact" runat="server" OnClick="btnAddContact_Click" />
