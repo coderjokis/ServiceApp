@@ -26,27 +26,27 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="well col-lg-6 col-md-6">
-                                <asp:Panel ID="pnlEquip" runat="server" Visible="false" CssClass="li">
+                                <asp:Panel ID="pnlEquip" runat="server" Visible="false">
 
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon">EquipmentID:</span>
+                                        <span class="input-group-addon width117">EquipmentID:</span>
                                         <asp:TextBox ID="txtEquipID" runat="server" CssClass="form-control" placeholder="Equipment ID" />
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon">Name:</span>
+                                        <span class="input-group-addon width117">Name:</span>
                                         <asp:TextBox ID="txtEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" />
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon">Description:</span>
+                                        <span class="input-group-addon width117">Description:</span>
                                         <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" />
 
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon">VaLue:</span>
+                                        <span class="input-group-addon width117">VaLue:</span>
                                         <asp:TextBox ID="txtValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon">Location:</span>
+                                        <span class="input-group-addon width117">Location:</span>
                                         <asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" />
                                     </div>
 
@@ -59,7 +59,7 @@
                             <div class="well col-lg-6 col-md-6">
                                 <asp:Panel ID="pnlAddLocation" runat="server" Visible="false">
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon">Location:</span>
+                                        <span class="input-group-addon width117">Location:</span>
                                         <asp:TextBox ID="txtNewLocation" runat="server" CssClass="form-control" />
                                     </div>
                                     <asp:Button ID="btnSaveLocation" Text="Save" runat="server" OnClick="btnSaveLocation_Click" CssClass="btn btn-success" />
