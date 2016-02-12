@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DAL_Project;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +13,18 @@ namespace ServiceApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                LoadAllInfo();
+            }   
         }
+
+        private void LoadAllInfo()
+        {
+            DAL myDal = new DAL(); //awaiting for andrew to push connection code.
+            gvShowAll.DataSource = myDal.ExecuteProcedure("spLoadAllInfo");
+            gvShowAll.DataBind();
+        }
+
     }
 }
