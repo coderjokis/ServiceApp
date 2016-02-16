@@ -108,3 +108,30 @@ end
 go
 
 exec  spGetAllClientsInfo
+go
+
+alter procedure spAddClient
+(
+@ClientName varchar(max),
+@PhoneNumber varchar(max),
+@Address varchar(max)
+)
+as begin
+	insert into tbClients (ClientName, PhoneNumber, Address)
+		values (@ClientName,@PhoneNumber, @Address)
+end
+go
+
+--exec spAddClient @ClientName='NameTest', @PhoneNumber='123-123-1234', @Address='TestingAddress'
+go
+
+alter procedure spAddContact
+(
+@ContactName varchar(max),
+@ClientID int
+)
+as begin
+	insert into tbContacts (ContactName, ClientID) values (@ContactName, @ClientID)
+end
+go
+
