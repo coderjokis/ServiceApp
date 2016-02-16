@@ -96,6 +96,7 @@ namespace ServiceApplication
         protected void btnSaveContact_Click(object sender, EventArgs e)
         {
             myDal.ExecuteProcedure("spAddContact");
+            myDal.AddParam("ClientID", txtClientID.Text);
             myDal.AddParam("ContactName", txtAddContacts.Text);
             pnlContacts.Visible = false;
         }
@@ -123,7 +124,11 @@ namespace ServiceApplication
             switch (cmd)
             {
                 case "Edit":
-                    
+                    EditClient(ClientID,
+                               gvClients.SelectedRow.Cells[2].Text,
+                               gvClients.SelectedRow.Cells[3].Text,
+                               gvClients.SelectedRow.Cells[4].Text,
+                               gvClients.SelectedRow.Cells[5].Text);
                     break;
             }
         }
