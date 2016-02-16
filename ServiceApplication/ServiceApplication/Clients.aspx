@@ -62,6 +62,35 @@
                                             <asp:Button ID="btnSaveClient" Text="Save Client" runat="server" OnClick="btnSaveClient_Click" class="btn btn-success" />
                                             <asp:Button ID="btnCancelClient" Text="Cancel" runat="server" OnClick="btnCancelClient_Click" class="btn btn-warning" />
                                         </asp:Panel>
+
+                                        <asp:Panel ID="pnlEditClient" runat="server" Visible="false">
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">ClientID:</span>
+                                                <asp:TextBox ID="txtEditClientID" runat="server" ReadOnly="true" CssClass="form-control" />
+                                            </div>
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">ClientName:</span>
+                                                <asp:TextBox ID="txtEditClientName" runat="server" CssClass="form-control" />
+                                            </div>
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">Contacts:</span>
+                                                <asp:DropDownList ID="ddlEditContacts" runat="server" CssClass="form-control">
+                                                </asp:DropDownList> 
+                                                <%--needs to be populated with contact names--%>
+                                            </div>
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">Phone:</span>
+                                                <asp:TextBox ID="txtEditPhone" runat="server" CssClass="form-control" />
+                                            </div>
+                                            <div class="input-group paddingBot">
+                                                <span class="input-group-addon width117">Address:</span>
+                                                <asp:TextBox ID="txtEditAddress" runat="server" CssClass="form-control" />
+                                            </div>
+
+                                            <asp:Button ID="btnSaveEditClient" Text="Save Client" runat="server" OnClick="btnSaveEditClient_Click" class="btn btn-success" />
+                                            <asp:Button ID="btnCancelEdit" runat="server" OnClick="btnCancelEdit_Click" class="btn btn-warning" />
+                                        </asp:Panel>
+
                                     </div>
                                     <div class="well col-lg-6 col-md-6">
                                         <asp:Panel ID="pnlContacts" runat="server" Visible="false">

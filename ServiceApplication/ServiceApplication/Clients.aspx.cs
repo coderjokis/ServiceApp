@@ -32,16 +32,16 @@ namespace ServiceApplication
             ddlClients.DataBind(); 
         }
 
-        private void LoadCLients()
-        {
-            //txtClientID.Text = ClientID;
-            //txtClientName.Text = txtClientName.Text;
-            ////txtAddContacts.Text = Contacts.Text;
-            //txtPhone.Text = txtPhone.Text;
-            //txtAddress.Text = txtAddress.Text;
-            gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
-            gvClients.DataBind();
-        }
+        //private void LoadCLients()
+        //{
+        //    //txtClientID.Text = ClientID;
+        //    //txtClientName.Text = txtClientName.Text;
+        //    ////txtAddContacts.Text = Contacts.Text;
+        //    //txtPhone.Text = txtPhone.Text;
+        //    //txtAddress.Text = txtAddress.Text;
+        //    gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
+        //    gvClients.DataBind();
+        //}
 
         private void LoadGVClients()
         {
@@ -129,21 +129,33 @@ namespace ServiceApplication
             switch (cmd)
             {
                 case "Edit":
+                    pnlEditClient.Visible = true;
                     EditClient(ClientID,
                                gvClients.SelectedRow.Cells[2].Text,
-                               gvClients.SelectedRow.Cells[3].Text,
+                               //gvClients.SelectedRow.Cells[3].Text, -- row contacts
                                gvClients.SelectedRow.Cells[4].Text,
                                gvClients.SelectedRow.Cells[5].Text);
+                    //reload gv with new contents.
                     break;
             }
         }
 
-        private void EditClient(string ClientID, string ClientName, string Contacts, string PhoneNumber, string Address)
+        private void EditClient(string ClientID, string ClientName, string PhoneNumber, string Address)
         {
             txtClientID.Text = ClientID;
             txtClientName.Text = ClientName;
             txtPhone.Text = PhoneNumber;
             txtAddress.Text = Address;
+        }
+
+        protected void btnSaveEditClient_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCancelEdit_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
