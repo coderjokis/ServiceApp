@@ -15,9 +15,13 @@ namespace ServiceApplication
         DAL myDal = new DAL();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadClients();
+            if (!IsPostBack)
+            {
+                LoadGVClients();
+            }
+            
             LoadDropDownClient();
-            LoadContacts();
+            //LoadCLients();
         }
 
         private void LoadDropDownClient()
@@ -28,18 +32,18 @@ namespace ServiceApplication
             ddlClients.DataBind(); 
         }
 
-        private void LoadContacts()
+        private void LoadCLients()
         {
-            txtClientID.Text = ClientID;
-            txtClientName.Text = txtClientName.Text;
-            txtAddContacts.Text = Contacts.Text;
-            txtPhone.Text = txtPhone.Text;
-            txtAddress.Text = txtAddress.Text;
+            //txtClientID.Text = ClientID;
+            //txtClientName.Text = txtClientName.Text;
+            ////txtAddContacts.Text = Contacts.Text;
+            //txtPhone.Text = txtPhone.Text;
+            //txtAddress.Text = txtAddress.Text;
             gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
             gvClients.DataBind();
         }
 
-        private void LoadClients()
+        private void LoadGVClients()
         {
             gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
             gvClients.DataBind();
@@ -50,7 +54,7 @@ namespace ServiceApplication
             pnlClient.Visible = true;
             txtClientID.Text = "New";
             txtClientName.Text = "";
-            Contacts.Text = "";
+            //Contacts.Text = "";
             txtPhone.Text = "";
             txtAddress.Text = "";
         }
@@ -58,7 +62,7 @@ namespace ServiceApplication
         protected void btnSaveClient_Click(object sender, EventArgs e)
         {
             myDal.AddParam("ClientName", txtClientName.Text);
-            myDal.AddParam("Contacts", Contacts.Text);
+            //myDal.AddParam("Contacts", Contacts.Text);
             myDal.AddParam("PhoneNumber", txtPhone.Text);
             myDal.AddParam("Address", txtAddress.Text);
             string sProc;
@@ -66,7 +70,7 @@ namespace ServiceApplication
             if(txtClientID.Text == "New")
             {
                 sProc = "spAddClient";
-            }
+            } 
             else
             {
                 sProc = "spEditClient";
@@ -75,6 +79,7 @@ namespace ServiceApplication
                 pnlContacts.Visible = false;
             }
             myDal.ExecuteProcedure(sProc);
+            LoadGVClients();
             pnlClient.Visible = false;
             ClearFields();
         }
@@ -96,7 +101,7 @@ namespace ServiceApplication
         protected void btnSaveContact_Click(object sender, EventArgs e)
         {
             myDal.ExecuteProcedure("spAddContact");
-            myDal.AddParam("ClientID", txtClientID.Text);
+            myDal.AddParam("ClientID", ddlClients.SelectedValue);
             myDal.AddParam("ContactName", txtAddContacts.Text);
             pnlContacts.Visible = false;
         }
@@ -108,7 +113,7 @@ namespace ServiceApplication
 
         protected void btnAddContact_Click(object sender, EventArgs e)
         {
-            Contacts.Text = "";
+            //Contacts.Text = "";
             txtAddContacts.Text = "";
             pnlContacts.Visible = true;
             pnlClient.Visible = false;

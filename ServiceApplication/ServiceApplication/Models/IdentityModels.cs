@@ -30,7 +30,7 @@ namespace ServiceApplication.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ConnString", throwIfV1Schema: false)
         {
         }
 

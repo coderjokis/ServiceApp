@@ -24,7 +24,7 @@
                                     <asp:ButtonField ButtonType="Button" CommandName="Edit" Text="Edit" />
                                     <asp:BoundField DataField="ClientID" HeaderText="Client ID" />
                                     <asp:BoundField DataField="ClientName" HeaderText="Client Name" />
-                                    <asp:BoundField DataField="Contacts" HeaderText="Contacts" />
+                                    <asp:BoundField DataField="ContactName" HeaderText="Contacts" />
                                     <asp:BoundField DataField="PhoneNumber" HeaderText="Phone" />
                                     <asp:BoundField DataField="Address" HeaderText="Address" />
                                 </Columns>
@@ -46,10 +46,10 @@
                                                 <span class="input-group-addon width117">ClientName:</span>
                                                 <asp:TextBox ID="txtClientName" runat="server" CssClass="form-control" />
                                             </div>
-                                            <div class="input-group paddingBot">
+                                            <%--<div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Contacts:</span>
                                                 <asp:TextBox ID="Contacts" runat="server" CssClass="form-control" />
-                                            </div>
+                                            </div>--%>
                                             <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Phone:</span>
                                                 <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control" />

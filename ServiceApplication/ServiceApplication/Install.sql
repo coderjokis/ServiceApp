@@ -17,13 +17,14 @@ go
 create table tbItem(
 ItemID int identity(1,1) primary key,
 ItemType varchar(max),
-FarFoxValue int,
-ClientValue int,
+FarFoxValue smallmoney,
+ClientValue smallmoney,
 LocationID int foreign key references tbLocation(LocationID)
 --CurrentLocation varchar(max)--should references LocationID
 )
 go
-
+insert into tbItem (ItemType,FarFoxValue,ClientValue,LocationID) values ('Telephone','299.99','1299.99','1')
+go
 create table tbEquipment(
 EquipmentID int identity(1,1) primary key, --will reference by item table
 Description varchar(max),
@@ -31,24 +32,23 @@ InstallDate varchar(max),
 ClientID int foreign key references tbClients(ClientID),
 ItemID int foreign key references tbItem(ItemID)
 )
---insert into tbEquipment(EquipmentName,Description,Location,ClientID) values('test','hello','winnipeg',1)
+insert into tbEquipment(Description,InstallDate,ClientID,ItemID) values('testdescription',GETDATE(),1,1)
 go
 
 --two keys Location, item
-create table tbInventory(
-InventoryID int identity(1,1) primary key,
-ItemID int foreign key references tbItem(ItemID),
-LocationID int foreign key references tbLocation(LocationID)
-)
---insert into tbInventory(TypeofItem,Telephone,Software,Hardware,Consulting,Other) values('test','111-1111','microsoft','idk','hello','random')
-go
+--drop table tbInventory(
+--InventoryID int identity(1,1) primary key,
+--ItemID int foreign key references tbItem(ItemID),
+--LocationID int foreign key references tbLocation(LocationID)
+--)
+--go
 
 create table tbLocation(
 LocationID int identity(1,1) primary key,
 LocationName varchar(max)
 )
 go
-
+--insert into tbLocation values('Far Fox')
 create table tbContacts(
 ContactID int identity(1,1) primary key,
 ContactName varchar(max),
@@ -58,14 +58,14 @@ ClientID int foreign key references tbClients(ClientID)
 select * from tbClients
 select * from tbItem
 select * from tbEquipment
-select * from tbInventory
+
 select * from tbLocation
 select * from tbContacts
-
+--select * from tbInventory
 ----############PROCS############----
 
 ----Generic Join, this will provide references for a proper selection.
-select ClientName, ItemType, Description, InstallDate, FarFoxValue, ClientValue, LocationName ,PhoneNumber , Address, ContactName
+select c.ClientName, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
 		from tbEquipment e
 			join tbItem i on i.ItemID=e.ItemID
 			join tbInventory s on s.ItemID=i.ItemID
@@ -76,18 +76,18 @@ select ClientName, ItemType, Description, InstallDate, FarFoxValue, ClientValue,
 go
 
 --------Proc for the Tracking Page-------
-create procedure spLoadAllInfo
+alter procedure spLoadAllInfo
 as begin
-	select ClientName, ItemType, Description, InstallDate, FarFoxValue, ClientValue, LocationName ,PhoneNumber , Address, ContactName
+	select c.ClientName, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
 		from tbEquipment e
 			join tbItem i on i.ItemID=e.ItemID
-			join tbInventory s on s.ItemID=i.ItemID
-			join tbLocation l on s.LocationID=l.LocationID
+			join tbLocation l on i.LocationID=l.LocationID
 			join tbClients c on e.ClientID=c.ClientID
 			join tbContacts a on a.ContactID=c.ClientID
+			
 end
 go
-
+--join tbInventory s on s.ItemID=i.ItemID
 exec spLoadAllInfo
 go
 -- loading info into ddl in client page
@@ -132,6 +132,23 @@ alter procedure spAddContact
 )
 as begin
 	insert into tbContacts (ContactName, ClientID) values (@ContactName, @ClientID)
+end
+go
+exec spAddContact @ContactName='TestContactName', @ClientID=1
+go
+create procedure spEditClient
+(
+@ClientID int,
+@ClientName varchar(max),
+@PhoneNumber varchar(max),
+@Address varchar(max)
+)
+as begin
+	update tbClients set
+		ClientName=@ClientName,
+		PhoneNumber=@PhoneNumber,
+		Address=@Address
+	where ClientID=@ClientID	
 end
 go
 

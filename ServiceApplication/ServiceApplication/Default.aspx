@@ -11,7 +11,7 @@
                 <asp:BoundField DataField="Address" HeaderText="Address"/>
                 <asp:BoundField DataField="ItemType" HeaderText="Equipment"/>
                 <asp:BoundField DataField="Description" HeaderText="Description"/>
-                <asp:BoundField DataField="Location" HeaderText="Location"/>
+                <asp:BoundField DataField="LocationName" HeaderText="Location"/>
                 <asp:BoundField DataField="FarFoxValue" HeaderText="Value(FarFox)"/>
                 <asp:BoundField DataField="ClientValue" HeaderText="Value(Client)"/>
                 <asp:BoundField DataField="InstallDate" HeaderText="Install Date"/>
