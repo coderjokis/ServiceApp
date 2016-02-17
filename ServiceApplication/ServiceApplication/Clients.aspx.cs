@@ -138,6 +138,8 @@ namespace ServiceApplication
                     //reload gv with new contents.
                     break;
             }
+            gvClients.DataSource = myDal.ExecuteProcedure("spEditClient");
+            gvClients.DataBind();
         }
 
         private void EditClient(string ClientID, string ClientName, string PhoneNumber, string Address)
@@ -150,12 +152,22 @@ namespace ServiceApplication
 
         protected void btnSaveEditClient_Click(object sender, EventArgs e)
         {
-
+            myDal.ExecuteProcedure("spEditClient");
+            myDal.AddParam("ClientID", txtEditClientID.Text);
+            myDal.AddParam("ClientName", txtEditClientName.Text);
+            myDal.AddParam("ContactID", ddlEditContacts.SelectedValue);
+            myDal.AddParam("PhoneNumber", txtEditPhone.Text);
+            myDal.AddParam("Address", txtEditAddress.Text);
+            pnlEditClient.Visible = false;
         }
 
         protected void btnCancelEdit_Click(object sender, EventArgs e)
         {
-
+            txtEditClientID.Text = "";
+            txtEditClientName.Text = "";
+            txtEditPhone.Text = "";
+            txtEditAddress.Text = "";
+            pnlEditClient.Visible = false;
         }
     }
 }
