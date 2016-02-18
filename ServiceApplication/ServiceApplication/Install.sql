@@ -77,13 +77,27 @@ go
 
 --------Proc for the Tracking Page-------
 alter procedure spLoadAllInfo
+--(
+--@ClientID int =null
+--)
 as begin
-	select c.ClientName, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
-		from tbEquipment e
-			join tbItem i on i.ItemID=e.ItemID
-			join tbLocation l on i.LocationID=l.LocationID
-			join tbClients c on e.ClientID=c.ClientID
-			join tbContacts a on a.ContactID=c.ClientID
+	--select * from tbClients where @ClientID=isnull(@ClientID,ClientID)
+	--if exists(select * from tbClients where ClientID=@ClientID)
+	--		select c.ClientName, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
+	--			from tbEquipment e
+	--			join tbItem i on i.ItemID=e.ItemID
+	--			join tbLocation l on i.LocationID=l.LocationID
+	--			join tbClients c on e.ClientID=c.ClientID
+	--			join tbContacts a on a.ContactID=c.ClientID
+	--		where c.ClientID= @ClientID
+	--else
+	--	select 'You are in Here' as Result
+		select c.ClientName, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
+				from tbEquipment e
+				join tbItem i on i.ItemID=e.ItemID
+				join tbLocation l on i.LocationID=l.LocationID
+				join tbClients c on e.ClientID=c.ClientID
+				join tbContacts a on a.ContactID=c.ClientID
 			
 end
 go
@@ -99,15 +113,24 @@ go
 
 -----Loading GV with Complete client Info---
 
-create procedure spGetAllClientsInfo
+alter procedure spGetAllClientsInfo
+(
+@ClientID int = null
+)
 as begin
-	select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
-		from tbClients c 
-			join tbContacts a on a.ContactID=c.ClientID
+	if exists(select * from tbClients where ClientID=@ClientID)
+		select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
+			from tbClients c 
+				join tbContacts a on a.ContactID=c.ClientID
+			where c.ClientID=@ClientID
+	else
+		select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
+			from tbClients c 
+				join tbContacts a on a.ContactID=c.ClientID
 end
 go
 
-exec  spGetAllClientsInfo
+exec  spGetAllClientsInfo @ClientID=1
 go
 
 alter procedure spAddClient
@@ -136,19 +159,34 @@ end
 go
 exec spAddContact @ContactName='TestContactName', @ClientID=1
 go
-create procedure spEditClient
+alter procedure spEditClient
 (
 @ClientID int,
-@ClientName varchar(max),
-@PhoneNumber varchar(max),
-@Address varchar(max)
+@ClientName varchar(max)=null,
+@PhoneNumber varchar(max)=null,
+@Address varchar(max)=null
 )
 as begin
 	update tbClients set
-		ClientName=@ClientName,
-		PhoneNumber=@PhoneNumber,
-		Address=@Address
+		ClientName=isnull(@ClientName,ClientID),
+		PhoneNumber=isnull(@PhoneNumber,PhoneNumber),
+		Address=isnull(@Address,Address)
 	where ClientID=@ClientID	
 end
 go
+
+-------Getcontactinfo to load DDL edit client------
+go
+create procedure spGetContactFromClient
+(
+@ClientID int
+)
+as begin
+	select * from tbContacts c
+		join tbClients i on i.ClientID=c.ClientID
+		where  c.ClientID = @ClientID
+end
+go
+
+exec spGetContactFromClient @ClientID=1
 

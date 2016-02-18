@@ -7,20 +7,23 @@ using System.Web.UI.WebControls;
 using DAL_Project;
 using System.Configuration;
 using System.Data.SqlClient;
+using ServiceApplication.Models;
+using System.Data;
 
 namespace ServiceApplication
 {
     public partial class Clients : System.Web.UI.Page
     {
         DAL myDal = new DAL();
+        ServiceClients client;
+        DataSet ds;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
             {
                 LoadGVClients();
             }
-            
-            LoadDropDownClient();
+            //LoadGVClients();
             //LoadCLients();
         }
 
@@ -70,16 +73,18 @@ namespace ServiceApplication
             if(txtClientID.Text == "New")
             {
                 sProc = "spAddClient";
+                pnlClient.Visible = true;
             } 
             else
             {
                 sProc = "spEditClient";
                 myDal.AddParam("ClientID", txtClientID.Text);
-                pnlClient.Visible = true;
+                pnlEditClient.Visible = true;
                 pnlContacts.Visible = false;
             }
             myDal.ExecuteProcedure(sProc);
             LoadGVClients();
+            pnlEditClient.Visible = false;
             pnlClient.Visible = false;
             ClearFields();
         }
@@ -100,9 +105,11 @@ namespace ServiceApplication
 
         protected void btnSaveContact_Click(object sender, EventArgs e)
         {
-            myDal.ExecuteProcedure("spAddContact");
+            
             myDal.AddParam("ClientID", ddlClients.SelectedValue);
             myDal.AddParam("ContactName", txtAddContacts.Text);
+            myDal.ExecuteProcedure("spAddContact");
+            LoadGVClients();
             pnlContacts.Visible = false;
         }
 
@@ -113,6 +120,7 @@ namespace ServiceApplication
 
         protected void btnAddContact_Click(object sender, EventArgs e)
         {
+            LoadDropDownClient();
             //Contacts.Text = "";
             txtAddContacts.Text = "";
             pnlContacts.Visible = true;
@@ -121,43 +129,63 @@ namespace ServiceApplication
 
         protected void gvClients_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowID = Convert.ToInt32(e.CommandArgument);
-            gvClients.SelectedIndex = rowID;
-            string ClientID = gvClients.SelectedDataKey.Value.ToString();
-            string cmd = e.CommandName;
-
-            switch (cmd)
+            if (e.CommandName == "EditRow")
             {
-                case "Edit":
-                    pnlEditClient.Visible = true;
-                    EditClient(ClientID,
-                               gvClients.SelectedRow.Cells[2].Text,
-                               //gvClients.SelectedRow.Cells[3].Text, -- row contacts
-                               gvClients.SelectedRow.Cells[4].Text,
-                               gvClients.SelectedRow.Cells[5].Text);
-                    //reload gv with new contents.
-                    break;
+                int rowID = Convert.ToInt32(e.CommandArgument);
+                gvClients.SelectedIndex = rowID;
+                string ClientID = gvClients.SelectedDataKey.Value.ToString();
+                string cmd = e.CommandName;
+
+                switch (cmd)
+                {
+                    case "EditRow":
+                        pnlEditClient.Visible = true;
+                        ds = new DataSet();
+                        myDal.AddParam("ClientID", ClientID);
+                        ds = myDal.ExecuteProcedure("spGetAllClientsInfo");
+                        DataRow dr = ds.Tables[0].Rows[0];
+                        client = new ServiceClients(
+                            dr["ClientID"].ToString(),
+                            dr["ClientName"].ToString(),
+                            dr["PhoneNumber"].ToString(),
+                            dr["Address"].ToString());
+
+                        //client.AuthorizedContacts.Add(dr["ContactName"].ToString());
+                        client.AuthorizedContacts = new List<string>()
+                    {
+                        dr["ContactName"].ToString()
+                    };
+                        txtEditClientID.Text = client.ClientID;
+                        txtEditClientName.Text = client.ClientName;
+                        txtEditPhone.Text = client.Phone;
+                        txtEditAddress.Text = client.Address;
+                        break;
+                }
             }
-            gvClients.DataSource = myDal.ExecuteProcedure("spEditClient");
-            gvClients.DataBind();
+            
+            LoadGVClients();
         }
 
-        private void EditClient(string ClientID, string ClientName, string PhoneNumber, string Address)
-        {
-            txtClientID.Text = ClientID;
-            txtClientName.Text = ClientName;
-            txtPhone.Text = PhoneNumber;
-            txtAddress.Text = Address;
-        }
+
+        //private void LoadContactDDL()
+        //{
+        //    //no need to load ddl. contact selection will take place in equipment page
+        //    //myDal.AddParam("ClientID", client.ClientID);
+        //    ddlContacts.DataSource = myDal.ExecuteProcedure("spGetContactFromClient");
+        //    ddlContacts.DataTextField = "ContactName";
+        //    ddlContacts.DataValueField = "ContactID";
+        //    ddlContacts.DataBind();
+        //}
 
         protected void btnSaveEditClient_Click(object sender, EventArgs e)
         {
-            myDal.ExecuteProcedure("spEditClient");
-            myDal.AddParam("ClientID", txtEditClientID.Text);
+            myDal.AddParam("ClientID", txtClientID.Text);
             myDal.AddParam("ClientName", txtEditClientName.Text);
-            myDal.AddParam("ContactID", ddlEditContacts.SelectedValue);
+            //myDal.AddParam("ContactID", ddlEditContacts.SelectedValue);
             myDal.AddParam("PhoneNumber", txtEditPhone.Text);
             myDal.AddParam("Address", txtEditAddress.Text);
+            myDal.ExecuteProcedure("spEditClient");
+            LoadGVClients();
             pnlEditClient.Visible = false;
         }
 
@@ -168,6 +196,12 @@ namespace ServiceApplication
             txtEditPhone.Text = "";
             txtEditAddress.Text = "";
             pnlEditClient.Visible = false;
+        }
+
+        protected void gvClients_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvClients.PageIndex = e.NewPageIndex;
+            LoadGVClients();
         }
     }
 }

@@ -19,9 +19,9 @@
                 <div class="panel-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <asp:GridView ID="gvClients" DataKeyNames="ClientID" AutoGenerateColumns="false" runat="server" OnRowCommand="gvClients_RowCommand">
+                            <asp:GridView ID="gvClients" DataKeyNames="ClientID" AutoGenerateColumns="false" runat="server" OnRowCommand="gvClients_RowCommand" CssClass="table table-info" AllowPaging="true" OnPageIndexChanging="gvClients_PageIndexChanging">
                                 <Columns>
-                                    <asp:ButtonField ButtonType="Button" CommandName="Edit" Text="Edit" />
+                                    <asp:ButtonField ButtonType="Button" CommandName="EditRow" Text="Edit" />
                                     <asp:BoundField DataField="ClientID" HeaderText="Client ID" />
                                     <asp:BoundField DataField="ClientName" HeaderText="Client Name" />
                                     <asp:BoundField DataField="ContactName" HeaderText="Contacts" />
@@ -72,12 +72,13 @@
                                                 <span class="input-group-addon width117">ClientName:</span>
                                                 <asp:TextBox ID="txtEditClientName" runat="server" CssClass="form-control" />
                                             </div>
-                                            <div class="input-group paddingBot">
+                                           <%-- <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Contacts:</span>
-                                                <asp:DropDownList ID="ddlEditContacts" runat="server" CssClass="form-control">
+                                                <asp:DropDownList ID="ddlEditContacts" runat="server" CssClass="form-control" >
                                                 </asp:DropDownList> 
-                                                <%--needs to be populated with contact names--%>
-                                            </div>
+                                                Contact selection takes place in EQ page
+                                                <%--needs to be populated with contact names
+                                            </div>--%>
                                             <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Phone:</span>
                                                 <asp:TextBox ID="txtEditPhone" runat="server" CssClass="form-control" />
@@ -88,7 +89,7 @@
                                             </div>
 
                                             <asp:Button ID="btnSaveEditClient" Text="Save Client" runat="server" OnClick="btnSaveEditClient_Click" class="btn btn-success" />
-                                            <asp:Button ID="btnCancelEdit" runat="server" OnClick="btnCancelEdit_Click" class="btn btn-warning" />
+                                            <asp:Button ID="btnCancelEdit" Text="Cancel" runat="server" OnClick="btnCancelEdit_Click" class="btn btn-warning" />
                                         </asp:Panel>
 
                                     </div>

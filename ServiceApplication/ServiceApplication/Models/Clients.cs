@@ -5,22 +5,25 @@ using System.Web;
 
 namespace ServiceApplication.Models
 {
-    public class Clients
+    public class ServiceClients
     {
-        public int ClientID { get; set; }
+        public string ClientID { get; set; }
         public string ClientName { get; set; }
         public List<string> AuthorizedContacts { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
 
-        public Clients(){}
-        public Clients(int clientID, string clientName, List<string> authorizedContacts, string phone, string address)
+        public ServiceClients(){}
+        public ServiceClients(string clientID, string clientName, string phone, string address)
         {
             this.ClientID = clientID;
             this.ClientName = clientName;
-            this.AuthorizedContacts = authorizedContacts;
             this.Phone = phone;
-            this.Address = address;
+            this.Address = address;   
+        }
+        public ServiceClients(List<string> authorizedContacts) : this()
+        {
+            AuthorizedContacts = new List<string>(authorizedContacts);
         }
     }
 }
