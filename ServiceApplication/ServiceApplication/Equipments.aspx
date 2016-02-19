@@ -19,9 +19,9 @@
                 <div class="panel-body li">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <asp:GridView ID="gvEquipment" DataKeyNames="EquipmentID" AutoGenerateColumns="false" runat="server" CssClass="table table-info padBot">
+                            <asp:GridView ID="gvEquipment" DataKeyNames="EquipmentID" AutoGenerateColumns="false" runat="server" CssClass="table table-info padBot" OnRowCommand="gvEquipment_RowCommand">
                                 <Columns>
-                                    <asp:ButtonField ButtonType="Button" CommandName="Upd" Text="Update" />
+                                    <asp:ButtonField ButtonType="Button" CommandName="EditRow" Text="Edit" />
                                     <asp:BoundField DataField="EquipmentID" HeaderText="Equipment ID" />
                                     <asp:BoundField DataField="Description" HeaderText="Description" />
                                     <asp:BoundField DataField="InstallDate" HeaderText="Install Date" />
@@ -39,7 +39,7 @@
 
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">EquipmentID:</span>
-                                        <asp:TextBox ID="txtEquipID" runat="server" CssClass="form-control" placeholder="Equipment ID" />
+                                        <asp:TextBox ID="txtEquipID" runat="server" ReadOnly="true" CssClass="form-control" placeholder="Equipment ID" />
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Name:</span>
@@ -48,6 +48,11 @@
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
                                         <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" />
+
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Install Date:</span>
+                                        <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" />
 
                                     </div>
                                     <div class="input-group paddingBot">
@@ -66,6 +71,42 @@
 
                                     <asp:Button ID="btnSaveEQ" Text="Save" runat="server" OnClick="btnSaveEQ_Click" CssClass="btn btn-success" />
                                     <asp:Button ID="btnCancelEQ" Text="Cancel" runat="server" OnClick="btnCancelEQ_Click" CssClass="btn btn-warning" />
+                                </asp:Panel>
+
+                                <asp:Panel ID="pnlEditEquipment" runat="server" Visible="false">
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">EquipmentID:</span>
+                                        <asp:TextBox ID="txtEditEquipID" runat="server" ReadOnly="true" CssClass="form-control" placeholder="Equipment ID" />
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Name:</span>
+                                        <asp:TextBox ID="txtEditEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" />
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Description:</span>
+                                        <asp:TextBox ID="txtEditEquipDescription" runat="server" placeholder="Description" CssClass="form-control" />
+
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Install Date:</span>
+                                        <asp:TextBox ID="txtEditInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" />
+
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">FarFoxVaLue:</span>
+                                        <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">ClientVaLue:</span>
+                                        <asp:TextBox ID="txtEditCValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Location:</span>
+                                        <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" />
+                                    </div>
+
+                                    <asp:Button ID="btnSaveEditEquipment" runat="server" Text="Save Equipment" OnClick="btnSaveEditEquipment_Click" />
+                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
                                 </asp:Panel>
                             </div>
 
