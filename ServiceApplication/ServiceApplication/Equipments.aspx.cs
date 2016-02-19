@@ -133,11 +133,11 @@ namespace ServiceApplication
                         dr["ItemType"].ToString(),
                         dr["Description"].ToString(),
                         dr["InstallDate"].ToString(),
-                        dr["FarFoxValue"].ToString(),
-                        dr["ClientValue"].ToString(),
-                        dr["LocationName"].ToString());
-
                         
+                        
+                        dr["LocationName"].ToString());
+                        //dr["ClientValue"].ToString(),
+                        //dr["FarFoxValue"].ToString(),
                         break;
                 }
             }
