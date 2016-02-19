@@ -218,18 +218,48 @@ end
 go
 
 ------Update---------
-create procedure spUpdateEQuipmentInfo
+
+alter procedure spUpdateEQuipmentInfo
 (
 @EquipmentID int,
 @Description varchar(max)= null,
 @InstallDate varchar(max)=null,
-@ClientID int=null,
-@ItemID int=null
+@ContactName varchar(max)=null,
+@ClientName varchar(max)=null,
+@ItemType varchar(max)=null,
+@ItemID int=null,
+@ClientID int = null,
+@ContactID int = null
 )
 as begin
-	update tbEquipment set
-		Description=@Description,
-		InstallDate = @InstallDate
+	select e.EquipmentID, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.ClientName
+				from tbEquipment e
+				join tbItem i on i.ItemID=e.ItemID
+				join tbLocation l on i.LocationID=l.LocationID
+				join tbClients c on e.ClientID=c.ClientID
+				join tbContacts a on a.ContactID=c.ClientID
+				where EquipmentID=@EquipmentID
+	
+				
+	if @@ERROR !=0
+		update tbItem set
+			ItemType = @ItemType
+			where ItemID = @ItemID
 
+	if @@ERROR !=0
+		update tbContacts set
+			ContactName=@ContactName
+			where ContactID = @ContactID
+
+	if @@ERROR !=0
+		update tbClients set
+			ClientName=@ClientName
+			where ClientID= @ClientID
+
+	if @@ERROR !=0
+		update tbEquipment set
+		Description = @Description,
+		InstallDate = @InstallDate
+			where EquipmentID=@EquipmentID
 end
 go
