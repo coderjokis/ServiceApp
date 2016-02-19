@@ -4,20 +4,36 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL_Project;
+using System.Configuration;
 
 namespace ServiceApplication
 {
     public partial class Equipments : System.Web.UI.Page
     {
+        DAL myDal = new DAL();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                LoadGVEquipments();
+            }
+        }
 
+        private void LoadGVEquipments()
+        {
+            gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipment");
+            gvEquipment.DataBind();
         }
 
         protected void btnAddEQ_Click(object sender, EventArgs e)
         {
             pnlEquip.Visible = true;
             txtEquipID.Text = "New";
+            txtEquipNameType.Text = "";
+            txtEquipDescription.Text = "";
+            txtValue.Text = "";
+            txtNewLocation.Text = "";
             pnlAddLocation.Visible = false;
         }
 
@@ -29,6 +45,9 @@ namespace ServiceApplication
 
         protected void btnSaveEQ_Click(object sender, EventArgs e)
         {
+            myDal.ExecuteProcedure("spGetEquipment");
+            myDal.AddParam("Description", txtEquipDescription.Text);
+
             pnlEquip.Visible = false;
             ClearFields();
         }
@@ -51,12 +70,15 @@ namespace ServiceApplication
 
         protected void btnAddLocation_Click(object sender, EventArgs e)
         {
+            txtNewLocation.Text = "";
             pnlAddLocation.Visible = true;
             pnlEquip.Visible = false;
         }
 
         protected void btnSaveLocation_Click(object sender, EventArgs e)
         {
+            myDal.ExecuteProcedure("spAddLocation");
+            myDal.AddParam("LocationName", txtNewLocation.Text);
             pnlAddLocation.Visible = false;
             txtNewLocation.Text = "";
         }

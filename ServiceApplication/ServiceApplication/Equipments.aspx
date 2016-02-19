@@ -19,7 +19,16 @@
                 <div class="panel-body li">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <asp:GridView ID="gvEquipment" runat="server" CssClass="btn btn-default padBot"></asp:GridView>
+                            <asp:GridView ID="gvEquipment" DataKeyNames="EquipmentID" AutoGenerateColumns="false" runat="server" CssClass="btn btn-default padBot">
+                                <Columns>
+                                    <asp:ButtonField ButtonType="Button" CommandName="Upd" Text="Update" />
+                                    <asp:BoundField DataField="EquipmentID" HeaderText="Equipment ID" />
+                                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                                    <asp:BoundField DataField="InstallDate" HeaderText="Install Date" />
+                                    <asp:BoundField DataField="ItemType" HeaderText="Item Type" />
+                                    <asp:BoundField DataField="LocationName" HeaderText="Location Name" />
+                                </Columns>
+                            </asp:GridView>
                         </div>
                     </div>
 
