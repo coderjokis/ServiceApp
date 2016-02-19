@@ -204,9 +204,32 @@ as begin
 end
 go
 exec spAddEquipment @Description='DescTest' , @ItemID=1, @ClientID=1
-
+go
 ------Read/Get-------
-
-
+alter procedure spGetEquipmentInfo
+as begin
+	select e.EquipmentID, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName 
+				from tbEquipment e
+				join tbItem i on i.ItemID=e.ItemID
+				join tbLocation l on i.LocationID=l.LocationID
+				join tbClients c on e.ClientID=c.ClientID
+				join tbContacts a on a.ContactID=c.ClientID
+end
+go
 
 ------Update---------
+create procedure spUpdateEQuipmentInfo
+(
+@EquipmentID int,
+@Description varchar(max)= null,
+@InstallDate varchar(max)=null,
+@ClientID int=null,
+@ItemID int=null
+)
+as begin
+	update tbEquipment set
+		Description=@Description,
+		InstallDate = @InstallDate
+
+end
+go

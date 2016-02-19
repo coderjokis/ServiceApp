@@ -22,15 +22,6 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.Button btnAddEQ;
         
         /// <summary>
-        /// btnEditEQ control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditEQ;
-        
-        /// <summary>
         /// btnAddLocation control.
         /// </summary>
         /// <remarks>
@@ -85,13 +76,22 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEquipDescription;
         
         /// <summary>
-        /// txtValue control.
+        /// txtFValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtValue;
+        protected global::System.Web.UI.WebControls.TextBox txtFValue;
+        
+        /// <summary>
+        /// txtCValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCValue;
         
         /// <summary>
         /// txtLocation control.

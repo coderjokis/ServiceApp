@@ -6,7 +6,7 @@
             <div class="panel panel-info">
                 <div class="panel-body">
                     <asp:Button ID="btnAddEQ" Text="Add Equipment" runat="server" OnClick="btnAddEQ_Click" CssClass="btn btn-primary marginBot" />
-                    <asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />
+<%--                    <asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />--%>
                     <asp:Button ID="btnAddLocation" Text="New  Location" runat="server" OnClick="btnAddLocation_Click" CssClass="btn btn-primary marginBot" />
                 </div>
             </div>
@@ -19,14 +19,14 @@
                 <div class="panel-body li">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <asp:GridView ID="gvEquipment" DataKeyNames="EquipmentID" AutoGenerateColumns="false" runat="server" CssClass="btn btn-default padBot">
+                            <asp:GridView ID="gvEquipment" DataKeyNames="EquipmentID" AutoGenerateColumns="false" runat="server" CssClass="table table-info padBot">
                                 <Columns>
                                     <asp:ButtonField ButtonType="Button" CommandName="Upd" Text="Update" />
                                     <asp:BoundField DataField="EquipmentID" HeaderText="Equipment ID" />
                                     <asp:BoundField DataField="Description" HeaderText="Description" />
                                     <asp:BoundField DataField="InstallDate" HeaderText="Install Date" />
                                     <asp:BoundField DataField="ItemType" HeaderText="Item Type" />
-                                    <asp:BoundField DataField="LocationName" HeaderText="Location Name" />
+                                    <asp:BoundField DataField="LocationName" HeaderText="Location" />
                                 </Columns>
                             </asp:GridView>
                         </div>
@@ -51,8 +51,12 @@
 
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon width117">VaLue:</span>
-                                        <asp:TextBox ID="txtValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                        <span class="input-group-addon width117">FarFoxVaLue:</span>
+                                        <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">ClientVaLue:</span>
+                                        <asp:TextBox ID="txtCValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>

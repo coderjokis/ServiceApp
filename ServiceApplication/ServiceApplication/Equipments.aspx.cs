@@ -22,7 +22,7 @@ namespace ServiceApplication
 
         private void LoadGVEquipments()
         {
-            gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipment");
+            gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
             gvEquipment.DataBind();
         }
 
@@ -32,21 +32,22 @@ namespace ServiceApplication
             txtEquipID.Text = "New";
             txtEquipNameType.Text = "";
             txtEquipDescription.Text = "";
-            txtValue.Text = "";
+            txtFValue.Text = "";
+            txtCValue.Text = "";
             txtNewLocation.Text = "";
             pnlAddLocation.Visible = false;
         }
 
-        protected void btnEditEQ_Click(object sender, EventArgs e)
-        {
-            pnlEquip.Visible = true;
-            pnlAddLocation.Visible = false;
-        }
+        //protected void btnEditEQ_Click(object sender, EventArgs e)
+        //{
+        //    pnlEquip.Visible = true;
+        //    pnlAddLocation.Visible = false;
+        //}
 
         protected void btnSaveEQ_Click(object sender, EventArgs e)
         {
             myDal.AddParam("Description", txtEquipDescription.Text);
-            myDal.ExecuteProcedure("spGetEquipment");
+            myDal.ExecuteProcedure("spGetEquipmentInfo");
 
             pnlEquip.Visible = false;
             ClearFields();
@@ -65,7 +66,8 @@ namespace ServiceApplication
             txtEquipNameType.Text = "";
             txtEquipDescription.Text = "";
             txtLocation.Text = "";
-            txtValue.Text = "";
+            txtCValue.Text = "";
+            txtFValue.Text = "";
         }
 
         protected void btnAddLocation_Click(object sender, EventArgs e)
