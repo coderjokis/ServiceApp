@@ -45,8 +45,8 @@ namespace ServiceApplication
 
         protected void btnSaveEQ_Click(object sender, EventArgs e)
         {
-            myDal.ExecuteProcedure("spGetEquipment");
             myDal.AddParam("Description", txtEquipDescription.Text);
+            myDal.ExecuteProcedure("spGetEquipment");
 
             pnlEquip.Visible = false;
             ClearFields();
@@ -77,8 +77,8 @@ namespace ServiceApplication
 
         protected void btnSaveLocation_Click(object sender, EventArgs e)
         {
-            myDal.ExecuteProcedure("spAddLocation");
             myDal.AddParam("LocationName", txtNewLocation.Text);
+            myDal.ExecuteProcedure("spAddLocation");
             pnlAddLocation.Visible = false;
             txtNewLocation.Text = "";
         }

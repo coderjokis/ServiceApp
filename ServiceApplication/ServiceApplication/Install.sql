@@ -23,7 +23,7 @@ LocationID int foreign key references tbLocation(LocationID)
 --CurrentLocation varchar(max)--should references LocationID
 )
 go
-insert into tbItem (ItemType,FarFoxValue,ClientValue,LocationID) values ('Telephone','299.99','1299.99','1')
+--insert into tbItem (ItemType,FarFoxValue,ClientValue,LocationID) values ('Telephone',299.99,1299.99,1)
 go
 create table tbEquipment(
 EquipmentID int identity(1,1) primary key, --will reference by item table
@@ -48,7 +48,7 @@ LocationID int identity(1,1) primary key,
 LocationName varchar(max)
 )
 go
---insert into tbLocation values('Far Fox')
+--insert into tbLocation values('Far Fox test')
 create table tbContacts(
 ContactID int identity(1,1) primary key,
 ContactName varchar(max),
@@ -189,4 +189,24 @@ end
 go
 
 exec spGetContactFromClient @ClientID=1
+go
+-----Crud for EQ------
+----Create/Insert-----
+create procedure spAddEquipment
+(
+@Description varchar(max),
+@ItemID int,
+@ClientID int
+)
+as begin
+	insert into tbEquipment(Description, InstallDate, ItemID, ClientID) 
+			values (@Description, getdate(), @ItemID, @ClientID)
+end
+go
+exec spAddEquipment @Description='DescTest' , @ItemID=1, @ClientID=1
 
+------Read/Get-------
+
+
+
+------Update---------
