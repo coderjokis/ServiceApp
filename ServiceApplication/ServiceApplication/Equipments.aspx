@@ -43,11 +43,11 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Name:</span>
-                                        <asp:TextBox ID="txtEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
-                                        <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine"/>
 
                                     </div>
                                     <div class="input-group paddingBot">
@@ -57,15 +57,15 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
-                                        <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                        <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number"/>
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">ClientVaLue:</span>
-                                        <asp:TextBox ID="txtCValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                        <asp:TextBox ID="txtCValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number" />
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
-                                        <asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" />
+                                        <asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="MultiLine" />
                                     </div>
 
 
@@ -80,29 +80,29 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Name:</span>
-                                        <asp:TextBox ID="txtEditEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEditEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
-                                        <asp:TextBox ID="txtEditEquipDescription" runat="server" placeholder="Description" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEditEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine"  />
 
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Install Date:</span>
-                                        <asp:TextBox ID="txtEditInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEditInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="DateTime" />
 
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
-                                        <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number"/>
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">ClientVaLue:</span>
-                                        <asp:TextBox ID="txtEditCValue" runat="server" placeholder="0.00" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEditCValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number"/>
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
-                                        <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" />
+                                        <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="SingleLine" />
                                     </div>
 
                                     <asp:Button ID="btnSaveEditEquipment" runat="server" Text="Save Equipment" OnClick="btnSaveEditEquipment_Click" />

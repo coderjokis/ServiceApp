@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using ServiceApplication.Models;
+using System.Globalization;
 
 namespace ServiceApplication
 {
@@ -17,6 +18,7 @@ namespace ServiceApplication
         DAL myDal = new DAL();
         Equipment equipment;
         DataSet ds;
+        DateTime myDate;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -30,17 +32,24 @@ namespace ServiceApplication
             List<Equipment> EqList = new List<Equipment>();
             DataSet dsEq = myDal.ExecuteProcedure("spGetEquipmentInfo");
             DataRow dr = dsEq.Tables[0].Rows[0];
+             //DateTime.Parse(dr["InstallDate"].ToString());
+            //myDate = DateTime.Parse(dr["InstallDate"].ToString().Trim(),CultureInfo.InvariantCulture, DateTimeStyles.None);
             
-            foreach  (DataRow EqDr in dsEq.Tables[0].Rows)
+                foreach  (DataRow row in dsEq.Tables[0].Rows)
             {
-                
+                //DateTime ok = DateTime.Parse(dr["InstallDate"].ToString());
+                //string cDate = ok.Year + " " + ok.Month + " " + ok.Day;
+                //dr["InstallDate"].ToString()
                 EqList.Add(new Equipment(
                     int.Parse(dr["EquipmentID"].ToString()),
                     dr["ItemType"].ToString(),
-                    dr["Description"].ToString(),
+                    dr["Description"].ToString(),                   
                     dr["LocationName"].ToString(),
-                    dr["InstallDate"].ToString(),
+                    Convert.ToString(dr["InstallDate"]),
+                    int.Parse(dr["FarFoxValue"].ToString()),
+                    int.Parse(dr["ClientValue"].ToString()),
                     dr["ContactName"].ToString()
+                    
                     ));
                 //int equipmentID, string equipmentName, string description, 
                 //string location, string installdate,string authorizingparty
@@ -76,7 +85,7 @@ namespace ServiceApplication
             myDal.AddParam("FarFoxValue", txtFValue.Text);
             myDal.AddParam("ClientValue", txtCValue.Text);
             myDal.AddParam("LocationName", txtLocation.Text);
-            myDal.ExecuteProcedure("spGetEquipmentInfo");
+            //myDal.ExecuteProcedure("spGetEquipmentInfo");
             string sProc;
 
             if(txtEquipID.Text == "New")
@@ -85,10 +94,12 @@ namespace ServiceApplication
             }
             else
             {
-                sProc = "spUpdateEQuipmentInfo";
                 myDal.AddParam("EquipmentID", txtEquipID.Text);
+                sProc = "spUpdateEQuipmentInfo";
+                
             }
             myDal.ExecuteProcedure(sProc);
+            LoadGVEquipments();
             pnlEquip.Visible = false;
             ClearFields();
         }
@@ -148,19 +159,33 @@ namespace ServiceApplication
                         myDal.AddParam("EquipmentID", EquipmentID);
                         ds = myDal.ExecuteProcedure("spGetEquipmentInfo");
                         DataRow dr = ds.Tables[0].Rows[0];
+                        //if(DateTime.TryParse(dr["InstallDate"].ToString(),out myDate));
                         equipment = new Equipment(
                         int.Parse(dr["EquipmentID"].ToString()),
                         dr["ItemType"].ToString(),
                         dr["Description"].ToString(),
-                        dr["InstallDate"].ToString(),
                         dr["LocationName"].ToString(),
+                        dr["InstallDate"].ToString(),
+                        int.Parse(dr["ClientValue"].ToString()),
+                        int.Parse(dr["FarFoxValue"].ToString()),
                         dr["ContactName"].ToString());
-                        //dr["ClientValue"].ToString(),
-                        //dr["FarFoxValue"].ToString(),
+                        
+                        PopulateEQEditControls();
                         break;
                 }
             }
             LoadGVEquipments();
+        }
+
+        private void PopulateEQEditControls()
+        {
+            txtEditEquipID.Text = equipment.EquipmentID.ToString();
+            txtEditEquipNameType.Text = equipment.ItemType;
+            txtEditEquipDescription.Text = equipment.Description;
+            txtEditInstallDate.Text = equipment.InstallDate.ToString();
+            txtEditFValue.Text = equipment.FVAlue.ToString();
+            txtEditCValue.Text = equipment.CValue.ToString();
+            txtEditLocation.Text = equipment.LocationName;
         }
 
         protected void btnSaveEditEquipment_Click(object sender, EventArgs e)

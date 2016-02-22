@@ -28,11 +28,13 @@ go
 create table tbEquipment(
 EquipmentID int identity(1,1) primary key, --will reference by item table
 Description varchar(max),
-InstallDate varchar(max),
+InstallDate date,
 ClientID int foreign key references tbClients(ClientID),
 ItemID int foreign key references tbItem(ItemID)
 )
 insert into tbEquipment(Description,InstallDate,ClientID,ItemID) values('testdescription',GETDATE(),1,1)
+insert into tbEquipment(Description,InstallDate,ClientID,ItemID) values('testdescription2',GETDATE(),2,2)
+
 go
 
 --two keys Location, item
@@ -55,12 +57,6 @@ ContactName varchar(max),
 ClientID int foreign key references tbClients(ClientID)
 )
 
-select * from tbClients
-select * from tbItem
-select * from tbEquipment
-
-select * from tbLocation
-select * from tbContacts
 --select * from tbInventory
 ----############PROCS############----
 
@@ -207,13 +203,17 @@ exec spAddEquipment @Description='DescTest' , @ItemID=1, @ClientID=1
 go
 ------Read/Get-------
 alter procedure spGetEquipmentInfo
+(
+@EquipmentID int =null
+)
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName, a.ContactName 
+	select e.EquipmentID, i.ItemType, e.Description, l.LocationName,FORMAT(InstallDate,'MMMM d, yyyy')as InstallDate, i.FarFoxValue, i.ClientValue,  a.ContactName 
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				join tbLocation l on i.LocationID=l.LocationID
 				join tbClients c on e.ClientID=c.ClientID
 				join tbContacts a on a.ContactID=c.ClientID
+					where e.EquipmentID= isnull(@EquipmentID,EquipmentID)
 end
 go
 
@@ -232,7 +232,7 @@ alter procedure spUpdateEQuipmentInfo
 @ContactID int = null
 )
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName ,c.ClientName
+	select e.EquipmentID, i.ItemType, e.Description, l.LocationName, e.InstallDate, i.FarFoxValue, i.ClientValue ,c.ClientName
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				join tbLocation l on i.LocationID=l.LocationID
@@ -263,3 +263,11 @@ as begin
 			where EquipmentID=@EquipmentID
 end
 go
+
+exec spGetEquipmentInfo
+select * from tbClients
+select * from tbItem
+select * from tbEquipment
+
+select * from tbLocation
+select * from tbContacts
