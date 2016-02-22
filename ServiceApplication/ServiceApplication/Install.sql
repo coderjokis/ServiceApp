@@ -208,7 +208,7 @@ go
 ------Read/Get-------
 alter procedure spGetEquipmentInfo
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName 
+	select e.EquipmentID, i.ItemType, e.Description, e.InstallDate, i.FarFoxValue, i.ClientValue, l.LocationName, a.ContactName 
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				join tbLocation l on i.LocationID=l.LocationID

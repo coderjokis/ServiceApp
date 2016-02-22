@@ -8,9 +8,9 @@ namespace ServiceApplication.Models
     public class Equipment
     {
         public int EquipmentID { get; set; }
-        public string EquipmentName { get; set; }
+        public string ItemType { get; set; }
         public string Description { get; set; }
-        public string Location { get; set; }
+        public string LocationName { get; set; }
         public  string InstallDate { get; set; }
         public string AuthorizingParty { get; set; }
         public Equipment(){}
@@ -18,9 +18,9 @@ namespace ServiceApplication.Models
         public Equipment(int equipmentID, string equipmentName, string description, string location, string installdate,string authorizingparty)
         {
             this.EquipmentID = equipmentID;
-            this.EquipmentName = equipmentName;
+            this.ItemType = equipmentName;
             this.Description = description;
-            this.Location = location;
+            this.LocationName = location;
             this.InstallDate = installdate;
             this.AuthorizingParty = authorizingparty;
         }

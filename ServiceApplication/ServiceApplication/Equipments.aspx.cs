@@ -8,13 +8,14 @@ using DAL_Project;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using ServiceApplication.Models;
 
 namespace ServiceApplication
 {
     public partial class Equipments : System.Web.UI.Page
     {
         DAL myDal = new DAL();
-        Equipments equipment;
+        Equipment equipment;
         DataSet ds;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +27,26 @@ namespace ServiceApplication
 
         private void LoadGVEquipments()
         {
-            gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
+            List<Equipment> EqList = new List<Equipment>();
+            DataSet dsEq = myDal.ExecuteProcedure("spGetEquipmentInfo");
+            DataRow dr = dsEq.Tables[0].Rows[0];
+            
+            foreach  (DataRow EqDr in dsEq.Tables[0].Rows)
+            {
+                
+                EqList.Add(new Equipment(
+                    int.Parse(dr["EquipmentID"].ToString()),
+                    dr["ItemType"].ToString(),
+                    dr["Description"].ToString(),
+                    dr["LocationName"].ToString(),
+                    dr["InstallDate"].ToString(),
+                    dr["ContactName"].ToString()
+                    ));
+                //int equipmentID, string equipmentName, string description, 
+                //string location, string installdate,string authorizingparty
+            }
+            //gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
+            gvEquipment.DataSource = EqList.ToList();
             gvEquipment.DataBind();
         }
 
@@ -128,14 +148,13 @@ namespace ServiceApplication
                         myDal.AddParam("EquipmentID", EquipmentID);
                         ds = myDal.ExecuteProcedure("spGetEquipmentInfo");
                         DataRow dr = ds.Tables[0].Rows[0];
-                        equipment = new Equipments(
-                        dr["EquipmentID"].ToString(),
+                        equipment = new Equipment(
+                        int.Parse(dr["EquipmentID"].ToString()),
                         dr["ItemType"].ToString(),
                         dr["Description"].ToString(),
                         dr["InstallDate"].ToString(),
-                        
-                        
-                        dr["LocationName"].ToString());
+                        dr["LocationName"].ToString(),
+                        dr["ContactName"].ToString());
                         //dr["ClientValue"].ToString(),
                         //dr["FarFoxValue"].ToString(),
                         break;
