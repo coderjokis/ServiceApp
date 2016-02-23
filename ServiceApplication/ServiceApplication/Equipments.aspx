@@ -25,6 +25,8 @@
                                     <asp:BoundField DataField="EquipmentID" HeaderText="Equipment ID" />
                                     <asp:BoundField DataField="Description" HeaderText="Description" />
                                     <asp:BoundField DataField="InstallDate" HeaderText="Install Date" />
+                                    <asp:BoundField DataField="FarFoxValue" HeaderText="FarFoxValue" />
+                                    <asp:BoundField DataField="ClientValue" HeaderText="ClientValue" />
                                     <asp:BoundField DataField="ItemType" HeaderText="Item Type" />
                                     <asp:BoundField DataField="LocationName" HeaderText="Location" />
                                 </Columns>
