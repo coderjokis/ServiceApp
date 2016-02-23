@@ -201,13 +201,13 @@ end
 go
 exec spAddEquipment @Description='DescTest' , @ItemID=1, @ClientID=1
 go
-------Read/Get-------
+------Read/Get-------FORMAT(InstallDate,'d MMMM yyyy')as
 alter procedure spGetEquipmentInfo
 (
 @EquipmentID int =null
 )
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, l.LocationName,FORMAT(InstallDate,'MMMM d, yyyy')as InstallDate, i.FarFoxValue, i.ClientValue,  a.ContactName 
+	select e.EquipmentID, i.ItemType, e.Description, l.LocationName, InstallDate, i.FarFoxValue, i.ClientValue,  a.ContactName 
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				join tbLocation l on i.LocationID=l.LocationID

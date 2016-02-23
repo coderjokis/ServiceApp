@@ -17,8 +17,8 @@ namespace ServiceApplication
     {
         DAL myDal = new DAL();
         Equipment equipment;
-        DataSet ds;
-        DateTime myDate;
+        DataSet dsResult;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -29,33 +29,10 @@ namespace ServiceApplication
 
         private void LoadGVEquipments()
         {
-            List<Equipment> EqList = new List<Equipment>();
-            DataSet dsEq = myDal.ExecuteProcedure("spGetEquipmentInfo");
-            DataRow dr = dsEq.Tables[0].Rows[0];
-             //DateTime.Parse(dr["InstallDate"].ToString());
-            //myDate = DateTime.Parse(dr["InstallDate"].ToString().Trim(),CultureInfo.InvariantCulture, DateTimeStyles.None);
-            
-                foreach  (DataRow row in dsEq.Tables[0].Rows)
-            {
-                //DateTime ok = DateTime.Parse(dr["InstallDate"].ToString());
-                //string cDate = ok.Year + " " + ok.Month + " " + ok.Day;
-                //dr["InstallDate"].ToString()
-                EqList.Add(new Equipment(
-                    int.Parse(dr["EquipmentID"].ToString()),
-                    dr["ItemType"].ToString(),
-                    dr["Description"].ToString(),                   
-                    dr["LocationName"].ToString(),
-                    Convert.ToString(dr["InstallDate"]),
-                    int.Parse(dr["FarFoxValue"].ToString()),
-                    int.Parse(dr["ClientValue"].ToString()),
-                    dr["ContactName"].ToString()
-                    
-                    ));
-                //int equipmentID, string equipmentName, string description, 
-                //string location, string installdate,string authorizingparty
-            }
-            //gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
-            gvEquipment.DataSource = EqList.ToList();
+            dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
+            Equipment getEQ = new Equipment();
+            getEQ.getEQResult(dsResult);
+            gvEquipment.DataSource = getEQ.EquipList;
             gvEquipment.DataBind();
         }
 
@@ -155,17 +132,17 @@ namespace ServiceApplication
                 {
                     case "EditRow":
                         pnlEditEquipment.Visible = true;
-                        ds = new DataSet();
+                        dsResult = new DataSet();
                         myDal.AddParam("EquipmentID", EquipmentID);
-                        ds = myDal.ExecuteProcedure("spGetEquipmentInfo");
-                        DataRow dr = ds.Tables[0].Rows[0];
+                        dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
+                        DataRow dr = dsResult.Tables[0].Rows[0];
                         //if(DateTime.TryParse(dr["InstallDate"].ToString(),out myDate));
                         equipment = new Equipment(
                         int.Parse(dr["EquipmentID"].ToString()),
                         dr["ItemType"].ToString(),
                         dr["Description"].ToString(),
                         dr["LocationName"].ToString(),
-                        dr["InstallDate"].ToString(),
+                        DateTime.Parse(dr["InstallDate"].ToString()),
                         int.Parse(dr["ClientValue"].ToString()),
                         int.Parse(dr["FarFoxValue"].ToString()),
                         dr["ContactName"].ToString());
