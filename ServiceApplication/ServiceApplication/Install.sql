@@ -17,23 +17,22 @@ go
 create table tbItem(
 ItemID int identity(1,1) primary key,
 ItemType varchar(max),
-FarFoxValue smallmoney,
-ClientValue smallmoney,
+FarFoxValue decimal(10,2),
+ClientValue decimal(10,2),
 LocationID int foreign key references tbLocation(LocationID)
---CurrentLocation varchar(max)--should references LocationID
 )
 go
---insert into tbItem (ItemType,FarFoxValue,ClientValue,LocationID) values ('Telephone',299.99,1299.99,1)
+insert into tbItem (ItemType,FarFoxValue,ClientValue,LocationID) values ('Telephone',299.99,1299.99,1)
 go
 create table tbEquipment(
 EquipmentID int identity(1,1) primary key, --will reference by item table
 Description varchar(max),
-InstallDate date,
+InstallDate varchar(max),
 ClientID int foreign key references tbClients(ClientID),
 ItemID int foreign key references tbItem(ItemID)
 )
 insert into tbEquipment(Description,InstallDate,ClientID,ItemID) values('testdescription',GETDATE(),1,1)
-insert into tbEquipment(Description,InstallDate,ClientID,ItemID) values('testdescription2',GETDATE(),2,2)
+insert into tbEquipment(Description,InstallDate,ClientID,ItemID) values('testdescription2',GETDATE(),2,1)
 
 go
 

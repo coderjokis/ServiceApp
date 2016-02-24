@@ -16,7 +16,7 @@ namespace ServiceApplication
     public partial class Equipments : System.Web.UI.Page
     {
         DAL myDal = new DAL();
-        Equipment equipment;
+        Equipment equipment = new Equipment();
         DataSet dsResult;
         
         protected void Page_Load(object sender, EventArgs e)
@@ -33,6 +33,7 @@ namespace ServiceApplication
             Equipment getEQ = new Equipment();
             getEQ.getEQResult(dsResult);
             gvEquipment.DataSource = getEQ.EquipList;
+            //gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
             gvEquipment.DataBind();
         }
 
@@ -132,20 +133,20 @@ namespace ServiceApplication
                 {
                     case "EditRow":
                         pnlEditEquipment.Visible = true;
-                        dsResult = new DataSet();
-                        myDal.AddParam("EquipmentID", EquipmentID);
-                        dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
-                        DataRow dr = dsResult.Tables[0].Rows[0];
-                        //if(DateTime.TryParse(dr["InstallDate"].ToString(),out myDate));
-                        equipment = new Equipment(
-                        int.Parse(dr["EquipmentID"].ToString()),
-                        dr["ItemType"].ToString(),
-                        dr["Description"].ToString(),
-                        dr["LocationName"].ToString(),
-                        DateTime.Parse(dr["InstallDate"].ToString()),
-                        int.Parse(dr["ClientValue"].ToString()),
-                        int.Parse(dr["FarFoxValue"].ToString()),
-                        dr["ContactName"].ToString());
+                        //dsResult = new DataSet();
+                        //myDal.AddParam("EquipmentID", EquipmentID);
+                        //dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
+                        //DataRow dr = dsResult.Tables[0].Rows[0];
+                        ////if(DateTime.TryParse(dr["InstallDate"].ToString(),out myDate));
+                        //equipment = new Equipment(
+                        //int.Parse(dr["EquipmentID"].ToString()),
+                        //dr["ItemType"].ToString(),
+                        //dr["Description"].ToString(),
+                        //dr["LocationName"].ToString(),
+                        //DateTime.Parse(dr["InstallDate"].ToString()),
+                        //int.Parse(dr["ClientValue"].ToString()),
+                        //int.Parse(dr["FarFoxValue"].ToString()),
+                        //dr["ContactName"].ToString());
                         
                         PopulateEQEditControls();
                         break;
@@ -160,8 +161,8 @@ namespace ServiceApplication
             txtEditEquipNameType.Text = equipment.ItemType;
             txtEditEquipDescription.Text = equipment.Description;
             txtEditInstallDate.Text = equipment.InstallDate.ToString();
-            txtEditFValue.Text = equipment.FVAlue.ToString();
-            txtEditCValue.Text = equipment.CValue.ToString();
+            txtEditFValue.Text = equipment.FarFoxVAlue.ToString();
+            txtEditCValue.Text = equipment.ClientValue.ToString();
             txtEditLocation.Text = equipment.LocationName;
         }
 
