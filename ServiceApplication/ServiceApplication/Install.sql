@@ -27,7 +27,7 @@ go
 create table tbEquipment(
 EquipmentID int identity(1,1) primary key, --will reference by item table
 Description varchar(max),
-InstallDate varchar(max),
+InstallDate date,
 ClientID int foreign key references tbClients(ClientID),
 ItemID int foreign key references tbItem(ItemID)
 )
@@ -206,7 +206,7 @@ alter procedure spGetEquipmentInfo
 @EquipmentID int =null
 )
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, l.LocationName, InstallDate, i.FarFoxValue, i.ClientValue,  a.ContactName 
+	select e.EquipmentID, i.ItemType, e.Description, l.LocationName,FORMAT(InstallDate,'d MMMM yyyy')as InstallDate, i.FarFoxValue, i.ClientValue,  a.ContactName 
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				join tbLocation l on i.LocationID=l.LocationID
