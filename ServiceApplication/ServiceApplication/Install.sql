@@ -263,6 +263,16 @@ as begin
 end
 go
 
+create proc spAddLocation
+(
+@LocationName varchar(max)
+)
+as begin
+	insert into tbLocation(LocationName) values
+						  (@LocationName)
+end
+go
+
 exec spGetEquipmentInfo @EquipmentID = 2
 select * from tbClients
 select * from tbItem
