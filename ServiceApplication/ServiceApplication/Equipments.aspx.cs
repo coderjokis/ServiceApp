@@ -16,22 +16,20 @@ namespace ServiceApplication
     public partial class Equipments : System.Web.UI.Page
     {
         DAL myDal = new DAL();
-        Equipment equipment = new Equipment();
-        DataSet dsResult;
-        
+        Equipment eResult = new Equipment();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadGVEquipments();
+                
             }
         }
 
         private void LoadGVEquipments()
         {
-            dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
             Equipment getEQ = new Equipment();
-            getEQ.getEQResult(dsResult);
+            getEQ.getEQResult();
             gvEquipment.DataSource = getEQ.EquipList;
             //gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
             gvEquipment.DataBind();
@@ -69,6 +67,7 @@ namespace ServiceApplication
             if(txtEquipID.Text == "New")
             {
                 sProc = "spAddEquipment";
+                pnlEquip.Visible = true;
             }
             else
             {
@@ -133,37 +132,25 @@ namespace ServiceApplication
                 {
                     case "EditRow":
                         pnlEditEquipment.Visible = true;
-                        //dsResult = new DataSet();
-                        //myDal.AddParam("EquipmentID", EquipmentID);
-                        //dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
-                        //DataRow dr = dsResult.Tables[0].Rows[0];
-                        ////if(DateTime.TryParse(dr["InstallDate"].ToString(),out myDate));
-                        //equipment = new Equipment(
-                        //int.Parse(dr["EquipmentID"].ToString()),
-                        //dr["ItemType"].ToString(),
-                        //dr["Description"].ToString(),
-                        //dr["LocationName"].ToString(),
-                        //DateTime.Parse(dr["InstallDate"].ToString()),
-                        //int.Parse(dr["ClientValue"].ToString()),
-                        //int.Parse(dr["FarFoxValue"].ToString()),
-                        //dr["ContactName"].ToString());
+
+                        eResult = eResult.getEquipItem(EquipmentID);
                         
                         PopulateEQEditControls();
                         break;
                 }
             }
-            LoadGVEquipments();
-        }
+            //LoadGVEquipments();
+        }     
 
         private void PopulateEQEditControls()
         {
-            txtEditEquipID.Text = equipment.EquipmentID.ToString();
-            txtEditEquipNameType.Text = equipment.ItemType;
-            txtEditEquipDescription.Text = equipment.Description;
-            txtEditInstallDate.Text = equipment.InstallDate.ToString();
-            txtEditFValue.Text = equipment.FarFoxVAlue.ToString();
-            txtEditCValue.Text = equipment.ClientValue.ToString();
-            txtEditLocation.Text = equipment.LocationName;
+            txtEditEquipID.Text = eResult.equipment.EquipmentID.ToString();
+            txtEditEquipNameType.Text = eResult.equipment.ItemType;
+            txtEditEquipDescription.Text = eResult.equipment.Description;
+            txtEditInstallDate.Text = eResult.equipment.InstallDate;
+            txtEditFValue.Text = eResult.equipment.FarFoxVAlue.ToString();
+            txtEditCValue.Text = eResult.equipment.ClientValue.ToString();
+            txtEditLocation.Text = eResult.equipment.LocationName;
         }
 
         protected void btnSaveEditEquipment_Click(object sender, EventArgs e)

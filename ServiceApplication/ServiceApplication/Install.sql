@@ -263,7 +263,7 @@ as begin
 end
 go
 
-exec spGetEquipmentInfo
+exec spGetEquipmentInfo @EquipmentID = 2
 select * from tbClients
 select * from tbItem
 select * from tbEquipment

@@ -5,11 +5,13 @@ using System.Linq;
 using System.Globalization;
 using System.Web;
 using System.Text;
+using DAL_Project;
 
 namespace ServiceApplication.Models
 {
     public class Equipment
     {
+        public Equipment equipment;
         public int EquipmentID { get; set; }
         public string ItemType { get; set; }
         public string Description { get; set; }
@@ -19,6 +21,8 @@ namespace ServiceApplication.Models
         public string InstallDate { get; set; }
         public string AuthorizingParty { get; set; }
         public List<Equipment> EquipList { get; set; }
+        DAL myDal = new DAL();
+        DataSet dsResult;
         public Equipment() { }
 
         public Equipment(int equipmentID, string equipmentName, string description, string location,
@@ -33,17 +37,20 @@ namespace ServiceApplication.Models
             this.ClientValue = cValue;
             this.AuthorizingParty = authorizingparty;
         }
-        public void getEQResult(DataSet dsResult)
+
+        public Equipment(Equipment equipment)
         {
+            this.equipment = equipment;
+        }
+
+        public void getEQResult()
+        {
+            dsResult = myDal.ExecuteProcedure("spGetEquipmentInfo");
             EquipList = new List<Equipment>();
             DataSet ds = dsResult;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                //string myStrDate = dr["InstallDate"].ToString();
-                //RemoveCurlyBraces(myStrDate);
-                //DateParser(myStrDate);
-
-                Equipment e= new Equipment(
+                Equipment e = new Equipment(
                     int.Parse(dr["EquipmentID"].ToString()),
                     dr["ItemType"].ToString(),
                     dr["Description"].ToString(),
@@ -54,27 +61,14 @@ namespace ServiceApplication.Models
                     dr["ContactName"].ToString()
                     );
                 EquipList.Add(e);
-                EquipList.ToList();
             }
+            EquipList.ToList();
         }
-        internal static string RemoveCurlyBraces(string str)
+        public Equipment getEquipItem(string eqID)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (char c in str)
-            {
-                if(c >= '{' && c >= '}')
-                {
-                    sb.Append(c);
-                }
-            }
-            return sb.ToString();
-        }
-        internal static DateTime DateParser(string strdate)
-        {
-            DateTime myDate = new DateTime();
-            myDate = DateTime.ParseExact(strdate, "d", CultureInfo.CurrentCulture);
-            
-            return myDate;
+            getEQResult();
+            Equipment result = new Equipment(EquipList.Find(x => x.EquipmentID == Convert.ToInt32(eqID)));
+            return result;
         }
     }
 }
