@@ -301,7 +301,7 @@ as begin
 end
 go
 
-spUpdateEQuipmentInfo @ItemType='Shadow', @EquipmentID = 2, @Description= 'Testingupdate',@ContactName = 'NotNull',
+spUpdateEQuipmentInfo @ItemType='Shadow', @EquipmentID = 2, @Description= 'Testingupdate',@ContactName = 'NotNull'
 exec spGetEquipmentInfo @EquipmentID = 2
 select * from tbClients
 select * from tbItem
