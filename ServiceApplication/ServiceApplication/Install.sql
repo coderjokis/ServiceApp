@@ -228,7 +228,9 @@ alter procedure spUpdateEQuipmentInfo
 @ItemType varchar(max)=null,
 @ItemID int=null,
 @ClientID int = null,
-@ContactID int = null
+@ContactID int = null,
+@FarFoxValue decimal = null,
+@ClientValue decimal = null
 )
 as begin
     if @@ERROR !=0
@@ -236,7 +238,9 @@ as begin
 			Description = isnull(@Description,Description),
 			InstallDate = isnull(@InstallDate,InstallDate)
 		update tbItem set
-			ItemType = isnull(@ItemType,ItemType)
+			ItemType = isnull(@ItemType,ItemType),
+			FarFoxValue = isnull(@FarFoxValue,FarFoxValue),
+			ClientValue= isnull (@ClientValue,ClientValue)
 		update tbContacts set
 			ContactName=isnull(@ContactName,ContactName)
 		update tbClients set
@@ -247,47 +251,14 @@ as begin
 				join tbClients c on e.ClientID=c.ClientID
 				join tbContacts a on a.ContactID=c.ClientID
 			where e.EquipmentID=@EquipmentID
-
 	--if @@ERROR !=0
-	--	update tbItem set
-	--		ItemType = @ItemType
+	--	select e.EquipmentID, i.ItemType, e.Description, l.LocationName, e.InstallDate, i.FarFoxValue, i.ClientValue ,c.ClientName
 	--			from tbEquipment e
 	--			join tbItem i on i.ItemID=e.ItemID
 	--			join tbLocation l on i.LocationID=l.LocationID
 	--			join tbClients c on e.ClientID=c.ClientID
 	--			join tbContacts a on a.ContactID=c.ClientID
-	--			--where EquipmentID=@EquipmentID
-	--			where i.ItemID = @ItemID
-	--if @@ERROR !=0
-	--	update tbContacts set
-	--		ContactName=@ContactName
-	--		from tbEquipment e
-	--			join tbItem i on i.ItemID=e.ItemID
-	--			join tbLocation l on i.LocationID=l.LocationID
-	--			join tbClients c on e.ClientID=c.ClientID
-	--			join tbContacts a on a.ContactID=c.ClientID
-	--		--where EquipmentID=@EquipmentID
-	--		where a.ContactID = @ContactID
-
-	--if @@ERROR !=0
-	--	update tbClients set
-	--		ClientName=@ClientName
-	--		from tbEquipment e
-	--			join tbItem i on i.ItemID=e.ItemID
-	--			join tbLocation l on i.LocationID=l.LocationID
-	--			join tbClients c on e.ClientID=c.ClientID
-	--			join tbContacts a on a.ContactID=c.ClientID
-	--		--where EquipmentID=@EquipmentID
-	--		where c.ClientID= @ClientID
-
-	if @@ERROR !=0
-		select e.EquipmentID, i.ItemType, e.Description, l.LocationName, e.InstallDate, i.FarFoxValue, i.ClientValue ,c.ClientName
-				from tbEquipment e
-				join tbItem i on i.ItemID=e.ItemID
-				join tbLocation l on i.LocationID=l.LocationID
-				join tbClients c on e.ClientID=c.ClientID
-				join tbContacts a on a.ContactID=c.ClientID
-				where e.EquipmentID=@EquipmentID
+	--			where e.EquipmentID=@EquipmentID
 end
 go
 

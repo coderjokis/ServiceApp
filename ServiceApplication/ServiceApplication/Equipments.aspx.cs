@@ -150,14 +150,23 @@ namespace ServiceApplication
 
         protected void btnSaveEditEquipment_Click(object sender, EventArgs e)
         {
-            myDal.AddParam("EquipmentID", txtEquipID.Text);
-            myDal.AddParam("Description", txtEditEquipDescription.Text);
-            myDal.AddParam("InstallDate", txtEditInstallDate.Text);
-            myDal.AddParam("ItemType", txtEditEquipNameType.Text);
+            eResult = eResult.getEquipItem(txtEditEquipID.Text);
+            eResult.equipment.ItemType = txtEditEquipNameType.Text;
+            eResult.equipment.Description=txtEditEquipDescription.Text;
+            eResult.equipment.InstallDate=txtEditInstallDate.Text;
+            eResult.equipment.FarFoxVAlue=double.Parse(txtEditFValue.Text);
+            eResult.equipment.ClientValue=double.Parse(txtEditCValue.Text);
+            eResult.equipment.LocationName= txtEditLocation.Text;
+            eResult.UpdateTableEQ();
+            LoadGVEquipments();
+            //myDal.AddParam("EquipmentID", txtEquipID.Text);
+            //myDal.AddParam("Description", txtEditEquipDescription.Text);
+            //myDal.AddParam("InstallDate", txtEditInstallDate.Text);
+            //myDal.AddParam("ItemType", txtEditEquipNameType.Text);
 
-            myDal.ExecuteProcedure("spUpdateEQuipmentInfo");
-            //LoadGVEquipments();
-            gvEquipment.DataBind();
+            //myDal.ExecuteProcedure("spUpdateEQuipmentInfo");
+            ////LoadGVEquipments();
+            //gvEquipment.DataBind();
             pnlEditEquipment.Visible = false;
         }
 

@@ -61,12 +61,12 @@
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
                                         <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
-                                    <asp:RegularExpressionValidator ID="rXFvalue" ErrorMessage="invalid" ControlToValidate="txtFValue" runat="server" ValidationExpression="^([0-9]{1,3})([.,][0-9]{1,3})?$" />
+                                    <asp:RegularExpressionValidator ID="rXFvalue" ErrorMessage="invalid" ControlToValidate="txtFValue" runat="server" ValidationExpression="([0-9]{1,})([.,][0-9]{1,3})?$" />
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">ClientVaLue:</span>
                                         <asp:TextBox ID="txtCValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
-                                    <asp:RegularExpressionValidator ID="rXtxtCValue" ErrorMessage="invalid" ControlToValidate="txtCValue" runat="server" ValidationExpression="([0-9]{1,3})([.,][0-9]{1,3})?$" />
+                                    <asp:RegularExpressionValidator ID="rXtxtCValue" ErrorMessage="invalid" ControlToValidate="txtCValue" runat="server" ValidationExpression="([0-9]{1,})([.,][0-9]{1,3})?$" />
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
                                         <asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="MultiLine" />
@@ -100,14 +100,14 @@
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
                                         <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
-                                    <asp:RegularExpressionValidator ID="rXtxtEditFValue" ErrorMessage="invalid" ControlToValidate="txtEditFValue" runat="server" ValidationExpression="([0-9]{1,3})([.,][0-9]{1,3})?$" />
+                                    <asp:RegularExpressionValidator ID="rXtxtEditFValue" ErrorMessage="invalid" ControlToValidate="txtEditFValue" runat="server" ValidationExpression="([0-9]{1,})([.,][0-9]{1,3})?$" />
 
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">ClientVaLue:</span>
                                         <asp:TextBox ID="txtEditCValue" runat="server" placeholder="0.00" CssClass="form-control"  />
 
                                     </div>
-                                    <asp:RegularExpressionValidator ID="rXtxtEditCValue" ErrorMessage="invalid" ControlToValidate="txtEditCValue" runat="server" ValidationExpression="([0-9]{1,3})([.,][0-9]{1,3})?$" />
+                                    <asp:RegularExpressionValidator ID="rXtxtEditCValue" ErrorMessage="invalid" ControlToValidate="txtEditCValue" runat="server" ValidationExpression="([0-9]{1,})([.,][0-9]{1,3})?$" />
 
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
