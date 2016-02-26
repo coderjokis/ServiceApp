@@ -76,15 +76,6 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEquipDescription;
         
         /// <summary>
-        /// txtInstallDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInstallDate;
-        
-        /// <summary>
         /// txtFValue control.
         /// </summary>
         /// <remarks>
@@ -227,6 +218,24 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddLocation;
+        
+        /// <summary>
+        /// gvLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvLocation;
+        
+        /// <summary>
+        /// ALANServer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ALANServer;
         
         /// <summary>
         /// txtNewLocation control.

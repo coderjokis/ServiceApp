@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Install Date:</span>
-                                        <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" />
+                                        <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date"</asp:TextBox>
 
                                     </div>
                                     <div class="input-group paddingBot">
@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Install Date:</span>
-                                        <asp:TextBox ID="txtEditInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="DateTime" />
+                                        <asp:TextBox ID="txtEditInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date" />
 
                                     </div>
                                     <div class="input-group paddingBot">
@@ -114,6 +114,13 @@
 
                             <div class="well col-lg-6 col-md-6">
                                 <asp:Panel ID="pnlAddLocation" runat="server" Visible="false">
+                                    <asp:GridView ID="gvLocation" runat="server" AutoGenerateColumns="False" DataKeyNames="LocationID" DataSourceID="ALANServer" CssClass="table table-default" AllowPaging="True" AllowSorting="True" >
+                                        <Columns>
+                                            <asp:BoundField DataField="LocationID" HeaderText="LocationID" InsertVisible="False" ReadOnly="True" SortExpression="LocationID" />
+                                            <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                                        </Columns>
+                                    </asp:GridView>
+                                    <asp:SqlDataSource ID="ALANServer" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringToLoadLocation %>" SelectCommand="SELECT * FROM [tbLocation]"></asp:SqlDataSource>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
                                         <asp:TextBox ID="txtNewLocation" runat="server" CssClass="form-control" />

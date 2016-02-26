@@ -231,52 +231,80 @@ alter procedure spUpdateEQuipmentInfo
 @ContactID int = null
 )
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, l.LocationName, e.InstallDate, i.FarFoxValue, i.ClientValue ,c.ClientName
+    if @@ERROR !=0
+		update tbEquipment set
+			Description = isnull(@Description,Description),
+			InstallDate = isnull(@InstallDate,InstallDate)
+		update tbItem set
+			ItemType = isnull(@ItemType,ItemType)
+		update tbContacts set
+			ContactName=isnull(@ContactName,ContactName)
+		update tbClients set
+			ClientName=isnull(@ClientName,ClientName)
+		from tbEquipment e
+				join tbItem i on i.ItemID=e.ItemID
+				join tbLocation l on i.LocationID=l.LocationID
+				join tbClients c on e.ClientID=c.ClientID
+				join tbContacts a on a.ContactID=c.ClientID
+			where e.EquipmentID=@EquipmentID
+
+	--if @@ERROR !=0
+	--	update tbItem set
+	--		ItemType = @ItemType
+	--			from tbEquipment e
+	--			join tbItem i on i.ItemID=e.ItemID
+	--			join tbLocation l on i.LocationID=l.LocationID
+	--			join tbClients c on e.ClientID=c.ClientID
+	--			join tbContacts a on a.ContactID=c.ClientID
+	--			--where EquipmentID=@EquipmentID
+	--			where i.ItemID = @ItemID
+	--if @@ERROR !=0
+	--	update tbContacts set
+	--		ContactName=@ContactName
+	--		from tbEquipment e
+	--			join tbItem i on i.ItemID=e.ItemID
+	--			join tbLocation l on i.LocationID=l.LocationID
+	--			join tbClients c on e.ClientID=c.ClientID
+	--			join tbContacts a on a.ContactID=c.ClientID
+	--		--where EquipmentID=@EquipmentID
+	--		where a.ContactID = @ContactID
+
+	--if @@ERROR !=0
+	--	update tbClients set
+	--		ClientName=@ClientName
+	--		from tbEquipment e
+	--			join tbItem i on i.ItemID=e.ItemID
+	--			join tbLocation l on i.LocationID=l.LocationID
+	--			join tbClients c on e.ClientID=c.ClientID
+	--			join tbContacts a on a.ContactID=c.ClientID
+	--		--where EquipmentID=@EquipmentID
+	--		where c.ClientID= @ClientID
+
+	if @@ERROR !=0
+		select e.EquipmentID, i.ItemType, e.Description, l.LocationName, e.InstallDate, i.FarFoxValue, i.ClientValue ,c.ClientName
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				join tbLocation l on i.LocationID=l.LocationID
 				join tbClients c on e.ClientID=c.ClientID
 				join tbContacts a on a.ContactID=c.ClientID
-				where EquipmentID=@EquipmentID
-	
-				
-	if @@ERROR !=0
-		update tbItem set
-			ItemType = @ItemType
-			where ItemID = @ItemID
-
-	if @@ERROR !=0
-		update tbContacts set
-			ContactName=@ContactName
-			where ContactID = @ContactID
-
-	if @@ERROR !=0
-		update tbClients set
-			ClientName=@ClientName
-			where ClientID= @ClientID
-
-	if @@ERROR !=0
-		update tbEquipment set
-		Description = @Description,
-		InstallDate = @InstallDate
-			where EquipmentID=@EquipmentID
+				where e.EquipmentID=@EquipmentID
 end
 go
 
+--------Procs for Location------
 create proc spAddLocation
 (
 @LocationName varchar(max)
 )
 as begin
-	insert into tbLocation(LocationName) values
-						  (@LocationName)
+	insert into tbLocation(LocationName) values (@LocationName)
 end
 go
 
+spUpdateEQuipmentInfo @ItemType='Shadow', @EquipmentID = 2, @Description= 'Testingupdate',@ContactName = 'NotNull',
 exec spGetEquipmentInfo @EquipmentID = 2
 select * from tbClients
 select * from tbItem
 select * from tbEquipment
-
 select * from tbLocation
 select * from tbContacts

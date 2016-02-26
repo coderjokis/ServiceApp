@@ -47,12 +47,6 @@ namespace ServiceApplication
             pnlAddLocation.Visible = false;
         }
 
-        //protected void btnEditEQ_Click(object sender, EventArgs e)
-        //{
-        //    pnlEquip.Visible = true;
-        //    pnlAddLocation.Visible = false;
-        //}
-
         protected void btnSaveEQ_Click(object sender, EventArgs e)
         {
             myDal.AddParam("ItemType", txtEquipNameType.Text);
@@ -109,7 +103,8 @@ namespace ServiceApplication
         {
             myDal.AddParam("LocationName", txtNewLocation.Text);
             myDal.ExecuteProcedure("spAddLocation");
-            pnlAddLocation.Visible = false;
+            gvLocation.DataBind();
+            //pnlAddLocation.Visible = false;
             txtNewLocation.Text = "";
         }
 
