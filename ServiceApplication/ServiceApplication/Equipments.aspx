@@ -6,7 +6,7 @@
             <div class="panel panel-info">
                 <div class="panel-body">
                     <asp:Button ID="btnAddEQ" Text="Add Equipment" runat="server" OnClick="btnAddEQ_Click" CssClass="btn btn-primary marginBot" />
-<%--                    <asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />--%>
+                    <%--                    <asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />--%>
                     <asp:Button ID="btnAddLocation" Text="New  Location" runat="server" OnClick="btnAddLocation_Click" CssClass="btn btn-primary marginBot" />
                 </div>
             </div>
@@ -49,22 +49,24 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
-                                        <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine"/>
+                                        <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine" />
 
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Install Date:</span>
-                                        <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date"/>
+                                        <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date" />
 
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
-                                        <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number"/>
+                                        <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
+                                    <asp:RegularExpressionValidator ID="rXFvalue" ErrorMessage="invalid" ControlToValidate="txtFValue" runat="server" ValidationExpression="^([0-9]{1,3})([.,][0-9]{1,3})?$" />
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">ClientVaLue:</span>
-                                        <asp:TextBox ID="txtCValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number" />
+                                        <asp:TextBox ID="txtCValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
+                                    <asp:RegularExpressionValidator ID="rXtxtCValue" ErrorMessage="invalid" ControlToValidate="txtCValue" runat="server" ValidationExpression="([0-9]{1,3})([.,][0-9]{1,3})?$" />
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
                                         <asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="MultiLine" />
@@ -86,7 +88,7 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
-                                        <asp:TextBox ID="txtEditEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine"  />
+                                        <asp:TextBox ID="txtEditEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine" />
 
                                     </div>
                                     <div class="input-group paddingBot">
@@ -96,12 +98,17 @@
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
-                                        <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number"/>
+                                        <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" />
                                     </div>
+                                    <asp:RegularExpressionValidator ID="rXtxtEditFValue" ErrorMessage="invalid" ControlToValidate="txtEditFValue" runat="server" ValidationExpression="([0-9]{1,3})([.,][0-9]{1,3})?$" />
+
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">ClientVaLue:</span>
-                                        <asp:TextBox ID="txtEditCValue" runat="server" placeholder="0.00" CssClass="form-control" TextMode="Number"/>
+                                        <asp:TextBox ID="txtEditCValue" runat="server" placeholder="0.00" CssClass="form-control"  />
+
                                     </div>
+                                    <asp:RegularExpressionValidator ID="rXtxtEditCValue" ErrorMessage="invalid" ControlToValidate="txtEditCValue" runat="server" ValidationExpression="([0-9]{1,3})([.,][0-9]{1,3})?$" />
+
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
                                         <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="SingleLine" />
@@ -114,7 +121,7 @@
 
                             <div class="well col-lg-6 col-md-6">
                                 <asp:Panel ID="pnlAddLocation" runat="server" Visible="false">
-                                    <asp:GridView ID="gvLocation" runat="server" AutoGenerateColumns="False" DataKeyNames="LocationID" DataSourceID="ALANServer" CssClass="table table-default" AllowPaging="True" AllowSorting="True" >
+                                    <asp:GridView ID="gvLocation" runat="server" AutoGenerateColumns="False" DataKeyNames="LocationID" DataSourceID="ALANServer" CssClass="table table-default" AllowPaging="True" AllowSorting="True">
                                         <Columns>
                                             <asp:BoundField DataField="LocationID" HeaderText="LocationID" InsertVisible="False" ReadOnly="True" SortExpression="LocationID" />
                                             <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />

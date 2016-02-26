@@ -94,6 +94,15 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtFValue;
         
         /// <summary>
+        /// rXFvalue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rXFvalue;
+        
+        /// <summary>
         /// txtCValue control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCValue;
+        
+        /// <summary>
+        /// rXtxtCValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rXtxtCValue;
         
         /// <summary>
         /// txtLocation control.
@@ -184,6 +202,15 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEditFValue;
         
         /// <summary>
+        /// rXtxtEditFValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rXtxtEditFValue;
+        
+        /// <summary>
         /// txtEditCValue control.
         /// </summary>
         /// <remarks>
@@ -191,6 +218,15 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEditCValue;
+        
+        /// <summary>
+        /// rXtxtEditCValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rXtxtEditCValue;
         
         /// <summary>
         /// txtEditLocation control.

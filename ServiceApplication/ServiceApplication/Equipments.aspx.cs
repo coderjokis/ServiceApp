@@ -156,7 +156,8 @@ namespace ServiceApplication
             myDal.AddParam("ItemType", txtEditEquipNameType.Text);
 
             myDal.ExecuteProcedure("spUpdateEQuipmentInfo");
-            LoadGVEquipments();
+            //LoadGVEquipments();
+            gvEquipment.DataBind();
             pnlEditEquipment.Visible = false;
         }
 
