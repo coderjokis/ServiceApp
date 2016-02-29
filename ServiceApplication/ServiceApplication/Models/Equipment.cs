@@ -70,5 +70,15 @@ namespace ServiceApplication.Models
             Equipment result = new Equipment(EquipList.Find(x => x.EquipmentID == Convert.ToInt32(eqID)));
             return result;
         }
+        public void UpdateTableEQ()
+        {
+            myDal.AddParam("EquipmentID", equipment.EquipmentID.ToString());
+            myDal.AddParam("Description", equipment.Description);
+            myDal.AddParam("InstallDate", equipment.InstallDate);
+            myDal.AddParam("ItemType", equipment.ItemType);
+            myDal.AddParam("FarFoxValue", equipment.FarFoxVAlue.ToString());
+            myDal.AddParam("ClientValue", equipment.ClientValue.ToString());
+            myDal.ExecuteProcedure("spUpdateEQuipmentInfo");
+        }
     }
 }
