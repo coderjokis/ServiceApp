@@ -22,8 +22,21 @@ namespace ServiceApplication
             if (!IsPostBack)
             {
                 LoadGVEquipments();
-                
+                LoadGVLocation();
+                LoadGVItem();                
             }
+        }
+
+        private void LoadGVLocation()
+        {
+            gvLocation.DataSource = myDal.ExecuteProcedure("spGetLocation");
+            gvLocation.DataBind();
+        }
+
+        private void LoadGVItem()
+        {
+            gvItem.DataSource = myDal.ExecuteProcedure("spGetItem");
+            gvItem.DataBind();
         }
 
         private void LoadGVEquipments()

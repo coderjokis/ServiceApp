@@ -134,6 +134,14 @@
                                     </div>
                                     <asp:Button ID="btnSaveLocation" Text="Save" runat="server" OnClick="btnSaveLocation_Click" CssClass="btn btn-success" />
                                     <asp:Button ID="btnCancelLoc" Text="Cancel" runat="server" OnClick="btnCancelLoc_Click" CssClass="btn btn-warning" />
+                                    <asp:GridView ID="gvItem" runat="server" AutoGenerateColumns="False" DataKeyNames="ItemID" DataSourceID="ItemConnString">
+                                        <Columns>
+                                            <asp:BoundField DataField="ItemID" HeaderText="ItemID" InsertVisible="False" ReadOnly="True" SortExpression="ItemID" />
+                                            <asp:BoundField DataField="ItemType" HeaderText="ItemType" SortExpression="ItemType" />
+                                        </Columns>
+                                    </asp:GridView>
+                                    <asp:SqlDataSource ID="ItemConnString" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringToLoadItemGV %>" SelectCommand="SELECT [ItemID], [ItemType] FROM [tbItem]"></asp:SqlDataSource>
+
                                 </asp:Panel>
                             </div>
                         </div>
