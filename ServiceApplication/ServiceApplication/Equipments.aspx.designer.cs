@@ -58,13 +58,22 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEquipID;
         
         /// <summary>
-        /// txtEquipNameType control.
+        /// ddlType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquipNameType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        
+        /// <summary>
+        /// ItemtypeDDL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ItemtypeDDL;
         
         /// <summary>
         /// txtEquipDescription control.
@@ -121,13 +130,13 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rXtxtCValue;
         
         /// <summary>
-        /// txtLocation control.
+        /// ddlLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLocation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLocation;
         
         /// <summary>
         /// btnSaveEQ control.
@@ -166,13 +175,13 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEditEquipID;
         
         /// <summary>
-        /// txtEditEquipNameType control.
+        /// ddlEditEquipNameType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditEquipNameType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEditEquipNameType;
         
         /// <summary>
         /// txtEditEquipDescription control.
@@ -229,13 +238,22 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rXtxtEditCValue;
         
         /// <summary>
-        /// txtEditLocation control.
+        /// ddlEditLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditLocation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEditLocation;
+        
+        /// <summary>
+        /// LocationConn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource LocationConn;
         
         /// <summary>
         /// btnSaveEditEquipment control.

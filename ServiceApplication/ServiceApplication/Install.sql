@@ -116,6 +116,12 @@ as begin
 	select ClientID, ClientName from tbClients
 end
 go
+-------load itemtype
+create procedure spLoadItemType
+as begin
+	select * from tbItem
+end
+go
 
 -----Loading GV with Complete client Info---
 
@@ -217,13 +223,22 @@ alter procedure spGetEquipmentInfo
 @EquipmentID int =null
 )
 as begin
-	select e.EquipmentID, i.ItemType, e.Description, l.LocationName,FORMAT(InstallDate,'d MMMM yyyy')as InstallDate, i.FarFoxValue, i.ClientValue,  a.ContactName 
+--select c.ClientID,c.ClientName, i.ItemType, e.Description, e.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,
+--				c.PhoneNumber , c.Address, a.ContactName,s.Quantity
+--			from tbEquipment e
+--				right outer join tbItem i on i.ItemID=e.ItemID
+--				right outer join tbInventory s on s.EquipmentID=e.EquipmentID
+--				right outer join tbLocation l on e.LocationID=l.LocationID
+--				right outer join tbClients c on s.ClientID=c.ClientID
+--				right outer join tbContacts a on a.ContactID=e.ContactID
+	select e.EquipmentID, i.ItemType, e.Description, l.LocationName,FORMAT(InstallDate,'d MMMM yyyy')as InstallDate, e.FarFoxValue, e.ClientValue,  a.ContactName ,s.Quantity
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
-				join tbLocation l on i.LocationID=l.LocationID
-				join tbClients c on e.ClientID=c.ClientID
+				join tbInventory s on s.EquipmentID=e.EquipmentID
+				join tbLocation l on e.LocationID=l.LocationID
+				join tbClients c on s.ClientID=c.ClientID
 				join tbContacts a on a.ContactID=c.ClientID
-					where e.EquipmentID= isnull(@EquipmentID,EquipmentID)
+					where e.EquipmentID= isnull(@EquipmentID,e.EquipmentID)
 end
 go
 
@@ -234,57 +249,23 @@ alter procedure spUpdateEQuipmentInfo
 @EquipmentID int,
 @Description varchar(max)= null,
 @InstallDate date=null,
-@ContactName varchar(max)=null,
-@ClientName varchar(max)=null,
-@ItemType varchar(max)=null,
 @ItemID int=null,
 @ClientID int = null,
 @ContactID int = null,
 @FarFoxValue decimal = null,
-@ClientValue decimal = null
+@ClientValue decimal = null,
+@LocationID int =null
 )
 as begin
 		update tbEquipment set
 			Description = isnull(@Description,Description),
-			InstallDate = isnull(@InstallDate,InstallDate)			
-			where EquipmentID=@EquipmentID
-
-		update tbItem set
-			ItemType = isnull(@ItemType,ItemType),
+			InstallDate = isnull(@InstallDate,InstallDate),
 			FarFoxValue = isnull(@FarFoxValue,FarFoxValue),
-			ClientValue= isnull (@ClientValue,ClientValue)
-			from tbEquipment e
-				join tbItem i on i.ItemID=e.ItemID
-				--join tbLocation l on i.LocationID=l.LocationID
-				--join tbClients c on e.ClientID=c.ClientID
-				--join tbContacts a on a.ClientID=c.ClientID
-			where e.EquipmentID=@EquipmentID
-	--if @ContactName!=null
-	--	update tbContacts set
-	--		ContactName=isnull(@ContactName,ContactName)
-	--		from tbContacts a
-	--			--join tbItem i on i.ItemID=e.ItemID
-	--			--join tbLocation l on i.LocationID=l.LocationID
-	--			join tbClients c on a.ClientID=c.ClientID
-	--			join tbEquipment e on e.ClientID=c.ClientID
-	--		where e.EquipmentID=@EquipmentID
-	--if @ClientName != null
-	--	update tbClients set
-	--		ClientName=isnull(@ClientName,ClientName)
-	--	from tbClients c
-	--			--join tbItem i on i.ItemID=e.ItemID
-	--			--join tbLocation l on i.LocationID=l.LocationID
-	--			join tbEquipment e on e.ClientID=c.ClientID
-	--			--join tbContacts a on a.ClientID=c.ClientID
-	--		where e.EquipmentID=@EquipmentID
-	--if @@ERROR !=0
-	--	select e.EquipmentID, i.ItemType, e.Description, l.LocationName, e.InstallDate, i.FarFoxValue, i.ClientValue ,c.ClientName
-	--			from tbEquipment e
-	--			join tbItem i on i.ItemID=e.ItemID
-	--			join tbLocation l on i.LocationID=l.LocationID
-	--			join tbClients c on e.ClientID=c.ClientID
-	--			join tbContacts a on a.ContactID=c.ClientID
-	--			where e.EquipmentID=@EquipmentID
+			ClientValue= isnull (@ClientValue,ClientValue),
+			ItemID = isnull(@ItemID,@ItemID),
+			ContactID = isnull (@ContactID,ContactID),
+			LocationID = isnull (@LocationID,LocationID)
+			where EquipmentID=@EquipmentID
 end
 go
 
@@ -299,15 +280,37 @@ end
 go
 
 exec spGetEquipmentInfo 
-exec spUpdateEQuipmentInfo @EquipmentID = 6,@ItemType='Software'
+exec spUpdateEQuipmentInfo @EquipmentID = 4,@ItemID=2,@LocationID=2
 exec spUpdateEQuipmentInfo @EquipmentID = 3,@Description= 'Testingupdate2'
-exec spUpdateEQuipmentInfo @EquipmentID = 2,@ContactName = 'NotNuller'
+exec spUpdateEQuipmentInfo @EquipmentID = 2,@ContactID = 4,@ItemID=2
 exec spUpdateEQuipmentInfo @EquipmentID = 3,@InstallDate = '29 January 2015'
 exec spUpdateEQuipmentInfo @EquipmentID = 4,@FarFoxValue = 399.99
-exec spUpdateEQuipmentInfo @EquipmentID = 2,@ClientValue = 1225.99
+exec spUpdateEQuipmentInfo @EquipmentID = 1,@ClientValue = 1225.99,@ItemID=2
 exec spGetEquipmentInfo @EquipmentID = 6
 select * from tbClients
 select * from tbItem
 select * from tbEquipment
 select * from tbLocation
 select * from tbContacts
+
+----Crud for item----
+go 
+create procedure spAddItem
+(@ItemType varchar(max)
+)
+as begin
+	insert into tbItem(ItemType) values (@ItemType)
+end
+go
+create procedure spUpdateItem
+(@ItemID int,
+@ItemType varchar(max)
+)
+as begin
+	UPDATE tbItem set
+		ItemType = @ItemType
+		where ItemID=@ItemID
+end
+go
+exec spUpdateItem @ItemType='Telephone', @ItemID = 1
+select * from tbItem

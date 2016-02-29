@@ -44,8 +44,11 @@
                                         <asp:TextBox ID="txtEquipID" runat="server" ReadOnly="true" CssClass="form-control" placeholder="Equipment ID" />
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon width117">Name:</span>
-                                        <asp:TextBox ID="txtEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />
+                                        <span class="input-group-addon width117">Type:</span>
+                                        <asp:DropDownList ID="ddlType" runat="server" CssClass="form-control" DataSourceID="ItemtypeDDL" DataTextField="ItemType" DataValueField="ItemID">
+                                        </asp:DropDownList>
+                                        <asp:SqlDataSource ID="ItemtypeDDL" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringItemType %>" SelectCommand="SELECT [ItemType], [ItemID] FROM [tbItem]"></asp:SqlDataSource>
+                                        <%--<asp:TextBox ID="txtEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />--%>
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
@@ -69,7 +72,9 @@
                                     <asp:RegularExpressionValidator ID="rXtxtCValue" ErrorMessage="invalid" ControlToValidate="txtCValue" runat="server" ValidationExpression="([0-9]{1,})([.,][0-9]{1,3})?$" />
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
-                                        <asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="MultiLine" />
+                                        <asp:DropDownList ID="ddlLocation" runat="server" CssClass="form-control" DataSourceID="LocationConn" DataTextField="LocationName" DataValueField="LocationID">
+                                        </asp:DropDownList>
+                                        <%--<asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="MultiLine" />--%>
                                     </div>
 
 
@@ -83,8 +88,10 @@
                                         <asp:TextBox ID="txtEditEquipID" runat="server" ReadOnly="true" CssClass="form-control" placeholder="Equipment ID" />
                                     </div>
                                     <div class="input-group paddingBot">
-                                        <span class="input-group-addon width117">Name:</span>
-                                        <asp:TextBox ID="txtEditEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />
+                                        <span class="input-group-addon width117">Type:</span>
+                                        <asp:DropDownList ID="ddlEditEquipNameType" runat="server" CssClass="form-control" DataSourceID="ItemtypeDDL" DataTextField="ItemType" DataValueField="ItemID">
+                                        </asp:DropDownList>
+<%--                                        <asp:TextBox ID="txtEditEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />--%>
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
@@ -111,7 +118,10 @@
 
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
-                                        <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="SingleLine" />
+                                        <asp:DropDownList ID="ddlEditLocation" runat="server" CssClass="form-control" DataSourceID="LocationConn" DataTextField="LocationName" DataValueField="LocationID">
+                                        </asp:DropDownList>
+                                        <asp:SqlDataSource ID="LocationConn" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringLocation %>" SelectCommand="SELECT [LocationID], [LocationName] FROM [tbLocation]"></asp:SqlDataSource>
+<%--                                        <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="SingleLine" />--%>
                                     </div>
 
                                     <asp:Button ID="btnSaveEditEquipment" runat="server" Text="Save Equipment" OnClick="btnSaveEditEquipment_Click" />
