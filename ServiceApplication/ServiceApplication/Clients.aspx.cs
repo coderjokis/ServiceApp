@@ -179,7 +179,7 @@ namespace ServiceApplication
 
         protected void btnSaveEditClient_Click(object sender, EventArgs e)
         {
-            myDal.AddParam("ClientID", txtClientID.Text);
+            myDal.AddParam("ClientID", txtEditClientID.Text);
             myDal.AddParam("ClientName", txtEditClientName.Text);
             //myDal.AddParam("ContactID", ddlEditContacts.SelectedValue);
             myDal.AddParam("PhoneNumber", txtEditPhone.Text);
