@@ -168,11 +168,19 @@ go
 
 alter procedure spAddContact
 (
+@ContactID int =null,
 @ContactName varchar(max),
 @ClientID int
 )
 as begin
-	insert into tbContacts (ContactName, ClientID) values (@ContactName, @ClientID)
+	insert into tbContacts (ContactName) values (@ContactName)
+		begin
+			select @ContactID = tbContacts.ContactID from tbContacts
+				where tbContacts.ContactID= @@IDENTITY
+				update tbClients set
+					ContactID = isnull (@ContactID,@@IDENTITY)
+				where ClientID = @ClientID
+		end
 end
 go
 --exec spAddContact @ContactName='TestContactName', @ClientID=1
