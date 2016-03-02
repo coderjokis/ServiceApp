@@ -26,5 +26,10 @@ namespace ServiceApplication
             gvShowAll.DataBind();
         }
 
+        protected void gvShowAll_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvShowAll.PageIndex = e.NewPageIndex;
+            LoadAllInfo();
+        }
     }
 }

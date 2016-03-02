@@ -22,22 +22,22 @@ namespace ServiceApplication
             if (!IsPostBack)
             {
                 LoadGVEquipments();
-                LoadGVLocation();
-                LoadGVItem();                
+                //LoadGVLocation();
+                //LoadGVItem();               
             }
         }
 
-        private void LoadGVLocation()
-        {
-            gvLocation.DataSource = myDal.ExecuteProcedure("spGetLocation");
-            gvLocation.DataBind();
-        }
+        //private void LoadGVLocation()
+        //{
+        //    gvLocation.DataSource = myDal.ExecuteProcedure("spGetLocation");
+        //    gvLocation.DataBind();
+        //}
 
-        private void LoadGVItem()
-        {
-            gvItem.DataSource = myDal.ExecuteProcedure("spGetItem");
-            gvItem.DataBind();
-        }
+        //private void LoadGVItem()
+        //{
+        //    gvItem.DataSource = myDal.ExecuteProcedure("spGetItem");
+        //    gvItem.DataBind();
+        //}
 
         private void LoadGVEquipments()
         {
@@ -62,12 +62,12 @@ namespace ServiceApplication
 
         protected void btnSaveEQ_Click(object sender, EventArgs e)
         {
-            myDal.AddParam("ItemType", ddlType.SelectedValue);
             myDal.AddParam("Description", txtEquipDescription.Text);
             myDal.AddParam("InstallDate", txtInstallDate.Text);
+            myDal.AddParam("ItemID", ddlType.SelectedIndex.ToString());
             myDal.AddParam("FarFoxValue", txtFValue.Text);
             myDal.AddParam("ClientValue", txtCValue.Text);
-            myDal.AddParam("LocationName", ddlLocation.DataTextField);
+            myDal.AddParam("LocationID", ddlLocation.SelectedIndex.ToString());
             //myDal.ExecuteProcedure("spGetEquipmentInfo");
             string sProc;
 
@@ -153,25 +153,31 @@ namespace ServiceApplication
         private void PopulateEQEditControls()
         {
             txtEditEquipID.Text = eResult.equipment.EquipmentID.ToString();
-            //ddlEditEquipNameType.SelectedValue=eResult.equipment.ItemType;
+            ddlEditEquipNameType.SelectedValue=eResult.equipment.ItemID.ToString();
             txtEditEquipDescription.Text = eResult.equipment.Description;
             txtEditInstallDate.Text = eResult.equipment.InstallDate;
             txtEditFValue.Text = eResult.equipment.FarFoxVAlue.ToString();
             txtEditCValue.Text = eResult.equipment.ClientValue.ToString();
-            //ddlEditLocation.DataTextField = eResult.equipment.LocationName;
+            ddlEditLocation.SelectedValue = eResult.equipment.LocationID.ToString();
         }
 
         protected void btnSaveEditEquipment_Click(object sender, EventArgs e)
         {
             eResult = eResult.getEquipItem(txtEditEquipID.Text);
+            if (ddlEditEquipNameType.SelectedValue!=null)
+            {
+                eResult.equipment.ItemID = ddlEditEquipNameType.SelectedIndex;
+            }
+            
             eResult.equipment.ItemType = ddlEditEquipNameType.SelectedItem.Text;
             eResult.equipment.Description=txtEditEquipDescription.Text;
+            eResult.equipment.LocationID = ddlEditLocation.SelectedIndex;
             eResult.equipment.InstallDate=txtEditInstallDate.Text;
             eResult.equipment.FarFoxVAlue=double.Parse(txtEditFValue.Text);
             eResult.equipment.ClientValue=double.Parse(txtEditCValue.Text);
             eResult.equipment.LocationName= ddlEditLocation.SelectedItem.Text;
             eResult.UpdateTableEQ();
-            LoadGVEquipments();
+            gvEquipment.DataBind();
             //myDal.AddParam("EquipmentID", txtEquipID.Text);
             //myDal.AddParam("Description", txtEditEquipDescription.Text);
             //myDal.AddParam("InstallDate", txtEditInstallDate.Text);

@@ -6,7 +6,7 @@
             <div class="panel panel-info">
                 <div class="panel-body">
                     <asp:Button ID="btnAddEQ" Text="Add Equipment" runat="server" OnClick="btnAddEQ_Click" CssClass="btn btn-primary marginBot" />
-                    <%--                    <asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />--%>
+                    <%--<asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />--%>
                     <asp:Button ID="btnAddLocation" Text="New  Location" runat="server" OnClick="btnAddLocation_Click" CssClass="btn btn-primary marginBot" />
                 </div>
             </div>
@@ -76,7 +76,12 @@
                                         </asp:DropDownList>
                                         <%--<asp:TextBox ID="txtLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="MultiLine" />--%>
                                     </div>
-
+                                    <%--<div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Contact:</span>
+                                        <asp:DropDownList ID="ddlContact" runat="server" CssClass="form-control" DataSourceID="ddlContacts" DataTextField="ContactID" DataValueField="ContactID">
+                                        </asp:DropDownList>
+                                        <asp:SqlDataSource ID="ddlContacts" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringDDLContacts %>" SelectCommand="SELECT [ContactID], [ContactName], [ClientID] FROM [tbContacts]"></asp:SqlDataSource>
+                                    </div>--%>
 
                                     <asp:Button ID="btnSaveEQ" Text="Save" runat="server" OnClick="btnSaveEQ_Click" CssClass="btn btn-success" />
                                     <asp:Button ID="btnCancelEQ" Text="Cancel" runat="server" OnClick="btnCancelEQ_Click" CssClass="btn btn-warning" />
@@ -91,7 +96,6 @@
                                         <span class="input-group-addon width117">Type:</span>
                                         <asp:DropDownList ID="ddlEditEquipNameType" runat="server" CssClass="form-control" DataSourceID="ItemtypeDDL" DataTextField="ItemType" DataValueField="ItemID">
                                         </asp:DropDownList>
-<%--                                        <asp:TextBox ID="txtEditEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />--%>
                                     </div>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
@@ -118,14 +122,18 @@
 
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Location:</span>
-                                        <asp:DropDownList ID="ddlEditLocation" runat="server" CssClass="form-control" DataSourceID="LocationConn" DataTextField="LocationName" DataValueField="LocationID">
+                                        <asp:DropDownList ID="ddlEditLocation" runat="server" CssClass="form-control" DataSourceID="LocationConn" DataTextField="LocationName" DataValueField="LocationID" TabIndex="1" >
                                         </asp:DropDownList>
                                         <asp:SqlDataSource ID="LocationConn" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringLocation %>" SelectCommand="SELECT [LocationID], [LocationName] FROM [tbLocation]"></asp:SqlDataSource>
-<%--                                        <asp:TextBox ID="txtEditLocation" runat="server" placeholder="Location" CssClass="form-control" TextMode="SingleLine" />--%>
                                     </div>
+                                     <%--<div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Contact:</span>
+                                        <asp:DropDownList ID="ddlEditContact" runat="server" CssClass="form-control" DataSourceID="ddlContacts" DataTextField="ContactID" DataValueField="ContactID">
+                                        </asp:DropDownList>
+                                    </div>--%>
 
-                                    <asp:Button ID="btnSaveEditEquipment" runat="server" Text="Save Equipment" OnClick="btnSaveEditEquipment_Click" />
-                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
+                                    <asp:Button ID="btnSaveEditEquipment" runat="server" Text="Save Equipment" CssClass="btn btn-success" OnClick="btnSaveEditEquipment_Click" />
+                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="btn btn-danger" />
                                 </asp:Panel>
                             </div>
 

@@ -1,14 +1,40 @@
-﻿
---create database ServiceDatabase
---go(
-
-use ServiceDatabase
+﻿use ServiceDatabase
 go
 
+----------LOCATION---------
+create table tbLocation(
+LocationID int identity(0,1) primary key,
+LocationName varchar(max)
+)
+go
+insert into tbLocation values ('Far Fox'),('Local'),('Online'),('Globals')
+go
+
+---------ITEM--------------
+create table tbItem
+(ItemID int identity(0,1) primary key,
+ItemType varchar(max)
+)
+go
+insert into tbItem (ItemType) values ('Telephone'),('Software'),('Service')
+go
+
+-----------EQUIPMENT---------
+create table tbEquipment(
+EquipmentID int identity(1,1) primary key,
+Description varchar(max),
+InstallDate date,
+FarFoxValue decimal(10,2),
+ClientValue decimal(10,2),
+LocationID int foreign key references tbLocation(LocationID),
+ItemID int foreign key references tbItem(ItemID)
+)
+
+-------------CONTACTS-------------
 create table tbContacts(
 ContactID int identity(1,1) primary key,
 ContactName varchar(max),
-ClientID int foreign key references tbClients(ClientID)
+EquipmentID int foreign key references tbEquipment(EquipmentID)
 )
 --insert into tbContacts values ('Contact TestOne',1),
 --								('Test Two',1),
@@ -18,13 +44,7 @@ ClientID int foreign key references tbClients(ClientID)
 --								('Sixth Contact',2)
 go
 
-create table tbClients
-(
-ClientID int identity(1,1) primary key,
-ClientName varchar(max),
-PhoneNumber varchar(max),
-Address varchar(max)
-)
+
 --insert into tbClients(ClientName,PhoneNumber,Address) values
 --					('TestClientOne','555-5555','Whatever Test st'),
 --					('TestClientTwo','555-6666','Whatever Test2 st')
@@ -33,54 +53,41 @@ Address varchar(max)
 select * from tbClients
 go
 
-create table tbItem
-(ItemID int identity(1,1) primary key,
-ItemType varchar(max)
-)
-go
---insert into tbItem (ItemType) values 
---					('Telephone'),
---					('Software'),
---					('Service')
+
+
 select * from tbItem
 go
-create table tbEquipment(
-EquipmentID int identity(1,1) primary key,
-Description varchar(max),
-InstallDate date,
-FarFoxValue decimal(10,2),
-ClientValue decimal(10,2),
-LocationID int foreign key references tbLocation(LocationID),
-ItemID int foreign key references tbItem(ItemID),
-ContactID int foreign key references tbContacts(ContactID)
-)
+
 --insert into tbEquipment(Description,InstallDate,FarFoxValue,ClientValue,LocationID,ItemID,ContactID) values
 --						('testdescription11','12 July 2012',399.99,1399.99,1,1,2),
 --						('testdescription22','12 June 2015',399.99,1399.99,3,2,2),
 --						('testdescription33','12 May 2015',399.99,1399.99,4,3,1),
 --						('testdescription44','12 April 2014',399.99,1399.99,2,2,1),
 --						('testdescription55','12 December 2013',399.99,1399.99,2,3,3)
-select *from tbEquipment
-go
 
---two keys Location, item
+
+-------------INVENTORY---------------------
 create table tbInventory(
 InventoryID int identity(1,1) primary key,
 EquipmentID int foreign key references tbEquipment(EquipmentID),
-Quantity int,
-ClientID int foreign key references tbClients(ClientID)
+Quantity int
 )
 go
-insert into tbInventory values (3,20,1),(2,15,2),(4,5,1)
-go
-create table tbLocation(
-LocationID int identity(1,1) primary key,
-LocationName varchar(max)
+
+------------------CLIENTS------------
+create table tbClients(
+ClientID int identity(1,1) primary key,
+ClientName varchar(max),
+PhoneNumber varchar(max),
+Address varchar(max),
+ContactID int foreign key references tbContacts(ContactID),
+InventoryID int foreign key references tbInventory(InventoryID)
 )
+--insert into tbInventory values (3,20,1),(2,15,2),(4,5,1)
 go
---insert into tbLocation values ('Far Fox'),('Local'),('Online'),('Globals')
---select * from tbInventory
-----############PROCS############----
+
+
+------------------PROCS---------------
 
 ----Generic Join, this will provide references for a proper selection.
 select c.ClientName, i.ItemType, e.Description, e.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
@@ -88,8 +95,8 @@ select c.ClientName, i.ItemType, e.Description, e.InstallDate, e.FarFoxValue, e.
 			join tbItem i on i.ItemID=e.ItemID
 			join tbInventory s on s.EquipmentID=e.EquipmentID
 			join tbLocation l on e.LocationID=l.LocationID
-			join tbClients c on s.ClientID=c.ClientID
-			join tbContacts a on a.ClientID=c.ClientID
+			join tbClients c on s.InventoryID=c.InventoryID
+			join tbContacts a on a.ContactID=c.ContactID
 		
 
 go
@@ -103,11 +110,10 @@ as begin
 				right outer join tbItem i on i.ItemID=e.ItemID
 				right outer join tbInventory s on s.EquipmentID=e.EquipmentID
 				right outer join tbLocation l on e.LocationID=l.LocationID
-				right outer join tbClients c on s.ClientID=c.ClientID
-				right outer join tbContacts a on a.ContactID=e.ContactID			
+				right outer join tbClients c on s.InventoryID=c.InventoryID
+				right outer join tbContacts a on a.ContactID=c.ContactID							
 end
 go
---join tbInventory s on s.ItemID=i.ItemID
 exec spLoadAllInfo
 go
 -- loading info into ddl in client page
@@ -169,7 +175,7 @@ as begin
 	insert into tbContacts (ContactName, ClientID) values (@ContactName, @ClientID)
 end
 go
-exec spAddContact @ContactName='TestContactName', @ClientID=1
+--exec spAddContact @ContactName='TestContactName', @ClientID=1
 go
 alter procedure spEditClient
 (
@@ -204,18 +210,22 @@ exec spGetContactFromClient @ClientID=1
 go
 -----Crud for EQ------
 ----Create/Insert-----
-create procedure spAddEquipment
+alter procedure spAddEquipment
 (
 @Description varchar(max),
 @ItemID int,
-@ClientID int
+@InstallDate date,
+@FarFoxValue decimal,
+@ClientValue decimal,
+@LocationID int
 )
 as begin
-	insert into tbEquipment(Description, InstallDate, ItemID, ClientID) 
-			values (@Description, getdate(), @ItemID, @ClientID)
+	insert into tbEquipment(Description, InstallDate, ItemID, FarFoxValue,ClientValue,LocationID) 
+			values (@Description, @InstallDate, @ItemID, @FarFoxValue,@ClientValue,@LocationID)
 end
 go
-exec spAddEquipment @Description='DescTest' , @ItemID=2, @ClientID=2
+--exec spAddEquipment @Description='DescTest' ,@InstallDate='2015-2-22', @ItemID=2,  @FarFoxValue=299.99, @ClientValue=1999.99,@LocationID=2
+select * from tbEquipment
 go
 ------Read/Get-------FORMAT(InstallDate,'d MMMM yyyy')as
 alter procedure spGetEquipmentInfo
@@ -223,21 +233,14 @@ alter procedure spGetEquipmentInfo
 @EquipmentID int =null
 )
 as begin
---select c.ClientID,c.ClientName, i.ItemType, e.Description, e.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,
---				c.PhoneNumber , c.Address, a.ContactName,s.Quantity
---			from tbEquipment e
---				right outer join tbItem i on i.ItemID=e.ItemID
---				right outer join tbInventory s on s.EquipmentID=e.EquipmentID
---				right outer join tbLocation l on e.LocationID=l.LocationID
---				right outer join tbClients c on s.ClientID=c.ClientID
---				right outer join tbContacts a on a.ContactID=e.ContactID
-	select e.EquipmentID, i.ItemType, e.Description, l.LocationName,FORMAT(InstallDate,'d MMMM yyyy')as InstallDate, e.FarFoxValue, e.ClientValue,  a.ContactName ,s.Quantity
+	select e.EquipmentID,i.ItemID, i.ItemType, e.Description, l.LocationName,l.LocationID,
+				FORMAT(InstallDate,'d MMMM yyyy')as InstallDate, e.FarFoxValue, e.ClientValue--,  a.ContactName ,s.Quantity
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
-				join tbInventory s on s.EquipmentID=e.EquipmentID
+				--join tbInventory s on s.EquipmentID=e.EquipmentID
 				join tbLocation l on e.LocationID=l.LocationID
-				join tbClients c on s.ClientID=c.ClientID
-				join tbContacts a on a.ContactID=c.ClientID
+				--join tbClients c on s.InventoryID=c.InventoryID
+				--join tbContacts a on a.ContactID=c.ClientID
 					where e.EquipmentID= isnull(@EquipmentID,e.EquipmentID)
 end
 go
@@ -250,7 +253,6 @@ alter procedure spUpdateEQuipmentInfo
 @Description varchar(max)= null,
 @InstallDate date=null,
 @ItemID int=null,
-@ClientID int = null,
 @ContactID int = null,
 @FarFoxValue decimal = null,
 @ClientValue decimal = null,
@@ -263,7 +265,6 @@ as begin
 			FarFoxValue = isnull(@FarFoxValue,FarFoxValue),
 			ClientValue= isnull (@ClientValue,ClientValue),
 			ItemID = isnull(@ItemID,@ItemID),
-			ContactID = isnull (@ContactID,ContactID),
 			LocationID = isnull (@LocationID,LocationID)
 			where EquipmentID=@EquipmentID
 end
@@ -279,14 +280,16 @@ as begin
 end
 go
 
+create procedure spDeleteLocation
+(@LocationID int)
+as begin
+	delete from tbLocation where LocationID = @LocationID
+end
+go
+exec spDeleteLocation @LocationID=7
+------------GEtEQinfo------------
 exec spGetEquipmentInfo 
-exec spUpdateEQuipmentInfo @EquipmentID = 4,@ItemID=2,@LocationID=2
-exec spUpdateEQuipmentInfo @EquipmentID = 3,@Description= 'Testingupdate2'
-exec spUpdateEQuipmentInfo @EquipmentID = 2,@ContactID = 4,@ItemID=2
-exec spUpdateEQuipmentInfo @EquipmentID = 3,@InstallDate = '29 January 2015'
-exec spUpdateEQuipmentInfo @EquipmentID = 4,@FarFoxValue = 399.99
-exec spUpdateEQuipmentInfo @EquipmentID = 1,@ClientValue = 1225.99,@ItemID=2
-exec spGetEquipmentInfo @EquipmentID = 6
+
 select * from tbClients
 select * from tbItem
 select * from tbEquipment
@@ -312,5 +315,5 @@ as begin
 		where ItemID=@ItemID
 end
 go
-exec spUpdateItem @ItemType='Telephone', @ItemID = 1
+--exec spUpdateItem @ItemType='Telephone', @ItemID = 1
 select * from tbItem

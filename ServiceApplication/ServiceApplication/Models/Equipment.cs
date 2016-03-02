@@ -13,8 +13,10 @@ namespace ServiceApplication.Models
     {
         public Equipment equipment;
         public int EquipmentID { get; set; }
+        public int ItemID { get; set; }
         public string ItemType { get; set; }
         public string Description { get; set; }
+        public int LocationID { get; set; }
         public string LocationName { get; set; }
         public double FarFoxVAlue { get; set; }
         public double ClientValue { get; set; }
@@ -25,17 +27,19 @@ namespace ServiceApplication.Models
         DataSet dsResult;
         public Equipment() { }
 
-        public Equipment(int equipmentID, string equipmentName, string description, string location,
-               string installDate, double fValue, double cValue, string authorizingparty)
+        public Equipment(int equipmentID, int itemTypeID,string itemType, string description, int locationID,
+            string location,string installDate, double fValue, double cValue)
         {
             this.EquipmentID = equipmentID;
-            this.ItemType = equipmentName;
+            this.ItemID = itemTypeID;
+            this.ItemType = itemType;
             this.Description = description;
+            this.LocationID = locationID;
             this.LocationName = location;
             this.InstallDate = installDate;
             this.FarFoxVAlue = fValue;
             this.ClientValue = cValue;
-            this.AuthorizingParty = authorizingparty;
+           // this.AuthorizingParty = authorizingparty;
         }
 
         public Equipment(Equipment equipment)
@@ -52,13 +56,15 @@ namespace ServiceApplication.Models
             {
                 Equipment e = new Equipment(
                     int.Parse(dr["EquipmentID"].ToString()),
+                    int.Parse(dr["ItemID"].ToString()),
                     dr["ItemType"].ToString(),
                     dr["Description"].ToString(),
+                    int.Parse(dr["LocationID"].ToString()),
                     dr["LocationName"].ToString(),
                     dr["InstallDate"].ToString(),
                     double.Parse(dr["FarFoxValue"].ToString()),
-                    double.Parse(dr["ClientValue"].ToString()),
-                    dr["ContactName"].ToString()
+                    double.Parse(dr["ClientValue"].ToString())
+                    //dr["ContactName"].ToString()
                     );
                 EquipList.Add(e);
             }
@@ -75,9 +81,16 @@ namespace ServiceApplication.Models
             myDal.AddParam("EquipmentID", equipment.EquipmentID.ToString());
             myDal.AddParam("Description", equipment.Description);
             myDal.AddParam("InstallDate", equipment.InstallDate);
-            myDal.AddParam("ItemType", equipment.ItemType);
+            if (equipment.ItemID!=0)
+            {
+                myDal.AddParam("ItemID", equipment.ItemID.ToString());
+            }
             myDal.AddParam("FarFoxValue", equipment.FarFoxVAlue.ToString());
             myDal.AddParam("ClientValue", equipment.ClientValue.ToString());
+            if (equipment.LocationID!=0)
+            {
+                myDal.AddParam("LocationID", equipment.LocationID.ToString());
+            }
             myDal.ExecuteProcedure("spUpdateEQuipmentInfo");
         }
     }

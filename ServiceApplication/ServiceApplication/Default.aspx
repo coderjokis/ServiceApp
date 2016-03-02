@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="row">
-        <asp:GridView ID="gvShowAll" runat="server" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" CssClass="table table-info">
+        <asp:GridView ID="gvShowAll" runat="server" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" CssClass="table table-info" OnPageIndexChanging="gvShowAll_PageIndexChanging">
             <Columns>
                 <asp:BoundField DataField="ClientName" HeaderText="Client"/>
                 <asp:BoundField DataField="ContactName" HeaderText="Contact"/>
