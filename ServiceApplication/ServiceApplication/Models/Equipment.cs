@@ -64,7 +64,6 @@ namespace ServiceApplication.Models
                     dr["InstallDate"].ToString(),
                     double.Parse(dr["FarFoxValue"].ToString()),
                     double.Parse(dr["ClientValue"].ToString())
-                    //dr["ContactName"].ToString()
                     );
                 EquipList.Add(e);
             }

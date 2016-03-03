@@ -4,10 +4,12 @@
     <div class="row pushContent">
         <div class="col-lg-2 col-md-2">
             <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Manage</h3>
+                </div>
                 <div class="panel-body">
-                    <asp:Button ID="btnAddEQ" Text="Add Equipment" runat="server" OnClick="btnAddEQ_Click" CssClass="btn btn-primary marginBot" />
-                    <%--<asp:Button ID="btnEditEQ" Text="Edit Equipment" runat="server" OnClick="btnEditEQ_Click" CssClass="btn btn-primary marginBot" />--%>
-                    <asp:Button ID="btnAddLocation" Text="New  Location" runat="server" OnClick="btnAddLocation_Click" CssClass="btn btn-primary marginBot" />
+                    <asp:Button ID="btnAddEQ" Text="Equipment" runat="server" OnClick="btnAddEQ_Click" CssClass="btn btn-primary marginBot" />
+                    <asp:Button ID="btnAddLocation" Text="Item/Location" runat="server" OnClick="btnAddLocation_Click" CssClass="btn btn-primary marginBot" />
                 </div>
             </div>
         </div>
@@ -36,7 +38,7 @@
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div class="well col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6">
                                 <asp:Panel ID="pnlEquip" runat="server" Visible="false">
 
                                     <div class="input-group paddingBot">
@@ -126,18 +128,13 @@
                                         </asp:DropDownList>
                                         <asp:SqlDataSource ID="LocationConn" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringLocation %>" SelectCommand="SELECT [LocationID], [LocationName] FROM [tbLocation]"></asp:SqlDataSource>
                                     </div>
-                                     <%--<div class="input-group paddingBot">
-                                        <span class="input-group-addon width117">Contact:</span>
-                                        <asp:DropDownList ID="ddlEditContact" runat="server" CssClass="form-control" DataSourceID="ddlContacts" DataTextField="ContactID" DataValueField="ContactID">
-                                        </asp:DropDownList>
-                                    </div>--%>
 
                                     <asp:Button ID="btnSaveEditEquipment" runat="server" Text="Save Equipment" CssClass="btn btn-success" OnClick="btnSaveEditEquipment_Click" />
                                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="btn btn-danger" />
                                 </asp:Panel>
                             </div>
 
-                            <div class="well col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6">
                                 <asp:Panel ID="pnlAddLocation" runat="server" Visible="false">
                                     <asp:GridView ID="gvLocation" runat="server" AutoGenerateColumns="False" DataKeyNames="LocationID" DataSourceID="ALANServer" CssClass="table table-default" AllowPaging="True" AllowSorting="True">
                                         <Columns>
@@ -152,14 +149,27 @@
                                     </div>
                                     <asp:Button ID="btnSaveLocation" Text="Save" runat="server" OnClick="btnSaveLocation_Click" CssClass="btn btn-success" />
                                     <asp:Button ID="btnCancelLoc" Text="Cancel" runat="server" OnClick="btnCancelLoc_Click" CssClass="btn btn-warning" />
-                                    <asp:GridView ID="gvItem" runat="server" AutoGenerateColumns="False" DataKeyNames="ItemID" DataSourceID="ItemConnString">
+                                    <span class ="divider"></span>
+                                    <asp:GridView ID="gvItem" runat="server" AutoGenerateColumns="False" DataKeyNames="ItemID" DataSourceID="ItemConnString" CssClass="table table-default" OnRowCommand="gvItem_RowCommand">
                                         <Columns>
+                                            <asp:ButtonField ButtonType="Button" CommandName="EditItem" Text="Edit"/>
                                             <asp:BoundField DataField="ItemID" HeaderText="ItemID" InsertVisible="False" ReadOnly="True" SortExpression="ItemID" />
                                             <asp:BoundField DataField="ItemType" HeaderText="ItemType" SortExpression="ItemType" />
                                         </Columns>
                                     </asp:GridView>
+                                    
                                     <asp:SqlDataSource ID="ItemConnString" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringToLoadItemGV %>" SelectCommand="SELECT [ItemID], [ItemType] FROM [tbItem]"></asp:SqlDataSource>
-
+                                    
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">ItemID:</span>
+                                        <asp:TextBox ID="txtItemInputID" runat="server" CssClass="form-control" ReadOnly="true" />
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">ItemType:</span>
+                                        <asp:TextBox ID="txtAddNewItem" runat="server" CssClass="form-control" />
+                                    </div> 
+                                    <asp:Button ID="btnSaveItem" Text="Save" runat="server" OnClick="btnSaveItem_Click" CssClass="btn btn-success" />
+                                    <asp:Button ID="btnCancelItem" Text="Cancel" runat="server" OnClick="btnCancelItem_Click" CssClass="btn btn-warning" />
                                 </asp:Panel>
                             </div>
                         </div>

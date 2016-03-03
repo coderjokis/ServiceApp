@@ -15,36 +15,22 @@ namespace ServiceApplication
 {
     public partial class Equipments : System.Web.UI.Page
     {
+        string ItemID;
         DAL myDal = new DAL();
         Equipment eResult = new Equipment();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadGVEquipments();
-                //LoadGVLocation();
-                //LoadGVItem();               
+                LoadGVEquipments();               
             }
         }
-
-        //private void LoadGVLocation()
-        //{
-        //    gvLocation.DataSource = myDal.ExecuteProcedure("spGetLocation");
-        //    gvLocation.DataBind();
-        //}
-
-        //private void LoadGVItem()
-        //{
-        //    gvItem.DataSource = myDal.ExecuteProcedure("spGetItem");
-        //    gvItem.DataBind();
-        //}
 
         private void LoadGVEquipments()
         {
             Equipment getEQ = new Equipment();
             getEQ.getEQResult();
             gvEquipment.DataSource = getEQ.EquipList;
-            //gvEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
             gvEquipment.DataBind();
         }
 
@@ -58,6 +44,7 @@ namespace ServiceApplication
             txtCValue.Text = "";
             txtNewLocation.Text = "";
             pnlAddLocation.Visible = false;
+            pnlEditEquipment.Visible = false;
         }
 
         protected void btnSaveEQ_Click(object sender, EventArgs e)
@@ -68,7 +55,6 @@ namespace ServiceApplication
             myDal.AddParam("FarFoxValue", txtFValue.Text);
             myDal.AddParam("ClientValue", txtCValue.Text);
             myDal.AddParam("LocationID", ddlLocation.SelectedIndex.ToString());
-            //myDal.ExecuteProcedure("spGetEquipmentInfo");
             string sProc;
 
             if(txtEquipID.Text == "New")
@@ -110,6 +96,8 @@ namespace ServiceApplication
             txtNewLocation.Text = "";
             pnlAddLocation.Visible = true;
             pnlEquip.Visible = false;
+            pnlEditEquipment.Visible = false;
+            txtItemInputID.Text = "New";
         }
 
         protected void btnSaveLocation_Click(object sender, EventArgs e)
@@ -123,8 +111,7 @@ namespace ServiceApplication
 
         protected void btnCancelLoc_Click(object sender, EventArgs e)
         {
-            pnlAddLocation.Visible = false;
-            txtNewLocation.Text = "";
+            CancelLocItemInput();
         }
 
         protected void gvEquipment_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -147,6 +134,7 @@ namespace ServiceApplication
                         break;
                 }
             }
+            pnlEquip.Visible = false;
             //LoadGVEquipments();
         }     
 
@@ -177,14 +165,14 @@ namespace ServiceApplication
             eResult.equipment.ClientValue=double.Parse(txtEditCValue.Text);
             eResult.equipment.LocationName= ddlEditLocation.SelectedItem.Text;
             eResult.UpdateTableEQ();
-            gvEquipment.DataBind();
+            //gvEquipment.DataBind();
             //myDal.AddParam("EquipmentID", txtEquipID.Text);
             //myDal.AddParam("Description", txtEditEquipDescription.Text);
             //myDal.AddParam("InstallDate", txtEditInstallDate.Text);
             //myDal.AddParam("ItemType", txtEditEquipNameType.Text);
 
             //myDal.ExecuteProcedure("spUpdateEQuipmentInfo");
-            ////LoadGVEquipments();
+            LoadGVEquipments();
             //gvEquipment.DataBind();
             pnlEditEquipment.Visible = false;
         }
@@ -192,13 +180,65 @@ namespace ServiceApplication
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             txtEditEquipID.Text = "";
-            ddlEditEquipNameType.DataTextField ="";
+            ddlEditEquipNameType.DataTextField = "";
             txtEditEquipDescription.Text = "";
             txtEditInstallDate.Text = "";
             txtEditFValue.Text = "";
             txtEditCValue.Text = "";
             ddlEditLocation.DataTextField = "";
             pnlEditEquipment.Visible = false;
+        }
+
+        protected void btnSaveItem_Click(object sender, EventArgs e)
+        {
+            myDal.AddParam("ItemType", txtAddNewItem.Text);
+
+            if (txtItemInputID.Text=="New")
+            {
+                myDal.ExecuteProcedure("spAddItem");
+                
+            }
+            else
+            {
+                myDal.AddParam("ItemID", txtItemInputID.Text);
+                myDal.ExecuteProcedure("spUpdateItem");
+            }
+            gvItem.DataBind();
+            txtAddNewItem.Text = "";
+        }
+
+        protected void btnCancelItem_Click(object sender, EventArgs e)
+        {
+            CancelLocItemInput();
+        }
+
+        private void CancelLocItemInput()
+        {
+            pnlAddLocation.Visible = false;
+            txtNewLocation.Text = "";
+            txtAddNewItem.Text = "";
+        }
+
+        protected void gvItem_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "EditItem")
+            {
+                int rowID = Convert.ToInt32(e.CommandArgument);
+                gvItem.SelectedIndex = rowID;
+                ItemID = gvItem.SelectedDataKey.Value.ToString();
+                string cmd = e.CommandName;
+
+                switch (cmd)
+                {
+                    case "EditItem":
+                        myDal.AddParam("ItemID", ItemID);
+                        DataSet dsItem = new DataSet();
+                        dsItem=myDal.ExecuteProcedure("spGetItem");
+                        txtItemInputID.Text = dsItem.Tables[0].Rows[0]["ItemID"].ToString();
+                        txtAddNewItem.Text = dsItem.Tables[0].Rows[0]["ItemType"].ToString();
+                        break;
+                }
+            }
         }
     }
 }

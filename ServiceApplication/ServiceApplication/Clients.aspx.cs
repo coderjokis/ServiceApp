@@ -54,6 +54,7 @@ namespace ServiceApplication
 
         protected void btnAddClient_Click(object sender, EventArgs e)
         {
+            pnlContacts.Visible = false;
             pnlClient.Visible = true;
             txtClientID.Text = "New";
             txtClientName.Text = "";

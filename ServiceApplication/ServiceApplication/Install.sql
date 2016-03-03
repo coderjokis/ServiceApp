@@ -325,3 +325,13 @@ end
 go
 --exec spUpdateItem @ItemType='Telephone', @ItemID = 1
 select * from tbItem
+go
+create procedure spGetItem
+(
+@ItemID int
+)
+as begin
+	select * from tbItem where ItemID = @ItemID
+end
+go
+
