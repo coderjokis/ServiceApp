@@ -86,6 +86,14 @@ InventoryID int foreign key references tbInventory(InventoryID)
 --insert into tbInventory values (3,20,1),(2,15,2),(4,5,1)
 go
 
+------------SHOPPING CART----------
+create table tbShoppingCart(
+ShoppingCartID int primary key identity,
+ClientID int foreign key references tbClients(ClientID),
+InventoryID int foreign key references tbInventory(InventoryID)
+)
+go
+
 
 ------------------PROCS---------------
 
