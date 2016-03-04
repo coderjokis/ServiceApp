@@ -345,25 +345,33 @@ go
 
 
 ---------------------Shopping Cart Proc---------------------
-create procedure spAddtoShoppingCart
+create procedure spAddtoInventory
 (
-@ItemID int,
-@UserID int,
+@InventoryID int,
+@EquipmentID int,
+@ClientID int,
 @Quantity int
 )
 as
 begin
-		insert into tbShoppingCart (ItemID,UserID,Quantity) values
-								(@ItemID,@UserID,@Quantity)
-		select 'success' as Result	
+		insert into tbInventory (EquipmentID,Quantity) values
+								(@EquipmentID,@Quantity)
+		select 'success' as Result
+		begin
+			select @ClientID = tbClients.ClientID from tbClients
+				where InventoryID = @InventoryID
+					update tbClients set
+					 InventoryID = isnull(@InventoryID,InventoryID)
+					 where ClientID=@ClientID
+		end	
 end
 go
-
+	
 create procedure spGetItemInventory
-(@ItemID int)
+(@EquipmentID int)
 as
 begin
-	select Quantity as Result from tbInventory where ItemID=@ItemID
+	select Quantity as Result from tbInventory where EquipmentID=@EquipmentID
 end
 go
 

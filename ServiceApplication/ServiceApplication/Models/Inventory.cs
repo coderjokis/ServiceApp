@@ -32,14 +32,12 @@ namespace ServiceApplication.Models
                 return instance;
             }
         }
-        public int GetInventoryItem(string ItemID)
+        public int GetItemInventory(string ItemID)
         {
             myDal.AddParam("EquipmentID", ItemID);
             DataSet ds = new DataSet();
             ds = myDal.ExecuteProcedure("spGetItemInventory");
             return Convert.ToInt32(ds.Tables[0].Rows[0]["Result"].ToString());
-
-            
         }
     }
 }
