@@ -17,8 +17,6 @@ namespace ServiceApplication
             if (!IsPostBack)
             {
                 LoadDropDownInvClient();
-                LoadDropDownContact();
-                LoadDataList();
             }
         }
 
@@ -30,7 +28,8 @@ namespace ServiceApplication
 
         private void LoadDropDownContact()
         {
-            ddlContact.DataSource = myDal.ExecuteProcedure("spLoadDDLContact");
+            myDal.AddParam("ClientID", ddlInvClient.SelectedIndex.ToString());
+            ddlContact.DataSource = myDal.ExecuteProcedure("spLoadDDLContactbyClientID");
             ddlContact.DataValueField = "ContactID";
             ddlContact.DataTextField = "ContactName";
             ddlContact.DataBind();
@@ -38,7 +37,7 @@ namespace ServiceApplication
 
         private void LoadDropDownInvClient()
         {
-            ddlInvClient.DataSource = myDal.ExecuteProcedure("spLoadDDLInvClient");
+            ddlInvClient.DataSource = myDal.ExecuteProcedure("spLoadDDLClient");
             ddlInvClient.DataValueField = "ClientID";
             ddlInvClient.DataTextField = "ClientName";
             ddlInvClient.DataBind();
@@ -70,16 +69,12 @@ namespace ServiceApplication
 
         protected void btnSelectInvClient_Click(object sender, EventArgs e)
         {
-            myDal.AddParam("ClientID", ddlInvClient.SelectedValue);
-            myDal.ExecuteProcedure("spGetInvClientInfo");
-            LoadDropDownInvClient();
+            LoadDropDownContact();
         }
 
         protected void btnSelectContact_Click(object sender, EventArgs e)
         {
-            myDal.AddParam("ContactID", ddlContact.SelectedValue);
-            myDal.ExecuteProcedure("spGetContactInfo");
-            LoadDropDownContact();
+            LoadDataList();
         }
     }
 }

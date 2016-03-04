@@ -173,6 +173,18 @@ go
 
 --exec spAddClient @ClientName='NameTest', @PhoneNumber='123-123-1234', @Address='TestingAddress'
 go
+-----------------PRocs for Contacts------------------
+create procedure spLoadDDLContactbyClientID
+(
+@ClientID int
+)
+as begin
+	select * from tbContacts i
+		Join tbClients c on c.ContactID=i.ContactID
+		 where c.ClientID = @ClientID
+end
+go
+
 
 alter procedure spAddContact
 (
