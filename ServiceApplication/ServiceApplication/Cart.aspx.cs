@@ -22,7 +22,7 @@ namespace ServiceApplication
 
         private void LoadDataList()
         {
-            dtEquipment.DataSource = myDal.ExecuteProcedure("spLoadDataListEquipment");
+            dtEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
             dtEquipment.DataBind();
         }
 
