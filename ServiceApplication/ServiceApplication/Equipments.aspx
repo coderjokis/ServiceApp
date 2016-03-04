@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Equipments.aspx.cs" Inherits="ServiceApplication.Equipments" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="row pushContent">
+    <div class="row">
         <div class="col-lg-2 col-md-2">
             <div class="panel panel-info">
                 <div class="panel-heading">

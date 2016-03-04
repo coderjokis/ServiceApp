@@ -343,3 +343,40 @@ as begin
 end
 go
 
+
+---------------------Shopping Cart Proc---------------------
+create procedure spAddtoShoppingCart
+(
+@ItemID int,
+@UserID int,
+@Quantity int
+)
+as
+begin
+		insert into tbShoppingCart (ItemID,UserID,Quantity) values
+								(@ItemID,@UserID,@Quantity)
+		select 'success' as Result	
+end
+go
+
+create procedure spGetItemInventory
+(@ItemID int)
+as
+begin
+	select Quantity as Result from tbInventory where ItemID=@ItemID
+end
+go
+
+
+create procedure spUpdateShoppingCart
+(
+@ItemID int,
+@UserID int
+)
+as
+begin
+	update tbShoppingCart
+	set CheckOut=1
+	where ItemID=@ItemID and UserID=@UserID
+end
+go
