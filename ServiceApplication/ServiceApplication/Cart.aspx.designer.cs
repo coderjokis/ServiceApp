@@ -22,6 +22,15 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.DropDownList ddlInvClient;
         
         /// <summary>
+        /// btnSelectInvClient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSelectInvClient;
+        
+        /// <summary>
         /// ddlContact control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlContact;
+        
+        /// <summary>
+        /// btnSelectContact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSelectContact;
         
         /// <summary>
         /// dtEquipment control.

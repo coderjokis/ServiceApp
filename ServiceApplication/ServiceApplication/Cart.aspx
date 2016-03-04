@@ -5,9 +5,11 @@
             Client:
     <asp:DropDownList ID="ddlInvClient" runat="server">
     </asp:DropDownList>
+            <asp:Button ID="btnSelectInvClient" runat="server" Text="Select" OnClick="btnSelectInvClient_Click" />
         Contact:
     <asp:DropDownList ID="ddlContact" runat="server">
     </asp:DropDownList>
+            <asp:Button ID="btnSelectContact" runat="server" Text="Select" OnClick="btnSelectContact_Click" />
         <asp:DataList ID="dtEquipment" runat="server" OnItemCommand="dtEquipment_ItemCommand" RepeatColumns="3" DataKeyField="EquipmentID">
             <ItemTemplate>
                 <div style="border: 1px solid rgb(78, 96, 150); padding: 3px 3px 3px 3px; background-color: aliceblue; opacity: 0.9">
