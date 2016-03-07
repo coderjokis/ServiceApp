@@ -209,13 +209,18 @@ namespace ServiceApplication
 
         protected void rbtnNC_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnEC.Checked==true)
-            {
-                ddlClients.Enabled = true;
-            }
-            else
+            if (rbtnNC.Checked)
             {
                 ddlClients.Enabled = false;
+            }
+            
+        }
+
+        protected void rbtnEC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnEC.Checked)
+            {
+                ddlClients.Enabled = true;
             }
         }
     }

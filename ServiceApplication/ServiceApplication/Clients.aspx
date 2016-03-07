@@ -72,6 +72,7 @@
                                                 <span class="input-group-addon width117">ClientName:</span>
                                                 <asp:TextBox ID="txtEditClientName" runat="server" CssClass="form-control" />
                                             </div>
+
                                             <%-- <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Contacts:</span>
                                                 <asp:DropDownList ID="ddlEditContacts" runat="server" CssClass="form-control" >
@@ -102,7 +103,7 @@
                                             </div>
 
                                             <asp:RadioButton ID="rbtnNC" Text="New Clients" runat="server" GroupName="rBtnClients" Checked="true" OnCheckedChanged="rbtnNC_CheckedChanged" AutoPostBack="true" />
-                                            <asp:RadioButton ID="rbtnEC" Text="Existing Clients" runat="server" GroupName="rBtnClients"/>
+                                            <asp:RadioButton ID="rbtnEC" Text="Existing Clients" runat="server" GroupName="rBtnClients" AutoPostBack="true" OnCheckedChanged="rbtnEC_CheckedChanged"/>
 
                                             <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Client:</span>
