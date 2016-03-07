@@ -175,15 +175,6 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.Panel pnlContacts;
         
         /// <summary>
-        /// ddlClients control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClients;
-        
-        /// <summary>
         /// txtAddContacts control.
         /// </summary>
         /// <remarks>
@@ -191,6 +182,33 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAddContacts;
+        
+        /// <summary>
+        /// rbtnNC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnNC;
+        
+        /// <summary>
+        /// rbtnEC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnEC;
+        
+        /// <summary>
+        /// ddlClients control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClients;
         
         /// <summary>
         /// btnSaveContact control.

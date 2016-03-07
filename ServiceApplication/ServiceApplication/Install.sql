@@ -1,4 +1,4 @@
-﻿use ServiceDatabase
+﻿ use ServiceDatabase
 go
 
 ----------LOCATION---------
@@ -7,8 +7,7 @@ LocationID int identity(0,1) primary key,
 LocationName varchar(max)
 )
 go
-insert into tbLocation values ('Far Fox'),('Local'),('Online'),('Globals')
-go
+--insert into tbLocation values ('Far Fox')
 
 ---------ITEM--------------
 create table tbItem
@@ -16,12 +15,12 @@ create table tbItem
 ItemType varchar(max)
 )
 go
-insert into tbItem (ItemType) values ('Telephone'),('Software'),('Service')
+--insert into tbItem (ItemType) values ('Telephone'),('Software')
 go
 
 -----------EQUIPMENT---------
 create table tbEquipment(
-EquipmentID int identity(1,1) primary key,
+EquipmentID int identity(0,1) primary key,
 Description varchar(max),
 InstallDate date,
 FarFoxValue decimal(10,2),
@@ -29,19 +28,20 @@ ClientValue decimal(10,2),
 LocationID int foreign key references tbLocation(LocationID),
 ItemID int foreign key references tbItem(ItemID)
 )
+go
+insert into tbEquipment(Description,InstallDate,FarFoxValue,ClientValue,LocationID,ItemID) values
+						('TestDESC','12 December 2013',399.99,1399.99,0,0)
+
+select * from tbEquipment
 
 -------------CONTACTS-------------
 create table tbContacts(
-ContactID int identity(1,1) primary key,
+ContactID int identity(0,1) primary key,
 ContactName varchar(max),
 EquipmentID int foreign key references tbEquipment(EquipmentID)
 )
---insert into tbContacts values ('Contact TestOne',1),
---								('Test Two',1),
---								('Test Third',1),
---								('Fourth Contact',2),
---								('Fifth Agent',2),
---								('Sixth Contact',2)
+insert into tbContacts values ('TestContact',0)
+								
 go
 
 
@@ -49,7 +49,7 @@ go
 --					('TestClientOne','555-5555','Whatever Test st'),
 --					('TestClientTwo','555-6666','Whatever Test2 st')
 --insert into tbClients(ClientName,PhoneNumber,Address) values ('TestClient3','222-6666','Whatever thirdtest st')
-
+select * from tbContacts
 select * from tbClients
 go
 
@@ -58,17 +58,10 @@ go
 select * from tbItem
 go
 
---insert into tbEquipment(Description,InstallDate,FarFoxValue,ClientValue,LocationID,ItemID,ContactID) values
---						('testdescription11','12 July 2012',399.99,1399.99,1,1,2),
---						('testdescription22','12 June 2015',399.99,1399.99,3,2,2),
---						('testdescription33','12 May 2015',399.99,1399.99,4,3,1),
---						('testdescription44','12 April 2014',399.99,1399.99,2,2,1),
---						('testdescription55','12 December 2013',399.99,1399.99,2,3,3)
-
 
 -------------INVENTORY---------------------
 create table tbInventory(
-InventoryID int identity(1,1) primary key,
+InventoryID int identity(0,1) primary key,
 EquipmentID int foreign key references tbEquipment(EquipmentID),
 Quantity int
 )
@@ -76,7 +69,7 @@ go
 
 ------------------CLIENTS------------
 create table tbClients(
-ClientID int identity(1,1) primary key,
+ClientID int identity(0,1) primary key,
 ClientName varchar(max),
 PhoneNumber varchar(max),
 Address varchar(max),
@@ -88,7 +81,7 @@ go
 
 ------------SHOPPING CART----------
 create table tbShoppingCart(
-ShoppingCartID int primary key identity,
+ShoppingCartID int primary key identity(0,1),
 ClientID int foreign key references tbClients(ClientID),
 InventoryID int foreign key references tbInventory(InventoryID)
 )

@@ -75,6 +75,7 @@ namespace ServiceApplication
             {
                 sProc = "spAddClient";
                 pnlClient.Visible = true;
+                pnlEditClient.Visible = false;
             } 
             else
             {
@@ -126,6 +127,7 @@ namespace ServiceApplication
             txtAddContacts.Text = "";
             pnlContacts.Visible = true;
             pnlClient.Visible = false;
+            ddlClients.Enabled = false;
         }
 
         protected void gvClients_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -203,6 +205,18 @@ namespace ServiceApplication
         {
             gvClients.PageIndex = e.NewPageIndex;
             LoadGVClients();
+        }
+
+        protected void rbtnNC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnEC.Checked==true)
+            {
+                ddlClients.Enabled = true;
+            }
+            else
+            {
+                ddlClients.Enabled = false;
+            }
         }
     }
 }
