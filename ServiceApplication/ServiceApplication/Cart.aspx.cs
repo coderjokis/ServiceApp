@@ -22,6 +22,7 @@ namespace ServiceApplication
 
         private void LoadDataList()
         {
+
             dtEquipment.DataSource = myDal.ExecuteProcedure("spGetEquipmentInfo");
             dtEquipment.DataBind();
         }
@@ -45,25 +46,36 @@ namespace ServiceApplication
 
         protected void dtEquipment_ItemCommand(object source, DataListCommandEventArgs e)
         {
-            string id = e.CommandArgument.ToString();
+            int id = int.Parse(e.CommandArgument.ToString());
             string cmd = e.CommandName;
 
             if (cmd == "AddToCart")
             {
+                Label lbl = (Label)e.Item.FindControl("lblMsg");
                 TextBox txt = (TextBox)e.Item.FindControl("txtDLQty");
-
-                Inventory s = new Inventory();
-                int inventoryQuantityAmount = s.GetItemInventory(id);
-                int newInventoryAmount = inventoryQuantityAmount - int.Parse(txt.Text);
-
-                if (newInventoryAmount > 0)
+                if (int.Parse(txt.Text)>0)
                 {
-                    // everything is good!
+                    Inventory s = new Inventory(id, int.Parse(txt.Text), ddlInvClient.SelectedIndex);
+                    //save it to database then display it.
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "abc", "alert('There is not enough in our inventory!');", true);
+                    lbl.Text = "must be greater than 0";
+
                 }
+
+
+                ////int inventoryQuantityAmount = s.GetItemInventory(id);
+                //int newInventoryAmount = inventoryQuantityAmount - int.Parse(txt.Text);
+
+                //if (newInventoryAmount > 0)
+                //{
+                //    // everything is good!
+                //}
+                //else
+                //{
+                //    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "abc", "alert('There is not enough in our inventory!');", true);
+                //}
             }
         }
 

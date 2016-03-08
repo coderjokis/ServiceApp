@@ -21,7 +21,6 @@ namespace ServiceApplication.Models
         public double FarFoxVAlue { get; set; }
         public double ClientValue { get; set; }
         public string InstallDate { get; set; }
-        public string AuthorizingParty { get; set; }
         public List<Equipment> EquipList { get; set; }
         DAL myDal = new DAL();
         DataSet dsResult;
@@ -39,7 +38,6 @@ namespace ServiceApplication.Models
             this.InstallDate = installDate;
             this.FarFoxVAlue = fValue;
             this.ClientValue = cValue;
-           // this.AuthorizingParty = authorizingparty;
         }
 
         public Equipment(Equipment equipment)

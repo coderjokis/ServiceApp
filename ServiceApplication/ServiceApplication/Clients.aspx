@@ -24,7 +24,16 @@
                                     <asp:ButtonField ButtonType="Button" CommandName="EditRow" Text="Edit" />
                                     <asp:BoundField DataField="ClientID" HeaderText="Client ID" />
                                     <asp:BoundField DataField="ClientName" HeaderText="Client Name" />
-                                    <asp:BoundField DataField="ContactName" HeaderText="Contacts" />
+<%--                                    <asp:BoundField DataField="ContactName" HeaderText="Contacts" />--%>
+                                    <asp:TemplateField HeaderText="Contacts">
+                                        <ItemTemplate>
+                                            <asp:Repeater ID="rptContacts" runat="server" DataSource='<%#Eval("ContactName")%>'>
+                                                <ItemTemplate>
+                                                    <%#Container.DataItem%>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="PhoneNumber" HeaderText="Phone" />
                                     <asp:BoundField DataField="Address" HeaderText="Address" />
                                 </Columns>

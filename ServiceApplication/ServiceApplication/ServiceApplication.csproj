@@ -354,6 +354,7 @@
     <Compile Include="Clients.aspx.designer.cs">
       <DependentUpon>Clients.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Contacts.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

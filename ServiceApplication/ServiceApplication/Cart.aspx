@@ -30,6 +30,7 @@
                
                  <ItemTemplate>
                     <div class="col-md-12 col-lg-12"  style="border: 1px solid rgb(78, 96, 150); padding: 3px 5px 3px 5px; background-color: aliceblue; opacity: 0.9">
+                        <asp:Label id="lblMsg" Visible="false" runat="server" />
                         <div id="dlName">
                             <h4><%#Eval("ItemType") %></h4>
                         </div>

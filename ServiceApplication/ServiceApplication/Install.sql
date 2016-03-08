@@ -140,12 +140,13 @@ as begin
 	if exists(select * from tbClients where ClientID=@ClientID)
 		select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
 			from tbClients c 
-				join tbContacts a on a.ContactID=c.ClientID
-			where c.ClientID=@ClientID
+			 right outer join tbContacts a on a.ContactID=c.ContactID
+			 where ClientID = @ClientID
 	else
 		select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
 			from tbClients c 
-				join tbContacts a on a.ContactID=c.ClientID
+				right outer join tbContacts a on a.ContactID=c.ContactID
+				 
 end
 go
 
@@ -156,11 +157,12 @@ alter procedure spAddClient
 (
 @ClientName varchar(max),
 @PhoneNumber varchar(max),
-@Address varchar(max)
+@Address varchar(max),
+@ContactID int = null
 )
 as begin
-	insert into tbClients (ClientName, PhoneNumber, Address)
-		values (@ClientName,@PhoneNumber, @Address)
+	insert into tbClients (ClientName, PhoneNumber, Address, ContactID)
+		values (@ClientName,@PhoneNumber, @Address, @ContactID)
 end
 go
 
@@ -178,12 +180,20 @@ as begin
 end
 go
 
+create procedure spDeleteContact
+(@ContactID int)
+as begin
+	delete from tbContacts where ContactID=@ContactID
+end
+go
+select * from tbContacts
+go
 
 alter procedure spAddContact
 (
 @ContactID int =null,
 @ContactName varchar(max),
-@ClientID int
+@ClientID int =null
 )
 as begin
 	insert into tbContacts (ContactName) values (@ContactName)
@@ -192,7 +202,7 @@ as begin
 				where tbContacts.ContactID= @@IDENTITY
 				update tbClients set
 					ContactID = isnull (@ContactID,@@IDENTITY)
-				where ClientID = @ClientID
+				where ClientID = isnull(@ClientID,ClientID)
 		end
 end
 go
@@ -203,14 +213,17 @@ alter procedure spEditClient
 @ClientID int,
 @ClientName varchar(max)=null,
 @PhoneNumber varchar(max)=null,
-@Address varchar(max)=null
+@Address varchar(max)=null,
+@ContactID int= null
 )
 as begin
 	update tbClients set
 		ClientName=isnull(@ClientName,ClientID),
 		PhoneNumber=isnull(@PhoneNumber,PhoneNumber),
-		Address=isnull(@Address,Address)
+		Address=isnull(@Address,Address),
+		ContactID =  isnull(@ContactID,ContactID)
 	where ClientID=@ClientID	
+
 end
 go
 

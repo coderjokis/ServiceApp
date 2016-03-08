@@ -35,19 +35,11 @@ namespace ServiceApplication
             ddlClients.DataBind(); 
         }
 
-        //private void LoadCLients()
-        //{
-        //    //txtClientID.Text = ClientID;
-        //    //txtClientName.Text = txtClientName.Text;
-        //    ////txtAddContacts.Text = Contacts.Text;
-        //    //txtPhone.Text = txtPhone.Text;
-        //    //txtAddress.Text = txtAddress.Text;
-        //    gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
-        //    gvClients.DataBind();
-        //}
-
         private void LoadGVClients()
         {
+            //ServiceClients getSC = new ServiceClients();
+            //getSC.getClientResult();
+            //gvClients.DataSource = getSC.ClientList;
             gvClients.DataSource = myDal.ExecuteProcedure("spGetAllClientsInfo");
             gvClients.DataBind();
         }
@@ -107,10 +99,12 @@ namespace ServiceApplication
 
         protected void btnSaveContact_Click(object sender, EventArgs e)
         {
+            Contacts myContact = new Contacts();
+            myContact.addContacts(int.Parse(ddlClients.SelectedValue), txtAddContacts.Text);
             
-            myDal.AddParam("ClientID", ddlClients.SelectedValue);
-            myDal.AddParam("ContactName", txtAddContacts.Text);
-            myDal.ExecuteProcedure("spAddContact");
+            //myDal.AddParam("ClientID", ddlClients.SelectedValue);
+            //myDal.AddParam("ContactName", txtAddContacts.Text);
+            //myDal.ExecuteProcedure("spAddContact");
             LoadGVClients();
             pnlContacts.Visible = false;
         }
@@ -153,11 +147,11 @@ namespace ServiceApplication
                             dr["PhoneNumber"].ToString(),
                             dr["Address"].ToString());
 
-                        //client.AuthorizedContacts.Add(dr["ContactName"].ToString());
-                        client.AuthorizedContacts = new List<string>()
-                    {
-                        dr["ContactName"].ToString()
-                    };
+                       // client.AuthorizedContacts.Add(new Contacts (dr["ContactName"].ToString()));
+                    //    client.AuthorizedContacts = new List<string>()
+                    //{
+                    //    dr["ContactName"].ToString()
+                    //};
                         txtEditClientID.Text = client.ClientID;
                         txtEditClientName.Text = client.ClientName;
                         txtEditPhone.Text = client.Phone;
