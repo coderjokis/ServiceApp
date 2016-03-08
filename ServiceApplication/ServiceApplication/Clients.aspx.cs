@@ -170,21 +170,21 @@ namespace ServiceApplication
         }
 
 
-        //private void LoadContactDDL()
-        //{
-        //    //no need to load ddl. contact selection will take place in equipment page
-        //    //myDal.AddParam("ClientID", client.ClientID);
-        //    ddlContacts.DataSource = myDal.ExecuteProcedure("spGetContactFromClient");
-        //    ddlContacts.DataTextField = "ContactName";
-        //    ddlContacts.DataValueField = "ContactID";
-        //    ddlContacts.DataBind();
-        //}
+        private void LoadContactDDL()
+        {
+            //no need to load ddl. contact selection will take place in equipment page
+            //myDal.AddParam("ClientID", client.ClientID);
+            ddleditcontacts.DataSource = myDal.ExecuteProcedure("spGetContactFromClient");
+            ddleditcontacts.DataTextField = "ContactName";
+            ddleditcontacts.DataValueField = "ContactID";
+            ddleditcontacts.DataBind();
+        }
 
         protected void btnSaveEditClient_Click(object sender, EventArgs e)
         {
             myDal.AddParam("ClientID", txtEditClientID.Text);
             myDal.AddParam("ClientName", txtEditClientName.Text);
-            //myDal.AddParam("ContactID", ddlEditContacts.SelectedValue);
+            myDal.AddParam("ContactID", ddleditcontacts.SelectedValue);
             myDal.AddParam("PhoneNumber", txtEditPhone.Text);
             myDal.AddParam("Address", txtEditAddress.Text);
             myDal.ExecuteProcedure("spEditClient");
@@ -221,6 +221,22 @@ namespace ServiceApplication
             if (rbtnEC.Checked)
             {
                 ddlClients.Enabled = true;
+            }
+        }
+
+        protected void rbtnNewContacts_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnNewContacts.Checked)
+            {
+                ddleditcontacts.Enabled = false;
+            }
+        }
+
+        protected void rbtnExistingContacts_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnExistingContacts.Checked)
+            {
+                ddleditcontacts.Enabled = true;
             }
         }
     }
