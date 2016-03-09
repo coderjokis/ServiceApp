@@ -158,12 +158,12 @@ alter procedure spAddClient
 (
 @ClientName varchar(max),
 @PhoneNumber varchar(max),
-@Address varchar(max),
-@ContactID int = null
+@Address varchar(max)
+--@ContactID int = null
 )
 as begin
-	insert into tbClients (ClientName, PhoneNumber, Address, ContactID)
-		values (@ClientName,@PhoneNumber, @Address, @ContactID)
+	insert into tbClients (ClientName, PhoneNumber, Address)
+		values (@ClientName,@PhoneNumber, @Address)
 end
 go
 
@@ -217,15 +217,15 @@ alter procedure spEditClient
 @ClientID int,
 @ClientName varchar(max)=null,
 @PhoneNumber varchar(max)=null,
-@Address varchar(max)=null,
-@ContactID int= null
+@Address varchar(max)=null
+--@ContactID int= null
 )
 as begin
 	update tbClients set
 		ClientName=isnull(@ClientName,ClientID),
 		PhoneNumber=isnull(@PhoneNumber,PhoneNumber),
-		Address=isnull(@Address,Address),
-		ContactID =  isnull(@ContactID,ContactID)
+		Address=isnull(@Address,Address)
+		--ContactID =  isnull(@ContactID,ContactID)
 	where ClientID=@ClientID	
 
 end
@@ -250,9 +250,9 @@ go
 ----Create/Insert-----
 alter procedure spAddEquipment
 (
-@Description varchar(max),
+--@Description varchar(max),
 @ItemID int,
-@InstallDate date,
+--@InstallDate date,
 @FarFoxValue decimal,
 @ClientValue decimal,
 @LocationID int

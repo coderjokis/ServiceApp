@@ -148,42 +148,6 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEditAddress;
         
         /// <summary>
-        /// rbtnNewContacts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnNewContacts;
-        
-        /// <summary>
-        /// rbtnExistingContacts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnExistingContacts;
-        
-        /// <summary>
-        /// ddleditcontacts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddleditcontacts;
-        
-        /// <summary>
-        /// ConnStringDDLEditContacts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource ConnStringDDLEditContacts;
-        
-        /// <summary>
         /// btnSaveEditClient control.
         /// </summary>
         /// <remarks>
