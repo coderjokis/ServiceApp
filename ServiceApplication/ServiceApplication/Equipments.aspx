@@ -25,12 +25,12 @@
                                 <Columns>
                                     <asp:ButtonField ButtonType="Button" CommandName="EditRow" Text="Edit" />
                                     <asp:BoundField DataField="EquipmentID" HeaderText="Equipment ID" />
-                                    <asp:BoundField DataField="Description" HeaderText="Description" />
-                                    <asp:BoundField DataField="InstallDate" HeaderText="Install Date" />
+                                    <asp:BoundField DataField="LocationName" HeaderText="Location" />
+                                    <%--<asp:BoundField DataField="Description" HeaderText="Description" />--%>
+                                    <%--<asp:BoundField DataField="InstallDate" HeaderText="Install Date" />--%>
                                     <asp:BoundField DataField="FarFoxValue" HeaderText="FarFoxValue" />
                                     <asp:BoundField DataField="ClientValue" HeaderText="ClientValue" />
-                                    <asp:BoundField DataField="ItemType" HeaderText="Item Type" />
-                                    <asp:BoundField DataField="LocationName" HeaderText="Location" />
+                                    <asp:BoundField DataField="ItemType" HeaderText="Item Type" />                                  
                                 </Columns>
                             </asp:GridView>
                         </div>
@@ -52,7 +52,7 @@
                                         <asp:SqlDataSource ID="ItemtypeDDL" runat="server" ConnectionString="<%$ ConnectionStrings:ServiceDatabaseConnectionStringItemType %>" SelectCommand="SELECT [ItemType], [ItemID] FROM [tbItem]"></asp:SqlDataSource>
                                         <%--<asp:TextBox ID="txtEquipNameType" runat="server" placeholder="Name / Type" CssClass="form-control" TextMode="SingleLine" />--%>
                                     </div>
-                                    <div class="input-group paddingBot">
+                                    <%--<div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
                                         <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine" />
 
@@ -61,7 +61,7 @@
                                         <span class="input-group-addon width117">Install Date:</span>
                                         <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date" />
 
-                                    </div>
+                                    </div>--%>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
                                         <asp:TextBox ID="txtFValue" runat="server" placeholder="0.00" CssClass="form-control" />
@@ -99,7 +99,7 @@
                                         <asp:DropDownList ID="ddlEditEquipNameType" runat="server" CssClass="form-control" DataSourceID="ItemtypeDDL" DataTextField="ItemType" DataValueField="ItemID">
                                         </asp:DropDownList>
                                     </div>
-                                    <div class="input-group paddingBot">
+                                    <%--<div class="input-group paddingBot">
                                         <span class="input-group-addon width117">Description:</span>
                                         <asp:TextBox ID="txtEditEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine" />
 
@@ -108,7 +108,7 @@
                                         <span class="input-group-addon width117">Install Date:</span>
                                         <asp:TextBox ID="txtEditInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date" />
 
-                                    </div>
+                                    </div>--%>
                                     <div class="input-group paddingBot">
                                         <span class="input-group-addon width117">FarFoxVaLue:</span>
                                         <asp:TextBox ID="txtEditFValue" runat="server" placeholder="0.00" CssClass="form-control" />

@@ -26,16 +26,15 @@ namespace ServiceApplication.Models
         DataSet dsResult;
         public Equipment() { }
 
-        public Equipment(int equipmentID, int itemTypeID,string itemType, string description, int locationID,
-            string location,string installDate, double fValue, double cValue)
+        public Equipment(int equipmentID, int itemTypeID,string itemType, double fValue, double cValue)
         {
             this.EquipmentID = equipmentID;
             this.ItemID = itemTypeID;
             this.ItemType = itemType;
-            this.Description = description;
-            this.LocationID = locationID;
-            this.LocationName = location;
-            this.InstallDate = installDate;
+            //this.Description = description;
+            //this.LocationID = locationID;
+            //this.LocationName = location;
+            //this.InstallDate = installDate;
             this.FarFoxVAlue = fValue;
             this.ClientValue = cValue;
         }
@@ -56,10 +55,10 @@ namespace ServiceApplication.Models
                     int.Parse(dr["EquipmentID"].ToString()),
                     int.Parse(dr["ItemID"].ToString()),
                     dr["ItemType"].ToString(),
-                    dr["Description"].ToString(),
-                    int.Parse(dr["LocationID"].ToString()),
-                    dr["LocationName"].ToString(),
-                    dr["InstallDate"].ToString(),
+                    //dr["Description"].ToString(),
+                    //int.Parse(dr["LocationID"].ToString()),
+                    //dr["LocationName"].ToString(),
+                    //dr["InstallDate"].ToString(),
                     double.Parse(dr["FarFoxValue"].ToString()),
                     double.Parse(dr["ClientValue"].ToString())
                     );

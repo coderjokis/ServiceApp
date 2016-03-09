@@ -65,7 +65,8 @@ EquipmentID int foreign key references tbEquipment(EquipmentID),
 ClientID int foreign key references tbClients(ClientID),
 Description varchar(max),
 InstallDate date,
-Quantity int
+Quantity int,
+LocationID int foreign key references tbLocation(LocationID)
 )
 go
 
@@ -257,8 +258,8 @@ alter procedure spAddEquipment
 @LocationID int
 )
 as begin
-	insert into tbEquipment(Description, InstallDate, ItemID, FarFoxValue,ClientValue,LocationID) 
-			values (@Description, @InstallDate, @ItemID, @FarFoxValue,@ClientValue,@LocationID)
+	insert into tbEquipment( ItemID, FarFoxValue,ClientValue,LocationID) 
+			values (@ItemID, @FarFoxValue,@ClientValue,@LocationID)
 end
 go
 --exec spAddEquipment @Description='DescTest' ,@InstallDate='2015-2-22', @ItemID=2,  @FarFoxValue=299.99, @ClientValue=1999.99,@LocationID=2
@@ -270,8 +271,7 @@ alter procedure spGetEquipmentInfo
 @EquipmentID int =null
 )
 as begin
-	select e.EquipmentID,i.ItemID, i.ItemType, e.Description, l.LocationName,l.LocationID,
-				FORMAT(InstallDate,'d MMMM yyyy')as InstallDate, e.FarFoxValue, e.ClientValue--,  a.ContactName ,s.Quantity
+	select e.EquipmentID,i.ItemID, i.ItemType,  e.FarFoxValue, e.ClientValue--,  a.ContactName ,s.Quantity
 				from tbEquipment e
 				join tbItem i on i.ItemID=e.ItemID
 				--join tbInventory s on s.EquipmentID=e.EquipmentID
@@ -366,25 +366,20 @@ go
 
 
 ---------------------Shopping Cart Proc---------------------
-create procedure spAddtoInventory
+alter procedure spAddtoInventory
 (
 @InventoryID int,
 @EquipmentID int,
 @ClientID int,
-@Quantity int
+@Quantity int,
+@Description varchar(max),
+@LocationID int,
+@InstallDate date
 )
 as
 begin
-		insert into tbInventory (EquipmentID,Quantity) values
-								(@EquipmentID,@Quantity)
-		select 'success' as Result
-		begin
-			select @ClientID = tbClients.ClientID from tbClients
-				where InventoryID = @InventoryID
-					update tbClients set
-					 InventoryID = isnull(@InventoryID,InventoryID)
-					 where ClientID=@ClientID
-		end	
+		insert into tbInventory (EquipmentID,Quantity,ClientID, Description, InstallDate) values
+								(@EquipmentID,@Quantity, @ClientID, @Description, @InstallDate)
 end
 go
 	
