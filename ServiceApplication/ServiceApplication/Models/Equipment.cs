@@ -75,8 +75,8 @@ namespace ServiceApplication.Models
         public void UpdateTableEQ()
         {
             myDal.AddParam("EquipmentID", equipment.EquipmentID.ToString());
-            myDal.AddParam("Description", equipment.Description);
-            myDal.AddParam("InstallDate", equipment.InstallDate);
+            //myDal.AddParam("Description", equipment.Description);
+            //myDal.AddParam("InstallDate", equipment.InstallDate);
             if (equipment.ItemID!=0)
             {
                 myDal.AddParam("ItemID", equipment.ItemID.ToString());
