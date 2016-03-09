@@ -38,10 +38,11 @@ select * from tbEquipment
 create table tbContacts(
 ContactID int identity(0,1) primary key,
 ContactName varchar(max),
+ClientID int foreign key references tbClients(ClientID),
 EquipmentID int foreign key references tbEquipment(EquipmentID)
 )
-insert into tbContacts values ('TestContact',0)
-								
+--insert into tbContacts values ('TestContact',0,0)
+select * from tbContacts								
 go
 
 
@@ -63,6 +64,7 @@ go
 create table tbInventory(
 InventoryID int identity(0,1) primary key,
 EquipmentID int foreign key references tbEquipment(EquipmentID),
+ClientID int foreign key references tbClients(ClientID),
 Quantity int
 )
 go
@@ -72,11 +74,9 @@ create table tbClients(
 ClientID int identity(0,1) primary key,
 ClientName varchar(max),
 PhoneNumber varchar(max),
-Address varchar(max),
-ContactID int foreign key references tbContacts(ContactID),
-InventoryID int foreign key references tbInventory(InventoryID)
+Address varchar(max)
 )
---insert into tbInventory values (3,20,1),(2,15,2),(4,5,1)
+insert into tbClients (ClientName, PhoneNumber, Address) values ('TestClient','204-444-4444','123 Test Address')
 go
 
 ------------SHOPPING CART----------
@@ -111,8 +111,8 @@ as begin
 				right outer join tbItem i on i.ItemID=e.ItemID
 				right outer join tbInventory s on s.EquipmentID=e.EquipmentID
 				right outer join tbLocation l on e.LocationID=l.LocationID
-				right outer join tbClients c on s.InventoryID=c.InventoryID
-				right outer join tbContacts a on a.ContactID=c.ContactID							
+				right outer join tbClients c on s.ClientID=c.ClientID
+				right outer join tbContacts a on a.ClientID=c.ClientID							
 end
 go
 exec spLoadAllInfo
@@ -140,12 +140,12 @@ as begin
 	if exists(select * from tbClients where ClientID=@ClientID)
 		select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
 			from tbClients c 
-			 right outer join tbContacts a on a.ContactID=c.ContactID
-			 where ClientID = @ClientID
+			 right outer join tbContacts a on a.ClientID=c.ClientID
+			 where c.ClientID = @ClientID
 	else
 		select c.ClientID, ClientName, ContactName, PhoneNumber, Address 
 			from tbClients c 
-				right outer join tbContacts a on a.ContactID=c.ContactID
+				right outer join tbContacts a on a.ClientID=c.ClientID
 				 
 end
 go
@@ -169,13 +169,13 @@ go
 --exec spAddClient @ClientName='NameTest', @PhoneNumber='123-123-1234', @Address='TestingAddress'
 go
 -----------------PRocs for Contacts------------------
-create procedure spLoadDDLContactbyClientID
+alter procedure spLoadDDLContactbyClientID
 (
 @ClientID int
 )
 as begin
 	select * from tbContacts i
-		Join tbClients c on c.ContactID=i.ContactID
+		Join tbClients c on c.ClientID=i.ClientID
 		 where c.ClientID = @ClientID
 end
 go
@@ -196,13 +196,16 @@ alter procedure spAddContact
 @ClientID int =null
 )
 as begin
-	insert into tbContacts (ContactName) values (@ContactName)
+	if exists(select * from tbClients where ClientID=@ClientID)
 		begin
-			select @ContactID = tbContacts.ContactID from tbContacts
-				where tbContacts.ContactID= @@IDENTITY
-				update tbClients set
-					ContactID = isnull (@ContactID,@@IDENTITY)
-				where ClientID = isnull(@ClientID,ClientID)
+			insert into tbContacts (ContactName,ClientID) values (@ContactName,@ClientID)
+		end
+	else
+	   begin
+			insert into tbContacts (ContactName) values (@ContactName)
+				begin
+					insert into tbClients (ClientName,PhoneNumber,Address) values ('Unassigned','Unassigned','Unassigned')
+				end			
 		end
 end
 go
