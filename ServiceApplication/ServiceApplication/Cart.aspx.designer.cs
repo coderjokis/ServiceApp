@@ -67,6 +67,24 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.GridView gvShoppingCart;
         
         /// <summary>
+        /// LoadGvInventoryConn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource LoadGvInventoryConn;
+        
+        /// <summary>
+        /// pnlInvInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlInvInput;
+        
+        /// <summary>
         /// txtEquipDescription control.
         /// </summary>
         /// <remarks>
@@ -83,5 +101,41 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtInstallDate;
+        
+        /// <summary>
+        /// ddlEditLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEditLocation;
+        
+        /// <summary>
+        /// LocationConn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource LocationConn;
+        
+        /// <summary>
+        /// btnSaveItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveItem;
+        
+        /// <summary>
+        /// btnCancelItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelItem;
     }
 }

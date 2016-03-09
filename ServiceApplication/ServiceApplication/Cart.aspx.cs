@@ -52,30 +52,22 @@ namespace ServiceApplication
             if (cmd == "AddToCart")
             {
                 Label lbl = (Label)e.Item.FindControl("lblMsg");
+                lbl.Visible = false;
                 TextBox txt = (TextBox)e.Item.FindControl("txtDLQty");
-                if (int.Parse(txt.Text)>0)
+                if (int.Parse(txt.Text) >= 0)
                 {
                     Inventory s = new Inventory(id, int.Parse(txt.Text), ddlInvClient.SelectedIndex);
-                    //save it to database then display it.
+                    Session["tmp_eqID"] = s.EquipmentID;
+                    Session["tmp_Qty"] = s.Quantity;
+                    Session["tmp_cID"] = s.ClientID;
+                    pnlInvInput.Visible = true;
                 }
                 else
                 {
+                    lbl.Visible = true;
                     lbl.Text = "must be greater than 0";
 
                 }
-
-
-                ////int inventoryQuantityAmount = s.GetItemInventory(id);
-                //int newInventoryAmount = inventoryQuantityAmount - int.Parse(txt.Text);
-
-                //if (newInventoryAmount > 0)
-                //{
-                //    // everything is good!
-                //}
-                //else
-                //{
-                //    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "abc", "alert('There is not enough in our inventory!');", true);
-                //}
             }
         }
 
@@ -87,6 +79,25 @@ namespace ServiceApplication
         protected void btnSelectContact_Click(object sender, EventArgs e)
         {
             LoadDataList();
+        }
+
+        protected void btnSaveItem_Click(object sender, EventArgs e)
+        {
+            myDal.AddParam("EquipmentID", Session["tmp_eqID"].ToString());
+            myDal.AddParam("ClientID", Session["tmp_cID"].ToString());
+            myDal.AddParam("Quantity", Session["tmp_Qty"].ToString());
+            myDal.AddParam("Description", txtEquipDescription.Text);
+            myDal.AddParam("InstallDate", txtInstallDate.Text);
+            myDal.AddParam("LocationID", ddlEditLocation.SelectedIndex.ToString());
+            myDal.ExecuteProcedure("spAddtoInventory");
+            Session.Abandon();
+            gvShoppingCart.DataBind();
+            pnlInvInput.Visible = false;
+        }
+
+        protected void btnCancelItem_Click(object sender, EventArgs e)
+        {
+            pnlInvInput.Visible = false;
         }
     }
 }

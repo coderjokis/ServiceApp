@@ -368,7 +368,6 @@ go
 ---------------------Shopping Cart Proc---------------------
 alter procedure spAddtoInventory
 (
-@InventoryID int,
 @EquipmentID int,
 @ClientID int,
 @Quantity int,
