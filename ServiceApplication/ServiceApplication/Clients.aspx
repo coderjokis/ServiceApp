@@ -81,15 +81,7 @@
                                                 <span class="input-group-addon width117">ClientName:</span>
                                                 <asp:TextBox ID="txtEditClientName" runat="server" CssClass="form-control" />
                                             </div>
-                                            <asp:RadioButton ID="rbtnNewContacts" Text="New Contacts" runat="server" GroupName="rbtnContacts" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnNewContacts_CheckedChanged" />
-                                            <asp:RadioButton ID="rbtnExistingContacts" Text="Existing Contacts" runat="server" GroupName="rbtnContacts" AutoPostBack="true" OnCheckedChanged="rbtnExistingContacts_CheckedChanged" />
-
-                                             <div class="input-group paddingbot">
-                                                <span class="input-group-addon width117">contacts:</span>
-                                                 <asp:DropDownList ID="ddleditcontacts" runat="server" CssClass="form-control" DataSourceID="ConnStringDDLEditContacts" DataTextField="ContactName" DataValueField="ContactID">
-                                                 </asp:DropDownList>
-                                                 <asp:SqlDataSource runat="server" ID="ConnStringDDLEditContacts" ConnectionString='<%$ ConnectionStrings:ServiceDatabaseConnectionString %>' SelectCommand="SELECT [ContactID], [ContactName] FROM [tbContacts]"></asp:SqlDataSource>
-                                             </div>
+                                           
                                             <div class="input-group paddingBot">
                                                 <span class="input-group-addon width117">Phone:</span>
                                                 <asp:TextBox ID="txtEditPhone" runat="server" CssClass="form-control" />
@@ -98,6 +90,15 @@
                                                 <span class="input-group-addon width117">Address:</span>
                                                 <asp:TextBox ID="txtEditAddress" runat="server" CssClass="form-control" />
                                             </div>
+                                             <asp:RadioButton ID="rbtnNewContacts" Text="New Contacts" runat="server" GroupName="rbtnContacts" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnNewContacts_CheckedChanged" />
+                                            <asp:RadioButton ID="rbtnExistingContacts" Text="Existing Contacts" runat="server" GroupName="rbtnContacts" AutoPostBack="true" OnCheckedChanged="rbtnExistingContacts_CheckedChanged" />
+
+                                             <div class="input-group paddingbot">
+                                                <span class="input-group-addon width117">Contacts:</span>
+                                                 <asp:DropDownList ID="ddleditcontacts" runat="server" CssClass="form-control" DataSourceID="ConnStringDDLEditContacts" DataTextField="ContactName" DataValueField="ContactID">
+                                                 </asp:DropDownList>
+                                                 <asp:SqlDataSource runat="server" ID="ConnStringDDLEditContacts" ConnectionString='<%$ ConnectionStrings:ServiceDatabaseConnectionString %>' SelectCommand="SELECT [ContactID], [ContactName] FROM [tbContacts]"></asp:SqlDataSource>
+                                             </div>
 
                                             <asp:Button ID="btnSaveEditClient" Text="Save Client" runat="server" OnClick="btnSaveEditClient_Click" class="btn btn-success" />
                                             <asp:Button ID="btnCancelEdit" Text="Cancel" runat="server" OnClick="btnCancelEdit_Click" class="btn btn-warning" />

@@ -130,6 +130,24 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.TextBox txtEditClientName;
         
         /// <summary>
+        /// txtEditPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEditPhone;
+        
+        /// <summary>
+        /// txtEditAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEditAddress;
+        
+        /// <summary>
         /// rbtnNewContacts control.
         /// </summary>
         /// <remarks>
@@ -164,24 +182,6 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource ConnStringDDLEditContacts;
-        
-        /// <summary>
-        /// txtEditPhone control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditPhone;
-        
-        /// <summary>
-        /// txtEditAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditAddress;
         
         /// <summary>
         /// btnSaveEditClient control.
