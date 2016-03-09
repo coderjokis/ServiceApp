@@ -21,16 +21,14 @@ go
 -----------EQUIPMENT---------
 create table tbEquipment(
 EquipmentID int identity(0,1) primary key,
-Description varchar(max),
-InstallDate date,
 FarFoxValue decimal(10,2),
 ClientValue decimal(10,2),
 LocationID int foreign key references tbLocation(LocationID),
 ItemID int foreign key references tbItem(ItemID)
 )
 go
-insert into tbEquipment(Description,InstallDate,FarFoxValue,ClientValue,LocationID,ItemID) values
-						('TestDESC','12 December 2013',399.99,1399.99,0,0)
+insert into tbEquipment(FarFoxValue,ClientValue,LocationID,ItemID) values
+						(399.99,1399.99,0,0)
 
 select * from tbEquipment
 
@@ -65,6 +63,8 @@ create table tbInventory(
 InventoryID int identity(0,1) primary key,
 EquipmentID int foreign key references tbEquipment(EquipmentID),
 ClientID int foreign key references tbClients(ClientID),
+Description varchar(max),
+InstallDate date,
 Quantity int
 )
 go
@@ -91,7 +91,7 @@ go
 ------------------PROCS---------------
 
 ----Generic Join, this will provide references for a proper selection.
-select c.ClientName, i.ItemType, e.Description, e.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
+select c.ClientName, i.ItemType, s.Description, s.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,c.PhoneNumber , c.Address, a.ContactName
 		from tbEquipment e
 			join tbItem i on i.ItemID=e.ItemID
 			join tbInventory s on s.EquipmentID=e.EquipmentID
@@ -105,7 +105,7 @@ go
 --------Proc for the Tracking Page-------
 alter procedure spLoadAllInfo
 as begin
-		select c.ClientID,c.ClientName, i.ItemType, e.Description, e.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,
+		select c.ClientID,c.ClientName, i.ItemType, s.Description, s.InstallDate, e.FarFoxValue, e.ClientValue, l.LocationName ,
 				c.PhoneNumber , c.Address, a.ContactName,s.Quantity
 			from tbEquipment e
 				right outer join tbItem i on i.ItemID=e.ItemID

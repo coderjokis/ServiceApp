@@ -26,10 +26,10 @@
         </div>
     </div>
     <div class="row">
-        <asp:DataList ID="dtEquipment" runat="server" OnItemCommand="dtEquipment_ItemCommand" RepeatColumns="4" DataKeyField="EquipmentID" CssClass="row">
+        <asp:DataList ID="dtEquipment" runat="server" OnItemCommand="dtEquipment_ItemCommand" RepeatColumns="4" DataKeyField="EquipmentID" CssClass="row text-center" Width="783px">
 
             <ItemTemplate>
-                <div style="border: 1px solid rgb(78, 96, 150); padding: 3px 5px 3px 5px; background-color: aliceblue; opacity: 0.9; ">
+                <div style="border: 1px solid rgb(78, 96, 150); padding: 3px 5px 3px 5px; background-color: aliceblue; opacity: 0.9; margin-right:15px">
                     <asp:Label ID="lblMsg" Visible="false" runat="server" />
                     <div id="dlName">
                         <h4><%#Eval("ItemType") %></h4>
