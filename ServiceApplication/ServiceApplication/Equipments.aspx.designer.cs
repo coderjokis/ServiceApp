@@ -76,24 +76,6 @@ namespace ServiceApplication {
         protected global::System.Web.UI.WebControls.SqlDataSource ItemtypeDDL;
         
         /// <summary>
-        /// txtEquipDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquipDescription;
-        
-        /// <summary>
-        /// txtInstallDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInstallDate;
-        
-        /// <summary>
         /// txtFValue control.
         /// </summary>
         /// <remarks>
@@ -182,24 +164,6 @@ namespace ServiceApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEditEquipNameType;
-        
-        /// <summary>
-        /// txtEditEquipDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditEquipDescription;
-        
-        /// <summary>
-        /// txtEditInstallDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditInstallDate;
         
         /// <summary>
         /// txtEditFValue control.
