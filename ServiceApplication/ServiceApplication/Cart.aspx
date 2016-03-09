@@ -57,7 +57,25 @@
             </ItemTemplate>
         </asp:DataList>
     </div>
+    <div>
+    <asp:GridView ID="gvShoppingCart" DataKeyNames="ShoppingCartID" AutoGenerateColumns="false" runat="server">
+        <Columns>
+            <asp:BoundField DataField="ShoppingCartID" HeaderText="ShoppingCart ID" />
+            <asp:BoundField DataField="Description" HeaderText="Description" />
+            <asp:BoundField DataField="InstallDate" HeaderText="Install Date" />
+        </Columns>
+    </asp:GridView>
+    </div>
+    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Description:</span>
+                                        <asp:TextBox ID="txtEquipDescription" runat="server" placeholder="Description" CssClass="form-control" TextMode="SingleLine" />
 
+                                    </div>
+                                    <div class="input-group paddingBot">
+                                        <span class="input-group-addon width117">Install Date:</span>
+                                        <asp:TextBox ID="txtInstallDate" runat="server" placeholder="InstallDate" CssClass="form-control" TextMode="Date" />
+
+                                    </div>
 
 
 
