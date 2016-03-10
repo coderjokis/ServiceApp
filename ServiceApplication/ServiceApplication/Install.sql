@@ -287,8 +287,6 @@ go
 alter procedure spUpdateEQuipmentInfo
 (
 @EquipmentID int,
-@Description varchar(max)= null,
-@InstallDate date=null,
 @ItemID int=null,
 @ContactID int = null,
 @FarFoxValue decimal = null,
@@ -297,8 +295,6 @@ alter procedure spUpdateEQuipmentInfo
 )
 as begin
 		update tbEquipment set
-			Description = isnull(@Description,Description),
-			InstallDate = isnull(@InstallDate,InstallDate),
 			FarFoxValue = isnull(@FarFoxValue,FarFoxValue),
 			ClientValue= isnull (@ClientValue,ClientValue),
 			ItemID = isnull(@ItemID,@ItemID),
