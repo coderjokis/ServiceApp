@@ -253,8 +253,8 @@ alter procedure spAddEquipment
 --@Description varchar(max),
 @ItemID int,
 --@InstallDate date,
-@FarFoxValue decimal,
-@ClientValue decimal,
+@FarFoxValue decimal(10,2),
+@ClientValue decimal(10,2),
 @LocationID int
 )
 as begin
@@ -289,8 +289,8 @@ alter procedure spUpdateEQuipmentInfo
 @EquipmentID int,
 @ItemID int=null,
 @ContactID int = null,
-@FarFoxValue decimal = null,
-@ClientValue decimal = null,
+@FarFoxValue decimal(10,2) = null,
+@ClientValue decimal(10,2) = null,
 @LocationID int =null
 )
 as begin
